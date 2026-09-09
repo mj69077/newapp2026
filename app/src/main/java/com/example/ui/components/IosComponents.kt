@@ -60,9 +60,11 @@ fun IosGrabberHandle(
 fun IosSegmentedControl(
     items: List<String>,
     selectedIndex: Int,
-    onSelectIndex: (Int) -> Unit,
-    modifier: Modifier = Modifier
+    onSelectIndex: (Int) -> Unit = {},
+    modifier: Modifier = Modifier,
+    onItemSelected: ((Int) -> Unit)? = null
 ) {
+    val callback = onItemSelected ?: onSelectIndex
     Surface(
         modifier = modifier
             .fillMaxWidth()
@@ -93,7 +95,7 @@ fun IosSegmentedControl(
                         .height(34.dp)
                         .clip(RoundedCornerShape(10.dp))
                         .background(animBg)
-                        .clickable { onSelectIndex(index) },
+                        .clickable { callback(index) },
                     contentAlignment = Alignment.Center
                 ) {
                     Text(

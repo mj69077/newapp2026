@@ -11,6 +11,7 @@ val IosBorderGlass = Color(0x24FFFFFF)           // Specular Top Highlight Borde
 val IosBorderHighlight = Color(0x4DE2B84D)       // Subtle Gold Accent Border
 val IosGoldApple = Color(0xFFF5D372)             // Apple Titanium Gold
 val IosGoldBright = Color(0xFFFFE8A3)            // Bright Highlight Gold
+val IosGoldLight = Color(0xFFFFE8A3)             // Alias for bright highlight gold
 val IosEmeraldPro = Color(0xFF2DD4BF)            // Apple Pro Emerald
 val IosTextPrimary = Color(0xFFF5F5F7)           // Apple Primary Label
 val IosTextSecondary = Color(0xFF86868B)         // Apple Secondary Label

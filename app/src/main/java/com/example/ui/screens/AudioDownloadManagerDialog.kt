@@ -229,7 +229,7 @@ fun AudioDownloadManagerDialog(
                             modifier = Modifier.clickable { selectedReciter = reciter }
                         ) {
                             Text(
-                                text = reciter.name,
+                                text = reciter.nameArabic,
                                 color = if (isSelected) Color(0xFF061A14) else IslamicTextPrimary,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 11.5.sp,
@@ -339,7 +339,7 @@ fun AudioDownloadManagerDialog(
                                             fontSize = 13.5.sp
                                         )
                                         Text(
-                                            text = "${surah.totalVerses} آية • ${if (surah.revelationPlace == "makkah") "مكية" else "مدنية"}",
+                                            text = "${surah.versesCount} آية • ${if (surah.revelationPlace == "makkah") "مكية" else "مدنية"}",
                                             color = IslamicTextSecondary,
                                             fontSize = 10.5.sp
                                         )

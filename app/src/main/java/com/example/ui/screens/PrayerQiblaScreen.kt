@@ -298,9 +298,9 @@ fun PrayerQiblaScreen(
                             if (newEnabled) {
                                 com.example.notification.OngoingPrayerNotificationHelper.showOrUpdateOngoingNotification(
                                     context = context,
-                                    nextPrayerName = prayerData.nextPrayer,
+                                    nextPrayerName = prayerData.nextPrayerName,
                                     nextPrayerTime = prayerData.fajr,
-                                    remainingText = prayerData.timeRemaining
+                                    remainingText = prayerData.nextPrayerRemaining
                                 )
                                 viewModel.showNotification("شريط الصلاة الحي", "تم تفعيل إشعار الصلاة الحي المستمر في شريط التنبيهات.")
                             } else {

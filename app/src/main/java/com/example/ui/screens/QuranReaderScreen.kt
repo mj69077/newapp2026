@@ -251,6 +251,7 @@ private fun SurahListCatalogView(
                 Icon(Icons.Default.MenuBook, contentDescription = null, tint = IslamicGoldPrimary, modifier = Modifier.size(16.dp))
                 Spacer(modifier = Modifier.width(4.dp))
                 Text("المصاحف PDF", color = IslamicGoldLight, fontSize = 10.5.sp, fontWeight = FontWeight.Bold)
+            }
         }
 
         Spacer(modifier = Modifier.height(6.dp))

@@ -10,6 +10,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -295,14 +296,14 @@ fun SeniorModeDialog(
                                         horizontalAlignment = Alignment.CenterHorizontally
                                     ) {
                                         Text(
-                                            text = "الصلاة القادمة: صلاة ${prayerData.nextPrayer}",
+                                            text = "الصلاة القادمة: صلاة ${prayerData.nextPrayerName}",
                                             fontSize = 22.sp,
                                             fontWeight = FontWeight.Bold,
                                             color = Color(0xFFFFD54F)
                                         )
                                         Spacer(modifier = Modifier.height(4.dp))
                                         Text(
-                                            text = prayerData.timeRemaining,
+                                            text = prayerData.nextPrayerRemaining,
                                             fontSize = 18.sp,
                                             color = Color(0xFFE0F2F1)
                                         )
@@ -320,7 +321,7 @@ fun SeniorModeDialog(
                             )
 
                             items(prayers) { (name, time) ->
-                                val isNext = prayerData.nextPrayer.contains(name)
+                                val isNext = prayerData.nextPrayerName.contains(name)
                                 Surface(
                                     shape = RoundedCornerShape(14.dp),
                                     color = if (isNext) Color(0xFF1F4432) else Color(0xFF0E1C15),
