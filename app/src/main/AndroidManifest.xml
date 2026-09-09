@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MyApplication">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.MyApplication">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity>
+
+        <!-- Home Screen App Widget: Daily Wird -->
+        <receiver
+            android:name=".widget.DailyWirdAppWidgetProvider"
+            android:exported="true"
+            android:label="@string/widget_title">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/daily_wird_widget_info" />
+        </receiver>
+
+        <!-- Home Screen App Widget: Prayer Times -->
+        <receiver
+            android:name=".widget.PrayerTimesAppWidgetProvider"
+            android:exported="true"
+            android:label="@string/widget_prayer_title">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/prayer_times_widget_info" />
+        </receiver>
+
+        <!-- Lockscreen / Glanceable Compact Prayer Widget -->
+        <receiver
+            android:name=".widget.LockscreenPrayerWidgetProvider"
+            android:exported="true"
+            android:label="@string/widget_lockscreen_title">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/lockscreen_prayer_widget_info" />
+        </receiver>
+
+        <!-- Quick Tasbih & Counter Widget -->
+        <receiver
+            android:name=".widget.QuickTasbihWidgetProvider"
+            android:exported="true"
+            android:label="@string/widget_tasbih_title">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.example.widget.ACTION_TASBIH_COUNT" />
+                <action android:name="com.example.widget.ACTION_TASBIH_RESET" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/quick_tasbih_widget_info" />
+        </receiver>
+
+        <!-- Daily Sunnah Widget -->
+        <receiver
+            android:name=".widget.DailySunnahWidgetProvider"
+            android:exported="true"
+            android:label="@string/widget_sunnah_title">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/daily_sunnah_widget_info" />
+        </receiver>
+
+        <!-- Athkar Compact & Protection Widget -->
+        <receiver
+            android:name=".widget.AthkarCompactWidgetProvider"
+            android:exported="true"
+            android:label="@string/widget_athkar_compact_title">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/athkar_compact_widget_info" />
+        </receiver>
+
+        <!-- Adhan Audio Playback Foreground Service -->
+        <service
+            android:name=".notification.AdhanPlaybackService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
+
+        <!-- Push Notifications, Adhan & Islamic Reminders Receiver -->
+        <receiver
+            android:name=".notification.IslamicNotificationReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="com.example.action.PRAYER_NOTIFICATION" />
+                <action android:name="com.example.action.STOP_ADHAN" />
+                <action android:name="com.example.action.ATHKAR_MORNING" />
+                <action android:name="com.example.action.ATHKAR_EVENING" />
+                <action android:name="com.example.action.DAILY_SUNNAH" />
+                <action android:name="com.example.action.QURAN_WIRD" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Spoken Voice Dhikr & Salawat Receiver -->
+        <receiver
+            android:name=".notification.VoiceDhikrReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.action.VOICE_DHIKR" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>
