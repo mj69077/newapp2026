@@ -1,0 +1,33 @@
+{
+  "name": "dailywird-desktop",
+  "version": "1.1.0",
+  "description": "DailyWird - Islamic Companion Native Desktop Application",
+  "main": "main.js",
+  "author": "mj69077",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win"
+  },
+  "devDependencies": {
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.dailywird.desktop",
+    "productName": "DailyWird",
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "الورد اليومي"
+    }
+  }
+}

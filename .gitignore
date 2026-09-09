@@ -18,3 +18,5 @@ local.properties
 debug.keystore
 .agents/
 *.exe
+DailyWird-Windows-App/
+release-dist/
