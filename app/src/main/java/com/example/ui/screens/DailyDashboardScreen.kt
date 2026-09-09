@@ -199,12 +199,6 @@ fun DailyDashboardScreen(
         )
     }
 
-    if (showFastFaqDialog) {
-        FastFaqDialog(
-            onDismiss = { showFastFaqDialog = false },
-            viewModel = viewModel
-        )
-    }
 
     if (showCustomAthkarDialog) {
         CustomAthkarDialog(
@@ -232,7 +226,6 @@ fun DailyDashboardScreen(
             onOpenAsmaAllah = { showAsmaAllahDialog = true },
             onOpenStats = { showStatisticsDialog = true },
             onOpenAdhanSettings = { showAdhanSettingsDialog = true },
-            onOpenFastFaq = { showFastFaqDialog = true },
             onOpenKhatmahPlan = { showKhatmahDialog = true },
             onOpenShareCard = { showShareProgressDialog = true },
             onOpenCustomAthkar = { showCustomAthkarDialog = true },
@@ -653,10 +646,10 @@ fun DailyDashboardScreen(
                         onClick = { viewModel.setTab(AppTab.DUAS) }
                     )
                     QuickActionCard(
-                        title = "فتاوى",
-                        icon = Icons.Default.HelpOutline,
+                        title = "السنن",
+                        icon = Icons.Default.MenuBook,
                         modifier = Modifier.weight(1f),
-                        onClick = { showFastFaqDialog = true }
+                        onClick = { viewModel.setTab(AppTab.DAILY_TASKS) }
                     )
                 }
             }

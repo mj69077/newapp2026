@@ -436,7 +436,6 @@ fun FeaturesRoadmapDialog(
     onOpenAsmaAllah: (() -> Unit)? = null,
     onOpenStats: (() -> Unit)? = null,
     onOpenAdhanSettings: (() -> Unit)? = null,
-    onOpenFastFaq: (() -> Unit)? = null,
     onOpenKhatmahPlan: (() -> Unit)? = null,
     onOpenShareCard: (() -> Unit)? = null,
     onOpenCustomAthkar: (() -> Unit)? = null,
@@ -472,7 +471,7 @@ fun FeaturesRoadmapDialog(
             "zakat" -> onOpenZakat?.invoke() ?: viewModel.setTab(AppTab.DAILY_TASKS)
             "calendar" -> onOpenCalendar?.invoke() ?: viewModel.setTab(AppTab.DAILY_TASKS)
             "stats" -> onOpenStats?.invoke() ?: viewModel.setTab(AppTab.DAILY_TASKS)
-            "family" -> onOpenStories?.invoke() ?: (onOpenFastFaq?.invoke() ?: viewModel.setTab(AppTab.DAILY_TASKS))
+            "family" -> onOpenStories?.invoke() ?: viewModel.setTab(AppTab.DAILY_TASKS)
             "dawah" -> onOpenShareCard?.invoke() ?: viewModel.setTab(AppTab.DAILY_TASKS)
             "stories" -> onOpenStories?.invoke() ?: viewModel.setTab(AppTab.DAILY_TASKS)
             "hadith_enc" -> onOpenHadith?.invoke() ?: viewModel.setTab(AppTab.DAILY_TASKS)
