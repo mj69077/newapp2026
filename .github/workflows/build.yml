@@ -103,9 +103,12 @@ jobs:
         with:
           node-version: 20
 
-      - name: Prepare Desktop App Assets
+      - name: Verify Desktop App Assets
         run: |
-          Copy-Item index.html -Destination desktop/index.html -Force
+          if (-not (Test-Path desktop/index.html)) {
+            throw "desktop/index.html does not exist!"
+          }
+          Write-Host "Verified desktop/index.html size: $((Get-Item desktop/index.html).Length) bytes"
 
       - name: Install Desktop Dependencies
         working-directory: desktop
