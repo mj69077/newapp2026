@@ -55,3 +55,39 @@ jobs:
           name: IslamicApp-Debug-APK
           path: app/build/outputs/apk/debug/*.apk
           retention-days: 14
+
+      - name: Prepare Release APK Asset
+        run: |
+          cp app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/DailyWird-iOS-Edition.apk
+
+      - name: Publish New GitHub Release v1.1.0
+        uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main'
+        with:
+          tag_name: v1.1.0
+          name: "DailyWird v1.1.0 (Apple iOS Edition)"
+          body: |
+            # 🌿 الورد اليومي - الإصدار الجديد v1.1.0 (Apple iOS Edition)
+
+            ### ✨ جديد هذا الإصدار:
+            - **إلغاء قسم الفتاوى بالكامل:** حذف كافة ملفات الفتاوى والشاتبوت والبيانات الفقهية وفق رغبة المستخدم.
+            - **ترقية تجربة المستخدم (UI/UX Pro Max):**
+              - إضافة مسبحة إلكترونية ذكية تفاعلية مع تفاعل لمسي واهتزاز ناعم.
+              - إضافة محاكي وعداد أشواط الطواف والسعي مع الأدعية المأثورة.
+              - إضافة مشغل صوتي لآيات التحصين والرقية الشرعية بدون إنترنت.
+              - نظام إشعارات عائم (Toast Notifications) تفاعلي عند نسخ الروابط وحفظ الأوراد.
+              - تحسين معايير الوصول الشامل والتباين اللوني ونظام الألوان الزجاجي الفاخر.
+            - **100% بدون إنترنت (Offline):** مجاني بالكامل لوجه الله تعالى دون أي إعلانات أو تتبع.
+          files: app/build/outputs/apk/debug/DailyWird-iOS-Edition.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update Existing Release v1.0.0
+        uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main'
+        with:
+          tag_name: v1.0.0
+          files: app/build/outputs/apk/debug/DailyWird-iOS-Edition.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
