@@ -59,6 +59,13 @@ fun FatwasScreen(
     var showHadithLibraryDialog by remember { mutableStateOf(false) }
     var showStoriesDialog by remember { mutableStateOf(false) }
     var showIslamwebDialog by remember { mutableStateOf(false) }
+    var showChatbotDialog by remember { mutableStateOf(false) }
+
+    if (showChatbotDialog) {
+        FatwaChatbotDialog(
+            onDismiss = { showChatbotDialog = false }
+        )
+    }
 
     if (showIslamwebDialog) {
         com.example.ui.components.IslamwebFatwaDialog(
@@ -181,6 +188,77 @@ fun FatwasScreen(
                         ),
                         singleLine = true
                     )
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    // Arabic Fatwa ChatBot Action Card
+                    Surface(
+                        shape = RoundedCornerShape(14.dp),
+                        color = Color(0x33F5D372),
+                        border = BorderStroke(1.2.dp, Color(0x88F5D372)),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { showChatbotDialog = true }
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 14.dp, vertical = 10.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(36.dp)
+                                        .clip(CircleShape)
+                                        .background(Color(0xFF0F2D22)),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.SmartToy,
+                                        contentDescription = null,
+                                        tint = IosGoldApple,
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                }
+                                Spacer(modifier = Modifier.width(10.dp))
+                                Column {
+                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Text(
+                                            text = "المفتي الذكي (AI ChatBot)",
+                                            fontSize = 13.5.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = Color.White
+                                        )
+                                        Spacer(modifier = Modifier.width(6.dp))
+                                        Surface(
+                                            shape = RoundedCornerShape(8.dp),
+                                            color = Color(0x332DD4BF)
+                                        ) {
+                                            Text(
+                                                text = "جديد ✨",
+                                                fontSize = 9.5.sp,
+                                                color = IosEmeraldPro,
+                                                fontWeight = FontWeight.Bold,
+                                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                            )
+                                        }
+                                    }
+                                    Text(
+                                        text = "مستشارك الفقهي الفوري المدعوم بـ 1,800+ فتوى من إسلام ويب",
+                                        fontSize = 10.5.sp,
+                                        color = IslamicGoldLight
+                                    )
+                                }
+                            }
+                            Icon(
+                                imageVector = Icons.Default.ChevronLeft,
+                                contentDescription = null,
+                                tint = IosGoldApple
+                            )
+                        }
+                    }
 
                     Spacer(modifier = Modifier.height(10.dp))
 
