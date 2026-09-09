@@ -21,8 +21,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import org.json.JSONObject
 import com.example.audio.QuranAudioPlayer
-import com.example.data.ai.IslamwebAiResponse
-import com.example.data.ai.IslamwebAiService
 import com.example.data.local.AppDatabase
 import com.example.data.local.OfflineData
 import com.example.data.local.OfflineQuranData
@@ -49,7 +47,6 @@ enum class AppTab(val title: String, val iconName: String) {
     RADIO("الإذاعة", "Radio"),
     DUAS("الأدعية", "VolunteerActivism"),
     ATHKAR("الأذكار", "SelfImprovement"),
-    FATWAS("الفتاوى والأحكام", "HelpOutline"),
     PRAYER("الصلاة والقبلة", "Compass")
 }
 
@@ -184,82 +181,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application), S
             matchesCategory && matchesQuery && matchesFav
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
-
-    // --- Fatwas & Rulings State ---
-    private val _selectedFatwaCategory = MutableStateFlow(FatwaCategory.ALL)
-    val selectedFatwaCategory: StateFlow<FatwaCategory> = _selectedFatwaCategory.asStateFlow()
-
-    private val _fatwaSearchQuery = MutableStateFlow("")
-    val fatwaSearchQuery: StateFlow<String> = _fatwaSearchQuery.asStateFlow()
-
-    private val _selectedScholarFilter = MutableStateFlow<String?>(null)
-    val selectedScholarFilter: StateFlow<String?> = _selectedScholarFilter.asStateFlow()
-
-    private val _selectedRulingFilter = MutableStateFlow<RulingType?>(null)
-    val selectedRulingFilter: StateFlow<RulingType?> = _selectedRulingFilter.asStateFlow()
-
-    private val _fatwasOnlyFavorites = MutableStateFlow(false)
-    val fatwasOnlyFavorites: StateFlow<Boolean> = _fatwasOnlyFavorites.asStateFlow()
-
-    // --- Islamweb Live Integration State ---
-    private val _islamwebSearchQuery = MutableStateFlow("")
-    val islamwebSearchQuery: StateFlow<String> = _islamwebSearchQuery.asStateFlow()
-
-    private val _isIslamwebLoading = MutableStateFlow(false)
-    val isIslamwebLoading: StateFlow<Boolean> = _isIslamwebLoading.asStateFlow()
-
-    private val _islamwebFatwas = MutableStateFlow<List<com.example.data.network.IslamwebFatwa>>(
-        com.example.data.network.IslamwebService.curatedIslamwebFatwas
-    )
-    val islamwebFatwas: StateFlow<List<com.example.data.network.IslamwebFatwa>> = _islamwebFatwas.asStateFlow()
-
-    private val _fetchedIslamwebDetail = MutableStateFlow<com.example.data.network.IslamwebFatwa?>(null)
-    val fetchedIslamwebDetail: StateFlow<com.example.data.network.IslamwebFatwa?> = _fetchedIslamwebDetail.asStateFlow()
-
-    private val _islamwebErrorMessage = MutableStateFlow<String?>(null)
-    val islamwebErrorMessage: StateFlow<String?> = _islamwebErrorMessage.asStateFlow()
-
-    val allFatwas: StateFlow<List<Fatwa>> = repository.getAllFatwas()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
-
-    val fatwas: StateFlow<List<Fatwa>> = allFatwas
-
-    val filteredFatwas: StateFlow<List<Fatwa>> = combine(
-        allFatwas,
-        _selectedFatwaCategory,
-        _fatwaSearchQuery,
-        combine(
-            _selectedScholarFilter,
-            _selectedRulingFilter,
-            _fatwasOnlyFavorites
-        ) { scholar, ruling, onlyFavs ->
-            Triple(scholar, ruling, onlyFavs)
-        }
-    ) { fatwas: List<Fatwa>, category: FatwaCategory, query: String, filters: Triple<String?, RulingType?, Boolean> ->
-        val (scholar, ruling, onlyFavs) = filters
-        fatwas.filter { fatwa ->
-            val matchesCategory = (category == FatwaCategory.ALL || fatwa.category == category)
-            val matchesQuery = query.isBlank() || (
-                fatwa.question.contains(query, ignoreCase = true) ||
-                fatwa.answer.contains(query, ignoreCase = true) ||
-                fatwa.tags.contains(query, ignoreCase = true) ||
-                fatwa.scholar.contains(query, ignoreCase = true)
-            )
-            val matchesScholar = scholar == null || fatwa.scholar.contains(scholar)
-            val matchesRuling = ruling == null || fatwa.rulingType == ruling
-            val matchesFav = !onlyFavs || fatwa.isFavorite
-
-            matchesCategory && matchesQuery && matchesScholar && matchesRuling && matchesFav
-        }
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
-
-    val todayFatwa: StateFlow<Fatwa?> = allFatwas.map { list ->
-        if (list.isEmpty()) null
-        else {
-            val dayOfYear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR)
-            list[dayOfYear % list.size]
-        }
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
     // --- Athkar State ---
     private val _selectedAthkarCategory = MutableStateFlow(AthkarCategory.MORNING)
@@ -407,13 +328,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application), S
     // --- Night Muhasabah Records ---
     val allMuhasabahRecords: StateFlow<List<MuhasabahRecord>> = repository.getAllMuhasabahRecords()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
-
-    // --- AI IslamWeb Assistant State ---
-    private val _isIslamwebAiLoading = MutableStateFlow(false)
-    val isIslamwebAiLoading: StateFlow<Boolean> = _isIslamwebAiLoading.asStateFlow()
-
-    private val _islamwebAiResponse = MutableStateFlow<IslamwebAiResponse?>(null)
-    val islamwebAiResponse: StateFlow<IslamwebAiResponse?> = _islamwebAiResponse.asStateFlow()
 
     private var timeTickerJob: Job? = null
 
@@ -806,104 +720,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application), S
             if (!dua.isFavorite) {
                 showNotification("المفضلة", "تمت إضافة الدعاء إلى المفضلة ❤️")
             }
-        }
-    }
-
-    // --- Fatwa Actions ---
-    fun setFatwaCategory(category: FatwaCategory) {
-        _selectedFatwaCategory.value = category
-    }
-
-    fun setFatwaSearchQuery(query: String) {
-        _fatwaSearchQuery.value = query
-    }
-
-    fun setScholarFilter(scholar: String?) {
-        _selectedScholarFilter.value = scholar
-    }
-
-    fun setRulingFilter(ruling: RulingType?) {
-        _selectedRulingFilter.value = ruling
-    }
-
-    fun toggleFatwasOnlyFavorites() {
-        _fatwasOnlyFavorites.value = !_fatwasOnlyFavorites.value
-    }
-
-    fun toggleFatwaFavorite(fatwa: Fatwa) {
-        viewModelScope.launch {
-            repository.toggleFatwaFavorite(fatwa.id, fatwa.isFavorite)
-            vibrate(35)
-            if (!fatwa.isFavorite) {
-                showNotification("المفضلة", "تمت إضافة الفتوى إلى قائمة المفضلة")
-            }
-        }
-    }
-
-    // --- Islamweb Actions ---
-    fun setIslamwebSearchQuery(query: String) {
-        _islamwebSearchQuery.value = query
-        viewModelScope.launch {
-            _isIslamwebLoading.value = true
-            _islamwebErrorMessage.value = null
-            try {
-                val results = repository.searchIslamwebOnline(query)
-                _islamwebFatwas.value = results
-            } catch (e: Exception) {
-                _islamwebErrorMessage.value = "حدث خطأ أثناء البحث: ${e.message}"
-            } finally {
-                _isIslamwebLoading.value = false
-            }
-        }
-    }
-
-    fun fetchIslamwebByNumber(number: String) {
-        if (number.isBlank()) return
-        viewModelScope.launch {
-            _isIslamwebLoading.value = true
-            _islamwebErrorMessage.value = null
-            _fetchedIslamwebDetail.value = null
-            try {
-                val res = repository.fetchIslamwebFatwaByNumber(number)
-                if (res.isSuccess) {
-                    val fatwa = res.getOrThrow()
-                    _fetchedIslamwebDetail.value = fatwa
-                    vibrate(40)
-                    showNotification("تم جلب الفتوى 🌐", "تم استيراد فتوى رقم ${fatwa.fatwaNumber} من إسلام ويب بنجاح")
-                } else {
-                    _islamwebErrorMessage.value = res.exceptionOrNull()?.message ?: "تعذر جلب الفتوى من إسلام ويب"
-                    showNotification("تنبيه", "تعذر العثور على الفتوى برقم $number")
-                }
-            } catch (e: Exception) {
-                _islamwebErrorMessage.value = "خطأ في الاتصال: ${e.message}"
-            } finally {
-                _isIslamwebLoading.value = false
-            }
-        }
-    }
-
-    fun selectIslamwebFatwa(fatwa: com.example.data.network.IslamwebFatwa?) {
-        _fetchedIslamwebDetail.value = fatwa
-        if (fatwa != null && (fatwa.answer.length < 200 || fatwa.answer.contains("اضغط لعرض تفاصيل"))) {
-            viewModelScope.launch {
-                try {
-                    val full = repository.fetchIslamwebFatwaByNumber(fatwa.fatwaNumber)
-                    if (full.isSuccess) {
-                        _fetchedIslamwebDetail.value = full.getOrThrow()
-                    }
-                } catch (e: Exception) {
-                    // Retain existing preview
-                }
-            }
-        }
-    }
-
-    fun saveIslamwebFatwaToLocal(islamwebFatwa: com.example.data.network.IslamwebFatwa) {
-        viewModelScope.launch {
-            val fatwaEntity = islamwebFatwa.toFatwa()
-            repository.saveFatwa(fatwaEntity)
-            vibrate(50)
-            showNotification("تم الحفظ في الموسوعة 💾", "تم حفظ الفتوى رقم ${islamwebFatwa.fatwaNumber} للاستخدام دون إنترنت")
         }
     }
 
@@ -1943,26 +1759,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application), S
             )
             showNotification("محاسبة النفس 🌙", "تم حفظ مراجعة الليلة المباركة، نوماً هنيئاً واستيقاظاً لطاعة الله")
         }
-    }
-
-    // --- IslamWeb AI Assistant Operations ---
-    fun askIslamwebAi(query: String) {
-        if (query.isBlank()) return
-        viewModelScope.launch {
-            _isIslamwebAiLoading.value = true
-            try {
-                val res = IslamwebAiService.searchIslamwebWithAi(query)
-                _islamwebAiResponse.value = res
-            } catch (e: Exception) {
-                e.printStackTrace()
-            } finally {
-                _isIslamwebAiLoading.value = false
-            }
-        }
-    }
-
-    fun clearIslamwebAi() {
-        _islamwebAiResponse.value = null
     }
 
     // --- Privacy-First Backup (CSV & JSON) ---

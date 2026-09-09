@@ -10,7 +10,6 @@ import com.example.data.model.AyahEntity
 import com.example.data.model.Bookmark
 import com.example.data.model.DailyTask
 import com.example.data.model.Dua
-import com.example.data.model.Fatwa
 import com.example.data.model.HadithFavorite
 import com.example.data.model.IslamicNote
 import com.example.data.model.MuhasabahRecord
@@ -26,14 +25,13 @@ import com.example.data.model.TasbihRecord
         Dua::class,
         AthkarItem::class,
         TasbihRecord::class,
-        Fatwa::class,
         AyahEntity::class,
         IslamicNote::class,
         QuizScoreRecord::class,
         HadithFavorite::class,
         MuhasabahRecord::class
     ],
-    version = 5,
+    version = 6,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -43,7 +41,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun duaDao(): DuaDao
     abstract fun athkarDao(): AthkarDao
     abstract fun tasbihDao(): TasbihDao
-    abstract fun fatwaDao(): FatwaDao
     abstract fun islamicNoteDao(): IslamicNoteDao
     abstract fun quizScoreDao(): QuizScoreDao
     abstract fun hadithFavoriteDao(): HadithFavoriteDao

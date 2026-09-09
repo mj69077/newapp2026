@@ -118,21 +118,21 @@ object RoadmapData {
             }
         ),
         RoadmapCategory(
-            id = "fatwas",
-            title = "فتاوى العلماء والحديث الشريف",
-            iconName = "QuestionAnswer",
+            id = "hadith_sunnah",
+            title = "موسوعة الحديث الشريف والسنن النبوية",
+            iconName = "AutoStories",
             count = 50,
-            description = "موسوعة الفتاوى والأحكام الموثقة من سماحة الشيخ ابن باز، الشيخ ابن عثيمين، ومركز إسلام ويب.",
-            targetTab = AppTab.FATWAS,
+            description = "موسوعة الأحاديث النبوية الصحيحة والسنن اليومية والوصايا المحمدية العطرة.",
+            targetTab = AppTab.DAILY_TASKS,
             features = (1..50).map { i ->
                 when (i) {
-                    1 -> "فتاوى الشيخ عبدالعزيز بن باز رحمه الله في الطهارة والصلاة والصيام"
-                    2 -> "فتاوى الشيخ محمد بن صالح العثيمين رحمه الله في النوازل والمعاملات"
-                    3 -> "فتاوى مركز الفتوى بموقع إسلام ويب (IslamWeb) في القضايا المعاصرة"
-                    4 -> "البحث السريع في الفتاوى بالنص، الكلمات المفتاحية، أو العالم المفتي"
-                    5 -> "تصنيف الفتاوى حسب الأبواب: طهارة، صلاة، صيام، زكاة، معاملات، أسرة"
-                    6 -> "عرض الحكم الشرعي الملخص مع الأدلة التفصيلية والمراجع المعتمدة"
-                    7 -> "حفظ الفتاوى في المفضلة للرجوع إليها بدون إنترنت"
+                    1 -> "أحاديث صحيح البخاري ومسلم في أعمال اليوم والليلة"
+                    2 -> "السنن الرواتب وفضل المحافظة عليها"
+                    3 -> "أذكار الصباح والمساء برواياتها الصحيحة"
+                    4 -> "البحث السريع في الأحاديث بالكلمة المفتاحية أو الراوي"
+                    5 -> "تصنيف الأحاديث: إيمان، صلاة، بر الوالدين، حسن الخلق، أذكار"
+                    6 -> "شرح مبسط لكل حديث مع الفوائد والدروس المستنبطة"
+                    7 -> "حفظ الأحاديث في المفضلة لمراجعتها بدون إنترنت"
                     8 -> "مشاركة الفتوى كصورة أو نص موثق مع رابط المصدر"
                     9 -> "سؤال وجواب فقهي سريع لأشهر 50 مسألة يومية"
                     10 -> "الحديث النبوي اليومي مع الشرح والفوائد المستنبطة"
@@ -475,7 +475,7 @@ fun FeaturesRoadmapDialog(
             "family" -> onOpenStories?.invoke() ?: (onOpenFastFaq?.invoke() ?: viewModel.setTab(AppTab.DAILY_TASKS))
             "dawah" -> onOpenShareCard?.invoke() ?: viewModel.setTab(AppTab.DAILY_TASKS)
             "stories" -> onOpenStories?.invoke() ?: viewModel.setTab(AppTab.DAILY_TASKS)
-            "hadith_enc" -> onOpenHadith?.invoke() ?: viewModel.setTab(AppTab.FATWAS)
+            "hadith_enc" -> onOpenHadith?.invoke() ?: viewModel.setTab(AppTab.DAILY_TASKS)
             "quiz" -> onOpenQuiz?.invoke() ?: viewModel.setTab(AppTab.DAILY_TASKS)
             "ruqyah" -> onOpenRuqyah?.invoke() ?: viewModel.setTab(AppTab.ATHKAR)
             "fasting" -> onOpenFasting?.invoke() ?: viewModel.setTab(AppTab.DAILY_TASKS)

@@ -45,7 +45,6 @@ fun DailyDashboardScreen(
     val prayerData by viewModel.prayerTimes.collectAsState()
     val currentCity by viewModel.currentCity.collectAsState()
     val todayHadith by viewModel.todayHadith.collectAsState()
-    val todayFatwa by viewModel.todayFatwa.collectAsState()
 
     val worshipStreaks by viewModel.worshipStreaks.collectAsState()
     val heatmapRecords by viewModel.heatmapData.collectAsState()
@@ -61,7 +60,6 @@ fun DailyDashboardScreen(
     var showAdhanSettingsDialog by remember { mutableStateOf(false) }
     var showStatisticsDialog by remember { mutableStateOf(false) }
     var showHijriCalendarDialog by remember { mutableStateOf(false) }
-    var showFastFaqDialog by remember { mutableStateOf(false) }
     var showCustomAthkarDialog by remember { mutableStateOf(false) }
     var showShareProgressDialog by remember { mutableStateOf(false) }
     var showStoriesDialog by remember { mutableStateOf(false) }
@@ -79,7 +77,6 @@ fun DailyDashboardScreen(
     var showBadgesDialog by remember { mutableStateOf(false) }
     var showWeeklyCardDialog by remember { mutableStateOf(false) }
     var showPrivacyBackupDialog by remember { mutableStateOf(false) }
-    var showIslamwebDialog by remember { mutableStateOf(false) }
     
     // New Feature Dialog States
     var showTajweedDialog by remember { mutableStateOf(false) }
@@ -311,13 +308,6 @@ fun DailyDashboardScreen(
         )
     }
 
-    if (showIslamwebDialog) {
-        IslamwebFatwaDialog(
-            viewModel = viewModel,
-            onDismiss = { showIslamwebDialog = false }
-        )
-    }
-
     if (showTajweedDialog) {
         TajweedGuideDialog(onDismiss = { showTajweedDialog = false })
     }
@@ -419,7 +409,7 @@ fun DailyDashboardScreen(
                 onOpenCalendar = { showHijriCalendarDialog = true },
                 onOpenStatistics = { showStatisticsDialog = true },
                 onOpenAdhanSettings = { showAdhanSettingsDialog = true },
-                onOpenAiChat = { showIslamwebDialog = true }
+                onOpenAiChat = { showSpiritualChallengesDialog = true }
             )
         }
 
@@ -456,7 +446,7 @@ fun DailyDashboardScreen(
             }
         }
 
-        // 2.5 Prominent AI Islamic Assistant Banner (One-Tap Entry)
+        // 2.5 Prominent Spiritual Challenges Banner
         item {
             Spacer(modifier = Modifier.height(12.dp))
             Box(modifier = Modifier.padding(horizontal = 16.dp)) {
@@ -464,9 +454,9 @@ fun DailyDashboardScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(16.dp))
-                        .clickable { showIslamwebDialog = true },
-                    color = Color(0xFF072B20),
-                    border = BorderStroke(1.5.dp, Color(0xFF80DEEA))
+                        .clickable { showSpiritualChallengesDialog = true },
+                    color = Color(0xFF0C2B1D),
+                    border = BorderStroke(1.5.dp, IslamicGoldPrimary)
                 ) {
                     Row(
                         modifier = Modifier
@@ -485,15 +475,15 @@ fun DailyDashboardScreen(
                                     .clip(CircleShape)
                                     .background(
                                         Brush.linearGradient(
-                                            listOf(Color(0xFF00695C), Color(0xFF004D40))
+                                            listOf(Color(0xFF8D6E18), Color(0xFF5E490F))
                                         )
                                     ),
                                 contentAlignment = Alignment.Center
                             ) {
                                 Icon(
-                                    Icons.Default.AutoAwesome,
+                                    Icons.Default.EmojiEvents,
                                     contentDescription = null,
-                                    tint = Color(0xFF80DEEA),
+                                    tint = IslamicGoldPrimary,
                                     modifier = Modifier.size(24.dp)
                                 )
                             }
@@ -501,19 +491,19 @@ fun DailyDashboardScreen(
                             Column {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Text(
-                                        text = "المساعد والباحث الإسلامي (AI)",
-                                        color = Color(0xFFE0F7FA),
+                                        text = "التحديات الإيمانية ومسابقات الخيرات",
+                                        color = Color(0xFFFFF8E1),
                                         fontSize = 13.5.sp,
                                         fontWeight = FontWeight.Bold
                                     )
                                     Spacer(modifier = Modifier.width(6.dp))
                                     Surface(
                                         shape = RoundedCornerShape(6.dp),
-                                        color = Color(0xFF004D40)
+                                        color = Color(0xFF332707)
                                     ) {
                                         Text(
-                                            text = "إسلام ويب",
-                                            color = Color(0xFF80DEEA),
+                                            text = "وسام اليوم",
+                                            color = IslamicGoldPrimary,
                                             fontSize = 9.5.sp,
                                             fontWeight = FontWeight.Bold,
                                             modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
@@ -522,8 +512,8 @@ fun DailyDashboardScreen(
                                 }
                                 Spacer(modifier = Modifier.height(2.dp))
                                 Text(
-                                    text = "اطرح أي مسألة فقهية أو سؤال شرعي واحصل على إجابة موثقة",
-                                    color = Color(0xFFB2DFDB),
+                                    text = "تنافس في الطاعات وأتمم تحديات الذكر والصيام وقراءة القرآن",
+                                    color = Color(0xFFFFECB3),
                                     fontSize = 11.sp
                                 )
                             }
@@ -531,8 +521,8 @@ fun DailyDashboardScreen(
 
                         Surface(
                             shape = RoundedCornerShape(10.dp),
-                            color = Color(0xFF004D40),
-                            border = BorderStroke(1.dp, Color(0xFF4DD0E1)),
+                            color = Color(0xFF281F08),
+                            border = BorderStroke(1.dp, IslamicGoldLight),
                             modifier = Modifier.padding(start = 8.dp)
                         ) {
                             Row(
@@ -540,17 +530,17 @@ fun DailyDashboardScreen(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Text(
-                                    "اسأل الآن",
-                                    color = Color(0xFFE0F7FA),
+                                    "شارك الآن",
+                                    color = IslamicGoldLight,
                                     fontSize = 11.sp,
                                     fontWeight = FontWeight.Bold
                                 )
-                                Spacer(modifier = Modifier.width(3.dp))
+                                Spacer(modifier = Modifier.width(4.dp))
                                 Icon(
-                                    Icons.Default.ArrowForwardIos,
+                                    Icons.Default.ArrowBack,
                                     contentDescription = null,
-                                    tint = Color(0xFF80DEEA),
-                                    modifier = Modifier.size(11.dp)
+                                    tint = IslamicGoldLight,
+                                    modifier = Modifier.size(12.dp)
                                 )
                             }
                         }
@@ -621,10 +611,10 @@ fun DailyDashboardScreen(
                     horizontalArrangement = Arrangement.spacedBy(5.dp)
                 ) {
                     QuickActionCard(
-                        title = "الذكاء AI",
-                        icon = Icons.Default.AutoAwesome,
+                        title = "المصحف",
+                        icon = Icons.Default.MenuBook,
                         modifier = Modifier.weight(1f),
-                        onClick = { showIslamwebDialog = true }
+                        onClick = { viewModel.setTab(AppTab.QURAN) }
                     )
                     QuickActionCard(
                         title = "الإذاعة",
@@ -776,74 +766,6 @@ fun DailyDashboardScreen(
                         style = MaterialTheme.typography.labelSmall,
                         color = IslamicTextSecondary
                     )
-                }
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                // Prominent AI Fatwa Researcher Banner
-                Surface(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(14.dp))
-                        .clickable { showIslamwebDialog = true },
-                    color = Color(0xFF09291E),
-                    border = BorderStroke(1.5.dp, Color(0xFF4DD0E1))
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 14.dp, vertical = 12.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .size(42.dp)
-                                    .clip(CircleShape)
-                                    .background(Color(0xFF00695C)),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Icon(Icons.Default.AutoAwesome, contentDescription = null, tint = Color(0xFF80DEEA), modifier = Modifier.size(24.dp))
-                            }
-                            Spacer(modifier = Modifier.width(12.dp))
-                            Column {
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Text(
-                                        text = "🤖 باحث الفتاوى بالذكاء الاصطناعي (AI)",
-                                        color = Color(0xFFE0F7FA),
-                                        fontSize = 13.5.sp,
-                                        fontWeight = FontWeight.Bold
-                                    )
-                                    Spacer(modifier = Modifier.width(6.dp))
-                                    Surface(
-                                        shape = RoundedCornerShape(4.dp),
-                                        color = Color(0xFF004D40)
-                                    ) {
-                                        Text(
-                                            text = "إسلام ويب حصرياً ✨",
-                                            color = Color(0xFF80CBC4),
-                                            fontSize = 9.5.sp,
-                                            fontWeight = FontWeight.Bold,
-                                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
-                                        )
-                                    }
-                                }
-                                Spacer(modifier = Modifier.height(2.dp))
-                                Text(
-                                    text = "اسأل أي مسألة فقهية لتجيبك الفتوى الموثقة بالأدلة وأرقام الفتاوى فوراً",
-                                    color = Color(0xFFB2DFDB),
-                                    fontSize = 11.sp,
-                                    lineHeight = 15.sp
-                                )
-                            }
-                        }
-
-                        Icon(Icons.Default.ArrowForwardIos, contentDescription = null, tint = Color(0xFF80DEEA), modifier = Modifier.size(15.dp))
-                    }
                 }
 
                 Spacer(modifier = Modifier.height(10.dp))
@@ -1819,69 +1741,6 @@ fun DailyDashboardScreen(
 
                 Spacer(modifier = Modifier.height(10.dp))
 
-                // AI Fatwa Researcher Card (Powered by IslamWeb & Gemini)
-                Surface(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(14.dp))
-                        .clickable { showIslamwebDialog = true },
-                    color = Color(0xFF0C2B20),
-                    border = BorderStroke(1.3.dp, Color(0xFF4DD0E1))
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 14.dp, vertical = 10.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Box(
-                                modifier = Modifier
-                                    .size(38.dp)
-                                    .clip(CircleShape)
-                                    .background(Color(0xFF00695C)),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Icon(Icons.Default.AutoAwesome, contentDescription = null, tint = Color(0xFF80DEEA), modifier = Modifier.size(22.dp))
-                            }
-                            Spacer(modifier = Modifier.width(12.dp))
-                            Column {
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Text(
-                                        text = "🤖 باحث الفتاوى بالذكاء الاصطناعي (AI)",
-                                        color = Color(0xFFE0F7FA),
-                                        fontSize = 12.5.sp,
-                                        fontWeight = FontWeight.Bold
-                                    )
-                                    Spacer(modifier = Modifier.width(6.dp))
-                                    Surface(
-                                        shape = RoundedCornerShape(4.dp),
-                                        color = Color(0xFF004D40)
-                                    ) {
-                                        Text(
-                                            text = "إسلام ويب حصرياً",
-                                            color = Color(0xFF80CBC4),
-                                            fontSize = 9.sp,
-                                            fontWeight = FontWeight.Bold,
-                                            modifier = Modifier.padding(horizontal = 5.dp, vertical = 1.dp)
-                                        )
-                                    }
-                                }
-                                Text(
-                                    text = "بحث فقهي ذكي موثق بالأدلة والمذاهب وأرقام الفتاوى",
-                                    color = Color(0xFFB2DFDB),
-                                    fontSize = 10.5.sp
-                                )
-                            }
-                        }
-
-                        Icon(Icons.Default.ArrowForwardIos, contentDescription = null, tint = Color(0xFF4DD0E1), modifier = Modifier.size(14.dp))
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(10.dp))
-
                 // Local Privacy & Backup Card (No external servers)
                 Surface(
                     modifier = Modifier
@@ -2243,96 +2102,6 @@ fun DailyDashboardScreen(
                                     color = IslamicGoldPrimary,
                                     fontWeight = FontWeight.Bold
                                 )
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        // 9. Quick Fatwa of the Day Card
-        if (todayFatwa != null) {
-            item {
-                Spacer(modifier = Modifier.height(14.dp))
-                Box(modifier = Modifier.padding(horizontal = 16.dp)) {
-                    GlassCard(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { showFastFaqDialog = true },
-                        shape = RoundedCornerShape(20.dp),
-                        backgroundColor = Color(0xFF082218)
-                    ) {
-                        Column(modifier = Modifier.fillMaxWidth()) {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Surface(
-                                    color = Color(todayFatwa!!.rulingType.colorHex).copy(alpha = 0.2f),
-                                    shape = RoundedCornerShape(6.dp)
-                                ) {
-                                    Text(
-                                        text = todayFatwa!!.rulingType.label,
-                                        color = Color(todayFatwa!!.rulingType.colorHex),
-                                        fontSize = 11.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
-                                    )
-                                }
-
-                                Text(
-                                    text = "💡 فتوى وحكم اليوم",
-                                    style = MaterialTheme.typography.labelLarge,
-                                    color = IslamicGoldPrimary,
-                                    fontWeight = FontWeight.Bold
-                                )
-                            }
-
-                            Spacer(modifier = Modifier.height(8.dp))
-
-                            Text(
-                                text = todayFatwa!!.question,
-                                style = MaterialTheme.typography.titleSmall,
-                                color = IslamicGoldLight,
-                                fontWeight = FontWeight.Bold,
-                                textAlign = TextAlign.Right
-                            )
-
-                            Spacer(modifier = Modifier.height(6.dp))
-
-                            Text(
-                                text = todayFatwa!!.answer,
-                                style = MaterialTheme.typography.bodySmall,
-                                color = IslamicTextSecondary,
-                                maxLines = 3,
-                                textAlign = TextAlign.Right
-                            )
-
-                            Spacer(modifier = Modifier.height(6.dp))
-
-                            Text(
-                                text = "المفتي: ${todayFatwa!!.scholar} • انقر لقراءة المزيد",
-                                style = MaterialTheme.typography.labelSmall,
-                                color = IslamicMintLight,
-                                textAlign = TextAlign.Right
-                            )
-
-                            Spacer(modifier = Modifier.height(10.dp))
-
-                            Button(
-                                onClick = { showIslamwebDialog = true },
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(38.dp),
-                                shape = RoundedCornerShape(10.dp),
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1B5542)),
-                                border = BorderStroke(1.dp, IslamicGoldLight),
-                                contentPadding = PaddingValues(horizontal = 10.dp)
-                            ) {
-                                Icon(Icons.Default.AutoAwesome, contentDescription = null, tint = IslamicGoldPrimary, modifier = Modifier.size(16.dp))
-                                Spacer(modifier = Modifier.width(6.dp))
-                                Text("اسأل باحث الفتاوى بالذكاء الاصطناعي (إسلام ويب)", color = IslamicGoldLight, fontSize = 11.5.sp, fontWeight = FontWeight.Bold)
                             }
                         }
                     }

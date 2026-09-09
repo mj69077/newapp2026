@@ -3,8 +3,6 @@ package com.example.data.local
 import androidx.room.TypeConverter
 import com.example.data.model.AthkarCategory
 import com.example.data.model.DuaCategory
-import com.example.data.model.FatwaCategory
-import com.example.data.model.RulingType
 import com.example.data.model.TaskCategory
 
 class Converters {
@@ -36,25 +34,5 @@ class Converters {
         AthkarCategory.valueOf(value)
     } catch (e: Exception) {
         AthkarCategory.GENERAL
-    }
-
-    @TypeConverter
-    fun fromFatwaCategory(category: FatwaCategory): String = category.name
-
-    @TypeConverter
-    fun toFatwaCategory(value: String): FatwaCategory = try {
-        FatwaCategory.valueOf(value)
-    } catch (e: Exception) {
-        FatwaCategory.ALL
-    }
-
-    @TypeConverter
-    fun fromRulingType(ruling: RulingType): String = ruling.name
-
-    @TypeConverter
-    fun toRulingType(value: String): RulingType = try {
-        RulingType.valueOf(value)
-    } catch (e: Exception) {
-        RulingType.PERMISSIBLE
     }
 }

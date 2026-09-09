@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.example.data.ai.IslamwebAiService
 import com.example.ui.components.GlassCard
 import com.example.ui.theme.*
 import com.example.ui.viewmodel.MainViewModel
@@ -85,7 +84,7 @@ object IslamicAiKnowledge {
                 "الحمد لله، والصلاة والسلام على رسول الله.\n" +
                 "بخصوص استفسارك الكريم: الإسلام دين اليسر والسماحة، وقد حثنا ديننا الحنيف على التمسك بكتاب الله وسنة رسوله ﷺ، واستفتاء أهل العلم الموثوقين في دقائق الفروع.\n\n" +
                 "قال تعالى: ﴿فَاسْأَلُوا أَهْلَ الذِّكْرِ إِن كُنتُمْ لَا تَعْلَمُونَ﴾ [النحل: 43].\n" +
-                "ويمكنك مراجعة قسم الفتاوى في التطبيق للبحث في موسوعة إسلام ويب الشاملة بأرقام الفتاوى المعتمدة."
+                "ويمكنك الاستزادة بمراجعة أبواب رياض الصالحين وأمهات كتب الحديث الشريف المعتمدة المتاحة داخل التطبيق."
             }
         }
     }

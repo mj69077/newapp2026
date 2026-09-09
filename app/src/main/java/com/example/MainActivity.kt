@@ -160,7 +160,6 @@ fun MainAppRoot(viewModel: MainViewModel) {
                                 val tabs = listOf(
                                     Triple(AppTab.PRAYER, Icons.Default.AccessTime, "الصلاة"),
                                     Triple(AppTab.RADIO, Icons.Default.Radio, "الإذاعة"),
-                                    Triple(AppTab.FATWAS, Icons.Default.QuestionAnswer, "الفتاوى"),
                                     Triple(AppTab.ATHKAR, Icons.Default.TouchApp, "الأذكار"),
                                     Triple(AppTab.DUAS, Icons.Default.VolunteerActivism, "الأدعية"),
                                     Triple(AppTab.QURAN, Icons.Default.MenuBook, "المصحف"),
@@ -197,7 +196,7 @@ fun MainAppRoot(viewModel: MainViewModel) {
                                         Spacer(modifier = Modifier.height(2.dp))
                                         Text(
                                             text = label,
-                                            fontSize = 8.5.sp,
+                                            fontSize = 9.5.sp,
                                             fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
                                             color = animColor
                                         )
@@ -226,7 +225,6 @@ fun MainAppRoot(viewModel: MainViewModel) {
                     AppTab.RADIO -> RadioScreen(viewModel = viewModel)
                     AppTab.DUAS -> DuasScreen(viewModel = viewModel)
                     AppTab.ATHKAR -> AthkarTasbihScreen(viewModel = viewModel)
-                    AppTab.FATWAS -> FatwasScreen(viewModel = viewModel)
                     AppTab.PRAYER -> PrayerQiblaScreen(viewModel = viewModel)
                 }
             }

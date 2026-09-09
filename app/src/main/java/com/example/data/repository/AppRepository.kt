@@ -25,7 +25,6 @@ class AppRepository(
     private val duaDao = database.duaDao()
     private val athkarDao = database.athkarDao()
     private val tasbihDao = database.tasbihDao()
-    private val fatwaDao = database.fatwaDao()
     private val islamicNoteDao = database.islamicNoteDao()
     private val quizScoreDao = database.quizScoreDao()
     private val hadithFavoriteDao = database.hadithFavoriteDao()
@@ -49,11 +48,6 @@ class AppRepository(
         // 3. Seed Tasbih
         if (tasbihDao.getCountersCount() == 0) {
             tasbihDao.insertCounters(OfflineData.allTasbihSeed)
-        }
-
-        // 4. Seed / Update Fatwas
-        if (fatwaDao.getCount() < com.example.data.local.OfflineFatwasData.fatwasList.size) {
-            fatwaDao.insertFatwas(com.example.data.local.OfflineFatwasData.fatwasList)
         }
 
         // 4. Seed Quran Progress if empty
@@ -269,33 +263,6 @@ class AppRepository(
         tasbihDao.insertCounter(record)
     }
 
-    // Fatwas & Rulings
-    fun getAllFatwas(): Flow<List<Fatwa>> = fatwaDao.getAllFatwas()
-
-    fun getFatwasByCategory(category: FatwaCategory): Flow<List<Fatwa>> =
-        if (category == FatwaCategory.ALL) fatwaDao.getAllFatwas()
-        else fatwaDao.getFatwasByCategory(category)
-
-    fun getFavoriteFatwas(): Flow<List<Fatwa>> = fatwaDao.getFavoriteFatwas()
-
-    fun searchFatwas(query: String): Flow<List<Fatwa>> = fatwaDao.searchFatwas(query)
-
-    suspend fun toggleFatwaFavorite(id: Long, isFavorite: Boolean) = withContext(Dispatchers.IO) {
-        fatwaDao.updateFavorite(id, !isFavorite)
-    }
-
-    suspend fun saveFatwa(fatwa: Fatwa): Long = withContext(Dispatchers.IO) {
-        fatwaDao.insertFatwa(fatwa)
-    }
-
-    suspend fun fetchIslamwebFatwaByNumber(number: String): Result<com.example.data.network.IslamwebFatwa> = withContext(Dispatchers.IO) {
-        com.example.data.network.IslamwebService.fetchFatwaByNumber(number)
-    }
-
-    suspend fun searchIslamwebOnline(query: String): List<com.example.data.network.IslamwebFatwa> = withContext(Dispatchers.IO) {
-        com.example.data.network.IslamwebService.searchIslamweb(query)
-    }
-
     // Online/Offline Verses & Tafsir with 100% Local SQLite Caching
     suspend fun fetchVersesForSurah(surahId: Int): List<Ayah> = withContext(Dispatchers.IO) {
         val cached = quranDao.getAyahsForSurah(surahId)
@@ -378,7 +345,6 @@ class AppRepository(
         val duasCount = duaDao.getDuasCount()
         val athkarCount = athkarDao.getAthkarCount()
         val tasbihCount = tasbihDao.getCountersCount()
-        val fatwasCount = fatwaDao.getCount()
         val notesCount = islamicNoteDao.getAllNotes().first().size
         val quizScoresCount = quizScoreDao.getAllScores().first().size
         val hadithFavCount = hadithFavoriteDao.getAllFavoriteHadiths().first().size
@@ -391,7 +357,6 @@ class AppRepository(
             "الأدعية المأثورة" to duasCount,
             "الأذكار المحفوظة" to athkarCount,
             "عدادات التسبيح" to tasbihCount,
-            "الموسوعة الفقهية" to fatwasCount,
             "التدبرات والملاحظات" to notesCount,
             "سجلات المسابقات" to quizScoresCount,
             "الأحاديث المفضلة" to hadithFavCount
@@ -402,7 +367,6 @@ class AppRepository(
         duaDao.clearAllDuas()
         athkarDao.clearAllAthkar()
         tasbihDao.clearAllCounters()
-        fatwaDao.clearAllFatwas()
         initializeDatabase()
     }
 

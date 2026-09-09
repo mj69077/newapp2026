@@ -257,8 +257,8 @@ object RadioData {
         ),
         RadioStation(
             id = 36,
-            name = "إذاعة الفتاوى الشرعية والدروس",
-            url = "https://backup.qurango.net/radio/fatwa",
+            name = "إذاعة تفسير القرآن العظيم",
+            url = "https://backup.qurango.net/radio/tafsir",
             img = "https://areejquran.net/wp-content/uploads/2015/12/unnamed.jpg",
             category = "تلاوات وبرامج"
         )
