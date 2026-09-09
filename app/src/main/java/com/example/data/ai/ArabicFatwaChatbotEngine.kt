@@ -172,7 +172,6 @@ object ArabicFatwaChatbotEngine {
 
             if (score > highestScore) {
                 highestScore = score
-                bestScore = score
                 bestEntry = entry
                 bestMatchedKeywords = matched.distinct()
             }
