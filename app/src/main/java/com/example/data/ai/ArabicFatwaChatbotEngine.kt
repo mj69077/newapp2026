@@ -12,7 +12,8 @@ data class ChatbotFatwaEntry(
     val id: Int,
     val question: String,
     val answer: String,
-    val source: String = "مركز الفتوى - إسلام ويب (Arabic-Fatwa-ChatBot)"
+    val source: String = "مركز الفتوى - إسلام ويب",
+    val keywords: List<String> = emptyList()
 )
 
 data class ChatbotMatchResult(
@@ -24,7 +25,6 @@ data class ChatbotMatchResult(
 object ArabicFatwaChatbotEngine {
 
     private var corpus: List<ChatbotFatwaEntry> = emptyList()
-    private var normalizedCorpus: List<Pair<ChatbotFatwaEntry, Set<String>>> = emptyList()
     private var isInitialized = false
 
     // Arabic stop words to filter out during semantic token matching
@@ -32,8 +32,8 @@ object ArabicFatwaChatbotEngine {
         "هل", "ما", "ماذا", "حكم", "عن", "في", "من", "الى", "إلى", "على", "هو", "هي",
         "مع", "هذا", "هذه", "ذلك", "تلك", "ان", "إن", "أن", "كان", "كانت", "يكون",
         "اريد", "أريد", "اسال", "أسأل", "سؤال", "سؤالي", "ارجو", "أرجو", "يا", "شيخ",
-        "السلام", "عليكم", "ورحمة", "الله", "وبركاته", "شكرا", "جزاكم", "خيرا", "لو",
-        "سمحت", "مسالة", "مسألة", "بيان", "توضيح", "كيف", "متى", "اين", "أين"
+        "لو", "سمحت", "مسالة", "مسألة", "بيان", "توضيح", "كيف", "متى", "اين", "أين",
+        "يجوز", "ماحكم", "حكمه", "حكمها"
     )
 
     /**
@@ -56,17 +56,21 @@ object ArabicFatwaChatbotEngine {
                 val q = obj.optString("question", "")
                 val a = obj.optString("answer", "")
                 val s = obj.optString("source", "مركز الفتوى - إسلام ويب")
+                val kwList = mutableListOf<String>()
+                val kwArr = obj.optJSONArray("keywords")
+                if (kwArr != null) {
+                    for (k in 0 until kwArr.length()) {
+                        kwList.add(kwArr.getString(k))
+                    }
+                }
                 if (q.isNotBlank() && a.isNotBlank()) {
-                    list.add(ChatbotFatwaEntry(id, q, a, s))
+                    list.add(ChatbotFatwaEntry(id, q, a, s, kwList))
                 }
             }
 
             corpus = list
-            normalizedCorpus = list.map { entry ->
-                entry to tokenize(entry.question)
-            }
             isInitialized = true
-            Log.d("FatwaChatbot", "Loaded ${corpus.size} fatwa Q&A pairs from Arabic-Fatwa-ChatBot corpus.")
+            Log.d("FatwaChatbot", "Loaded ${corpus.size} clean curated fatwas.")
         } catch (e: Exception) {
             Log.e("FatwaChatbot", "Error loading fatwa chatbot corpus: ${e.message}")
         }
@@ -76,7 +80,7 @@ object ArabicFatwaChatbotEngine {
      * Remove Arabic diacritics (tashkeel)
      */
     fun removeTashkeel(text: String): String {
-        return text.replace(Regex("[\\u064B-\\u0652\\u0670\\u0640]"), "")
+        return text.replace(Regex("[\\u064B-\\u065F\\u0670\\u0640]"), "")
     }
 
     /**
@@ -90,6 +94,8 @@ object ArabicFatwaChatbotEngine {
         res = res.replace("ة", "ه")
         // Normalize Yaa / Alef Maqsura
         res = res.replace("ى", "ي")
+        // Normalize Hamza
+        res = res.replace(Regex("[ؤئ]"), "ء")
         // Remove punctuation and special symbols
         res = res.replace(Regex("[؟!?.,،:;\"'()\\[\\]{}\\-_/\\\\<>@#$%^&*+=~`]"), " ")
         // Normalize multiple whitespaces
@@ -103,67 +109,78 @@ object ArabicFatwaChatbotEngine {
         val normalized = normalizeArabic(text)
         return normalized.split(" ")
             .map { it.trim() }
-            .filter { it.length > 1 && !arabicStopWords.contains(it) }
+            .filter { it.length > 2 && !arabicStopWords.contains(it) }
             .toSet()
     }
 
     /**
-     * BestMatch Q&A retrieval algorithm
+     * High-Precision BestMatch Q&A retrieval algorithm
      */
     suspend fun findBestAnswer(userQuery: String): ChatbotMatchResult? = withContext(Dispatchers.Default) {
-        if (normalizedCorpus.isEmpty()) return@withContext null
+        if (corpus.isEmpty()) return@withContext null
 
         val queryNormalized = normalizeArabic(userQuery)
+        if (queryNormalized.isBlank()) return@withContext null
+
+        // 1. Direct Greetings Check
+        val greetings = listOf("سلام", "السلام", "مرحبا", "اهلا", "صباح الخير", "مساء الخير", "حياك", "من انت", "كيف حالك", "هلا", "شكرا")
+        if (greetings.any { queryNormalized.contains(normalizeArabic(it)) }) {
+            val greetingEntry = corpus.find { it.id == 1 } ?: corpus.first()
+            return@withContext ChatbotMatchResult(greetingEntry, 100f, listOf("تحية"))
+        }
+
         val queryTokens = tokenize(userQuery)
-
-        if (queryTokens.isEmpty() && queryNormalized.length < 3) return@withContext null
-
         var bestEntry: ChatbotFatwaEntry? = null
-        var bestScore = 0f
+        var highestScore = 0f
         var bestMatchedKeywords = emptyList<String>()
 
-        for ((entry, questionTokens) in normalizedCorpus) {
+        for (entry in corpus) {
             var score = 0f
             val matched = mutableListOf<String>()
+            val normQ = normalizeArabic(entry.question)
+            val normKeywords = entry.keywords.map { normalizeArabic(it) }
 
-            // 1. Exact or substring match in normalized question
-            val normQuestion = normalizeArabic(entry.question)
-            if (normQuestion.contains(queryNormalized) || queryNormalized.contains(normQuestion)) {
-                score += 0.6f
-            }
-
-            // 2. Token overlap (Jaccard-like score)
-            if (questionTokens.isNotEmpty() && queryTokens.isNotEmpty()) {
-                val intersection = queryTokens.intersect(questionTokens)
-                if (intersection.isNotEmpty()) {
-                    val overlapScore = intersection.size.toFloat() / (queryTokens.size.toFloat() + questionTokens.size.toFloat() - intersection.size.toFloat())
-                    score += overlapScore * 0.7f
-                    matched.addAll(intersection)
+            // 2. High-precision keyword hits
+            for (kw in normKeywords) {
+                if (kw.length > 2 && queryNormalized.contains(kw)) {
+                    score += 25f
+                    matched.add(kw)
                 }
             }
 
-            // 3. Answer keyword match bonus
-            val normAnswer = normalizeArabic(entry.answer)
-            var answerHitCount = 0
-            for (token in queryTokens) {
-                if (normAnswer.contains(token)) {
-                    answerHitCount++
-                    if (!matched.contains(token)) matched.add(token)
-                }
+            // 3. Question containment match
+            if (normQ.contains(queryNormalized) && queryNormalized.length > 4) {
+                score += 30f
+            } else if (queryNormalized.contains(normQ) && normQ.length > 4) {
+                score += 25f
             }
+
+            // 4. Content tokens overlap (only counts meaningful terms)
             if (queryTokens.isNotEmpty()) {
-                score += (answerHitCount.toFloat() / queryTokens.size.toFloat()) * 0.25f
+                val qTokens = tokenize(entry.question)
+                var hits = 0
+                for (t in queryTokens) {
+                    if (qTokens.contains(t) || normKeywords.any { it.contains(t) }) {
+                        hits++
+                    }
+                }
+                val overlapRatio = hits.toFloat() / queryTokens.size.toFloat()
+                if (overlapRatio >= 0.5f) {
+                    score += overlapRatio * 20f
+                }
             }
 
-            if (score > bestScore) {
+            if (score > highestScore) {
+                highestScore = score
                 bestScore = score
                 bestEntry = entry
-                bestMatchedKeywords = matched
+                bestMatchedKeywords = matched.distinct()
             }
         }
 
-        if (bestEntry != null && bestScore >= 0.18f) {
-            ChatbotMatchResult(bestEntry, bestScore, bestMatchedKeywords)
+        // Strict threshold: score must be >= 20.0f to eliminate hallucinations
+        if (bestEntry != null && highestScore >= 20f) {
+            ChatbotMatchResult(bestEntry, highestScore, bestMatchedKeywords)
         } else {
             null
         }
@@ -175,13 +192,13 @@ object ArabicFatwaChatbotEngine {
     fun getFeaturedQuestions(): List<String> {
         return listOf(
             "ما حكم فتح حساب ادخار في بنك إسلامي؟",
+            "ما حكم بخاخ الربو للصائم؟",
+            "هل يشترط الوضوء لقراءة القرآن من الجوال؟",
             "كيفية ودعاء صلاة الاستخارة",
             "أحكام المسح على الجوارب في الوضوء",
-            "حكم بيع الذهب بالتقسيط",
-            "ما حكم التسويق بالعمولة؟",
-            "حكم قضاء الصلوات الفائتة وكيفيتها",
-            "هل يجوز قراءة القرآن للحائض؟",
-            "أحكام سجود السهو ومتى يكون قبلياً أو بعدياً"
+            "كيف تحسب زكاة الأسهم الاستثمارية؟",
+            "ما حكم استخدام المسبحة الإلكترونية؟",
+            "ما هي كفارة اليمين المنعقدة؟"
         )
     }
 }

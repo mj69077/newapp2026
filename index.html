@@ -3096,7 +3096,7 @@
             }
         ];
 
-        // Fetch full 400 fatwa corpus from repository if available
+        // Fetch clean curated fatwa corpus from repository if available
         fetch('./fatwa_chatbot_corpus.json')
             .then(res => {
                 if (res.ok) return res.json();
@@ -3107,9 +3107,10 @@
                     fatwaKnowledgeBase = data.map(item => ({
                         q: item.question,
                         a: item.answer,
-                        src: item.source || "مركز الفتوى - إسلام ويب (Arabic-Fatwa-ChatBot)"
+                        keywords: item.keywords || [],
+                        src: item.source || "مركز الفتوى - إسلام ويب"
                     }));
-                    console.log(`[FatwaAI] Loaded ${fatwaKnowledgeBase.length} fatwas from IslamWeb corpus.`);
+                    console.log(`[FatwaAI] Loaded ${fatwaKnowledgeBase.length} curated fatwas.`);
                 }
             })
             .catch(err => {
@@ -3120,8 +3121,8 @@
         function normalizeAr(text) {
             if (!text) return "";
             return text
-                .replace(/[\u064B-\u065F\u0670]/g, "") // Tashkeel
-                .replace(/[إأآا]/g, "ا")
+                .replace(/[\u064B-\u065F\u0670\u0640]/g, "") // Tashkeel and Tatweel
+                .replace(/[إأآٱا]/g, "ا")
                 .replace(/ة/g, "ه")
                 .replace(/[ىي]/g, "ي")
                 .replace(/[ؤئ]/g, "ء")
@@ -3135,7 +3136,8 @@
             "في", "من", "على", "عن", "الى", "إلى", "هل", "ما", "ماذا", "هو", "هي", "هم",
             "ان", "أن", "إن", "كان", "كانت", "يكون", "هذا", "هذه", "ذلك", "تلك", "مع",
             "او", "ثم", "لا", "لم", "لن", "قد", "كل", "بين", "نحن", "انا", "كم", "حيث",
-            "اذا", "إذا", "فان", "فإن", "حكم", "سؤال", "مسألة", "اريد", "معرفة"
+            "اذا", "إذا", "فان", "فإن", "حكم", "سؤال", "مسألة", "اريد", "معرفة", "شيخ",
+            "يا", "لو", "سمحت", "ارجو", "يجوز", "حكمه", "حكمها", "ماحكم", "هل يجوز"
         ]);
 
         function extractKeywords(normText) {
@@ -3146,43 +3148,55 @@
 
         function findBestFatwa(query) {
             const normQuery = normalizeAr(query);
-            const queryTokens = extractKeywords(normQuery);
+            if (!normQuery) return { item: null, score: 0 };
 
+            // 1. Direct Greetings and Polite Conversation Check
+            const greetings = ["سلام", "السلام", "مرحبا", "اهلا", "صباح الخير", "مساء الخير", "حياك", "من انت", "كيف حالك", "هلا", "شكرا", "جزاك الله", "يعطيك العافيه"];
+            for (const g of greetings) {
+                if (normQuery.includes(normalizeAr(g))) {
+                    const greetItem = fatwaKnowledgeBase.find(f => f.keywords && f.keywords.some(k => k.includes("سلام"))) || fatwaKnowledgeBase[0];
+                    return { item: greetItem, score: 100 };
+                }
+            }
+
+            const queryTokens = extractKeywords(normQuery);
             let bestMatch = null;
             let highestScore = 0;
 
             for (const item of fatwaKnowledgeBase) {
                 const normQ = normalizeAr(item.q);
                 let score = 0;
+                const itemKeywords = (item.keywords || []).map(k => normalizeAr(k));
 
-                // Substring containment
-                if (normQ.includes(normQuery) && normQuery.length > 5) {
-                    score += 15.0;
-                } else if (normQuery.includes(normQ) && normQ.length > 5) {
-                    score += 12.0;
+                // 2. High-precision keyword matches
+                let keywordHits = 0;
+                for (const kw of itemKeywords) {
+                    if (kw.length > 2 && normQuery.includes(kw)) {
+                        keywordHits++;
+                        score += 25.0;
+                    }
                 }
 
-                // Token matching
+                // 3. Question containment match
+                if (normQ.includes(normQuery) && normQuery.length > 4) {
+                    score += 30.0;
+                } else if (normQuery.includes(normQ) && normQ.length > 4) {
+                    score += 25.0;
+                }
+
+                // 4. Content tokens overlap (only counts meaningful terms)
                 if (queryTokens.length > 0) {
                     const normQTokens = new Set(extractKeywords(normQ));
                     let matchedCount = 0;
                     for (const t of queryTokens) {
-                        if (normQTokens.has(t) || normQ.includes(t)) {
+                        if (normQTokens.has(t) || itemKeywords.some(k => k.includes(t))) {
                             matchedCount++;
                         }
                     }
                     const overlapRatio = matchedCount / queryTokens.length;
-                    score += overlapRatio * 8.0;
-
-                    // Answer content keyword match
-                    const normA = normalizeAr(item.a);
-                    let aMatchCount = 0;
-                    for (const t of queryTokens) {
-                        if (normA.includes(t)) {
-                            aMatchCount++;
-                        }
+                    if (overlapRatio >= 0.5) {
+                        score += overlapRatio * 20.0;
                     }
-                    score += (aMatchCount / queryTokens.length) * 3.0;
                 }
 
                 if (score > highestScore) {
@@ -3191,7 +3205,11 @@
                 }
             }
 
-            return { item: bestMatch, score: highestScore };
+            // Strict threshold: score must be >= 20.0 to prevent hallucinations
+            return {
+                item: (highestScore >= 20.0) ? bestMatch : null,
+                score: highestScore
+            };
         }
 
         function sendAiMessage() {
@@ -3243,19 +3261,18 @@
                 let responseText = "";
                 let sourceBadge = "";
 
-                if (result.item && result.score >= 2.0) {
+                if (result.item) {
                     responseText = result.item.a;
                     sourceBadge = `<i class="fa-solid fa-book-open-reader"></i> المصدر: ${result.item.src || 'مركز الفتوى - إسلام ويب'}`;
                 } else {
                     const searchUrl = `https://www.islamweb.net/ar/fatwa/search/?lang=A&searchquery=${encodeURIComponent(query)}`;
-                    responseText = `لم أعثر على نص فتوى مطابق بدقة عالية لهذه المسألة المحددة في ذاكرتي السريعة. 
-                    <br><br>
-                    يمكنك مراجعة أرشيف <strong>إسلام ويب</strong> المليء بالفتاوى المفصلة لهذه المسألة:
-                    <br><br>
-                    <a href="${searchUrl}" target="_blank" rel="noopener noreferrer" style="color: var(--gold-apple); text-decoration: underline; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
-                        <i class="fa-solid fa-magnifying-glass"></i> البحث عن «${escapeHtml(query)}» في مركز فتاوى إسلام ويب
+                    responseText = `الحمد لله والصلاة والسلام على رسول الله؛<br><br>
+                    أخي الكريم / أختي الكريمة: حرصاً على الأمانة الشرعية وتجنباً للتخمين في الفتوى، لم أجد في الذاكرة الفورية نصاً مطابقاً تماماً لمسألتك: <strong>«${escapeHtml(query)}»</strong>.<br><br>
+                    يسعدنا أن تبحث مباشرة في أكبر وأدق موسوعة فقهية معتمدة عبر مركز فتاوى إسلام ويب (أكثر من 400,000 فتوى موثقة):<br><br>
+                    <a href="${searchUrl}" target="_blank" rel="noopener noreferrer" style="color: #000; background: linear-gradient(135deg, var(--gold-apple), var(--gold-titanium)); padding: 9px 18px; border-radius: 980px; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; font-size: 0.82rem; box-shadow: 0 4px 14px rgba(245, 211, 114, 0.35);">
+                        <i class="fa-solid fa-magnifying-glass"></i> اضغط هنا للبحث عن «${escapeHtml(query)}» في إسلام ويب
                     </a>`;
-                    sourceBadge = `<i class="fa-solid fa-circle-info"></i> مركز الفتوى - إسلام ويب (أكثر من 400,000 فتوى)`;
+                    sourceBadge = `<i class="fa-solid fa-shield-halved"></i> مركز الفتوى - إسلام ويب (فتاوى كبار العلماء المعتمدة)`;
                 }
 
                 const botMsgHtml = `
