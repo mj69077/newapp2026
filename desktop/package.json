@@ -2,6 +2,7 @@
   "name": "dailywird-desktop",
   "version": "1.1.0",
   "description": "DailyWird - Islamic Companion Native Desktop Application",
+  "homepage": "https://mj69077.github.io/newapp2026/",
   "main": "main.js",
   "author": "mj69077",
   "scripts": {
