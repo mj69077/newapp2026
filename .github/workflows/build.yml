@@ -223,6 +223,56 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  build-linux:
+    name: Build Linux AppImage & DEB Packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Desktop Dependencies
+        working-directory: desktop
+        run: npm install
+
+      - name: Build Linux Packages (AppImage & DEB)
+        working-directory: desktop
+        run: npx electron-builder --linux AppImage deb
+
+      - name: Collect Linux Artifacts
+        run: |
+          mkdir -p release-linux
+          for f in $(find desktop/dist -maxdepth 2 -type f -name "*.AppImage"); do
+            cp "$f" release-linux/DailyWird-Linux.AppImage
+            cp "$f" release-linux/
+          done
+          for f in $(find desktop/dist -maxdepth 2 -type f -name "*.deb"); do
+            cp "$f" release-linux/DailyWird-Linux-amd64.deb
+            cp "$f" release-linux/
+          done
+          ls -la release-linux/
+
+      - name: Upload Linux Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: DailyWird-Linux-Desktop-Packages
+          path: release-linux/*
+          retention-days: 14
+
+      - name: Publish Linux Apps to Release v1.1.0
+        uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main'
+        with:
+          tag_name: v1.1.0
+          files: release-linux/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
 
 
 

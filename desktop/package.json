@@ -8,7 +8,8 @@
     "start": "electron .",
     "build": "electron-builder --win",
     "build:mac": "electron-builder --mac",
-    "build:all": "electron-builder --win --mac"
+    "build:linux": "electron-builder --linux",
+    "build:all": "electron-builder --win --mac --linux"
   },
   "devDependencies": {
     "electron": "^33.2.1",
@@ -41,6 +42,14 @@
     },
     "dmg": {
       "title": "DailyWird - الورد اليومي"
+    },
+    "linux": {
+      "category": "Utility",
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "maintainer": "mj69077"
     }
   }
 }
