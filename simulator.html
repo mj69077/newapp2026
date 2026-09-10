@@ -1,0 +1,811 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محاكي أجهزة الورد اليومي التفاعلي | DailyWird Multi-Platform Simulator</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-canvas: #070B09;
+            --bg-panel: rgba(14, 24, 19, 0.85);
+            --border-glass: rgba(255, 255, 255, 0.12);
+            --gold-apple: #F5D372;
+            --gold-glow: rgba(245, 211, 114, 0.35);
+            --emerald-pro: #10B981;
+            --text-main: #F5F5F7;
+            --text-sub: #9EABA3;
+            --font-ui: 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-ui);
+            background: radial-gradient(circle at top center, #0F2318 0%, #060B08 60%, #030604 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Top Studio Header */
+        header.studio-bar {
+            background: rgba(6, 13, 9, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-glass);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .studio-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #10B981, #064E3B);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #F5D372;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            border: 1px solid rgba(245, 211, 114, 0.4);
+        }
+
+        .brand-title h1 {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            letter-spacing: -0.3px;
+        }
+
+        .brand-title p {
+            font-size: 0.75rem;
+            color: var(--gold-apple);
+            font-weight: 600;
+        }
+
+        /* Platform Switcher Pills */
+        .platform-nav {
+            display: flex;
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px solid var(--border-glass);
+            border-radius: 999px;
+            padding: 4px;
+            gap: 4px;
+        }
+
+        .pill-btn {
+            border: none;
+            outline: none;
+            background: transparent;
+            color: var(--text-sub);
+            padding: 8px 18px;
+            border-radius: 999px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .pill-btn:hover {
+            color: #FFFFFF;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .pill-btn.active {
+            background: linear-gradient(135deg, #10B981, #059669);
+            color: #FFFFFF;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+        }
+
+        .pill-btn.active.mac {
+            background: linear-gradient(135deg, #2C2C2E, #1C1C1E);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+        }
+
+        .pill-btn.active.linux {
+            background: linear-gradient(135deg, #E95420, #77216F);
+            box-shadow: 0 4px 14px rgba(233, 84, 32, 0.4);
+        }
+
+        .pill-btn.active.full {
+            background: linear-gradient(135deg, #F5D372, #D4AF37);
+            color: #07130E;
+            box-shadow: 0 4px 14px rgba(245, 211, 114, 0.4);
+        }
+
+        /* Action Tools in Header */
+        .studio-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tool-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border-glass);
+            color: var(--text-main);
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .tool-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: var(--gold-apple);
+        }
+
+        /* Canvas Stage */
+        main.stage-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 16px;
+            position: relative;
+        }
+
+        /* Ambient Background Light */
+        .stage-glow {
+            position: absolute;
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            filter: blur(50px);
+            z-index: 0;
+            transition: all 0.5s ease;
+        }
+
+        /* --- 1. iPhone 16 Pro Frame Style --- */
+        .device-iphone {
+            position: relative;
+            z-index: 10;
+            width: 400px;
+            height: 820px;
+            background: #090E0B;
+            border-radius: 54px;
+            box-shadow: 
+                0 0 0 4px #262E29,
+                0 0 0 7px #121814,
+                0 25px 60px rgba(0, 0, 0, 0.85),
+                0 0 40px rgba(16, 185, 129, 0.15);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+
+        /* Dynamic Island */
+        .iphone-island {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 32px;
+            background: #000000;
+            border-radius: 20px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .iphone-island:hover {
+            width: 180px;
+            background: #0d1a13;
+        }
+
+        .island-lens {
+            width: 11px;
+            height: 11px;
+            background: #0b1410;
+            border: 2px solid #1a2c22;
+            border-radius: 50%;
+        }
+
+        .island-wave {
+            font-size: 0.65rem;
+            color: var(--emerald-pro);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .island-pulse {
+            width: 7px;
+            height: 7px;
+            background: var(--gold-apple);
+            border-radius: 50%;
+            animation: pulse-ring 1.5s infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.6; }
+        }
+
+        /* iPhone Screen Viewport */
+        .iphone-screen {
+            flex: 1;
+            border-radius: 42px;
+            overflow: hidden;
+            background: #060D09;
+            position: relative;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+        }
+
+        .iphone-screen iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* iOS Home Bar */
+        .iphone-home-indicator {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 135px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 10px;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        /* --- 2. macOS Desktop Window Style --- */
+        .device-mac {
+            position: relative;
+            z-index: 10;
+            width: 1080px;
+            max-width: 95vw;
+            height: 720px;
+            background: #1C1C1E;
+            border-radius: 16px;
+            box-shadow: 
+                0 0 0 1px rgba(255, 255, 255, 0.12),
+                0 30px 80px rgba(0, 0, 0, 0.9),
+                0 0 40px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* macOS Menu Bar */
+        .mac-top-menu {
+            height: 28px;
+            background: rgba(30, 30, 32, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 14px;
+            font-size: 0.74rem;
+            color: rgba(255, 255, 255, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            user-select: none;
+        }
+
+        .mac-menu-items {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            direction: ltr;
+        }
+
+        .mac-menu-items span {
+            cursor: pointer;
+        }
+
+        .mac-menu-items span.app-name {
+            font-weight: 800;
+            color: #FFFFFF;
+        }
+
+        /* macOS Window Titlebar */
+        .mac-titlebar {
+            height: 44px;
+            background: linear-gradient(to bottom, #2D2D30, #222225);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+            direction: ltr;
+        }
+
+        .mac-traffic-lights {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .traffic-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .btn-close { background: #FF5F56; border: 1px solid #E0443E; }
+        .btn-minimize { background: #FFBD2E; border: 1px solid #DEA123; }
+        .btn-zoom { background: #27C93F; border: 1px solid #1AAB29; }
+
+        .mac-win-title {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.82rem;
+            font-weight: 600;
+            direction: rtl;
+        }
+
+        .mac-screen {
+            flex: 1;
+            background: #060D09;
+        }
+
+        .mac-screen iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* --- 3. Linux Ubuntu Window Style --- */
+        .device-linux {
+            position: relative;
+            z-index: 10;
+            width: 1060px;
+            max-width: 95vw;
+            height: 720px;
+            background: #242424;
+            border-radius: 12px;
+            box-shadow: 
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                0 30px 80px rgba(0, 0, 0, 0.9),
+                0 0 35px rgba(233, 84, 32, 0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .ubuntu-topbar {
+            height: 28px;
+            background: #111111;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 14px;
+            font-size: 0.74rem;
+            color: #DFDBCE;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            direction: ltr;
+        }
+
+        .ubuntu-headerbar {
+            height: 44px;
+            background: #303030;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 14px;
+            border-bottom: 1px solid #1E1E1E;
+            direction: ltr;
+        }
+
+        .ubuntu-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .ubuntu-btn {
+            width: 16px;
+            height: 16px;
+            background: #424242;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            color: #AAAAAA;
+            cursor: pointer;
+        }
+
+        .ubuntu-btn.close:hover {
+            background: #E95420;
+            color: #FFFFFF;
+        }
+
+        .ubuntu-title {
+            color: #FFFFFF;
+            font-size: 0.84rem;
+            font-weight: 700;
+            direction: rtl;
+        }
+
+        .linux-screen {
+            flex: 1;
+            background: #060D09;
+        }
+
+        .linux-screen iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* --- 4. Fullscreen Mode --- */
+        .device-full {
+            width: 100%;
+            height: calc(100vh - 65px);
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        .device-full iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Instructions & Cloud Testing Bar at Bottom */
+        footer.cloud-guide {
+            background: rgba(8, 16, 12, 0.92);
+            border-top: 1px solid var(--border-glass);
+            padding: 18px 24px;
+            z-index: 100;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+            backdrop-filter: blur(16px);
+        }
+
+        .guide-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 14px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .guide-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            font-weight: 800;
+        }
+
+        .guide-header i {
+            font-size: 1.1rem;
+        }
+
+        .guide-text {
+            font-size: 0.78rem;
+            color: var(--text-sub);
+            line-height: 1.5;
+        }
+
+        .guide-btn {
+            align-self: flex-start;
+            margin-top: 4px;
+            background: rgba(245, 211, 114, 0.12);
+            border: 1px solid var(--gold-apple);
+            color: var(--gold-apple);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .guide-btn:hover {
+            background: var(--gold-apple);
+            color: #07130E;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .device-iphone {
+                width: 100%;
+                max-width: 380px;
+                height: 720px;
+            }
+            .studio-bar {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Studio Controls -->
+    <header class="studio-bar">
+        <div class="studio-brand">
+            <div class="brand-logo">
+                <i class="fa-solid fa-kaaba"></i>
+            </div>
+            <div class="brand-title">
+                <h1>مختبر محاكاة الورد اليومي (Multi-Platform Test Lab)</h1>
+                <p>جرّب نسختك الآن مباشرة في المتصفح لأجهزة Apple iOS و macOS و Linux</p>
+            </div>
+        </div>
+
+        <!-- Platform Switcher -->
+        <nav class="platform-nav">
+            <button class="pill-btn active" onclick="switchPlatform('iphone', this)">
+                <i class="fa-solid fa-mobile-screen-button"></i>
+                <span>محاكي الآيفون (iOS)</span>
+            </button>
+            <button class="pill-btn" onclick="switchPlatform('mac', this)">
+                <i class="fa-brands fa-apple"></i>
+                <span>نافذة الماك (macOS)</span>
+            </button>
+            <button class="pill-btn" onclick="switchPlatform('linux', this)">
+                <i class="fa-brands fa-linux"></i>
+                <span>لينكس (Ubuntu)</span>
+            </button>
+            <button class="pill-btn" onclick="switchPlatform('full', this)">
+                <i class="fa-solid fa-expand"></i>
+                <span>ملء الشاشة</span>
+            </button>
+        </nav>
+
+        <div class="studio-actions">
+            <button class="tool-btn" onclick="reloadFrame()">
+                <i class="fa-solid fa-rotate-right"></i>
+                <span>إعادة تحميل</span>
+            </button>
+            <a href="https://github.com/mj69077/newapp2026/releases/tag/v1.1.0" target="_blank" class="tool-btn" style="border-color: rgba(245, 211, 114, 0.4); color: var(--gold-apple);">
+                <i class="fa-solid fa-download"></i>
+                <span>تحميل الحزم (v1.1.0)</span>
+            </a>
+            <a href="index.html" class="tool-btn">
+                <i class="fa-solid fa-house"></i>
+                <span>الرئيسية</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Interactive Canvas Stage -->
+    <main class="stage-area">
+        <div class="stage-glow" id="stageGlow"></div>
+
+        <!-- 1. iPhone 16 Pro Wrapper (Default) -->
+        <div id="deviceContainer" class="device-iphone">
+            <!-- Dynamic Island -->
+            <div class="iphone-island" id="island" onclick="toggleIsland()">
+                <div class="island-lens"></div>
+                <div class="island-wave">
+                    <span class="island-pulse"></span>
+                    <span>إذاعة القرآن</span>
+                </div>
+            </div>
+
+            <!-- Screen -->
+            <div class="iphone-screen">
+                <iframe id="appFrame" src="app.html" title="DailyWird App Viewport" allow="autoplay; accelerometer; gyroscope; vibrate"></iframe>
+            </div>
+
+            <!-- iOS Home Indicator -->
+            <div class="iphone-home-indicator"></div>
+        </div>
+    </main>
+
+    <!-- Online Testing & Cloud Emulation Guide -->
+    <footer class="cloud-guide">
+        <!-- iOS Guide -->
+        <div class="guide-card">
+            <div class="guide-header" style="color: var(--emerald-pro);">
+                <i class="fa-brands fa-apple"></i>
+                <span>تجربة الآيفون على أي هاتف فوراً</span>
+            </div>
+            <p class="guide-text">
+                افتح رابط التطبيق <code>/app.html</code> من متصفح سفاري على الآيفون واضغط «مشاركة» ثم «إضافة للشاشة الرئيسية» ليعمل كتطبيق كامل ومثبت. أو اضغط <b>F12</b> في كروم واختر <b>iPhone 14/15 Pro</b>.
+            </p>
+            <a href="app.html" target="_blank" class="guide-btn">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> فتح رابط التطبيق المباشر
+            </a>
+        </div>
+
+        <!-- Linux Online VM Guide -->
+        <div class="guide-card">
+            <div class="guide-header" style="color: #E95420;">
+                <i class="fa-brands fa-linux"></i>
+                <span>تجربة نسخة لينكس أونلاين عبر المتصفح (DistroSea)</span>
+            </div>
+            <p class="guide-text">
+                يمكنك تجربة نظام لينكس (Ubuntu أو Linux Mint) سحابياً مجاناً بدون تثبيت أي شيء عبر موقع DistroSea، ثم فتح المتصفح وتنزيل حزمة <code>DailyWird-Linux.AppImage</code> وتشغيلها!
+            </p>
+            <a href="https://distrosea.com/start/ubuntu-24.04-desktop-amd64/" target="_blank" rel="noopener" class="guide-btn" style="border-color: #E95420; color: #FFA07A;">
+                <i class="fa-solid fa-cloud"></i> تشغيل Ubuntu أونلاين على DistroSea
+            </a>
+        </div>
+
+        <!-- Mac Guide -->
+        <div class="guide-card">
+            <div class="guide-header" style="color: #FFFFFF;">
+                <i class="fa-brands fa-apple"></i>
+                <span>تجربة واجهة الماك (macOS Sequoia)</span>
+            </div>
+            <p class="guide-text">
+                النافذة المعروضة بالأعلى تحاكي تماماً بنية وتصميم تطبيق الماك (Universal DMG) مع شريط العنوان الزجاجي الفاخر والأزرار الثلاثية، ونفس المحرك الإلكتروني المدمج.
+            </p>
+            <a href="https://github.com/mj69077/newapp2026/releases/download/v1.1.0/DailyWird-macOS-Universal.dmg" class="guide-btn" style="border-color: rgba(255, 255, 255, 0.4); color: #FFFFFF;">
+                <i class="fa-solid fa-download"></i> تنزيل DMG للماك
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        const container = document.getElementById('deviceContainer');
+        const frame = document.getElementById('appFrame');
+        const glow = document.getElementById('stageGlow');
+
+        function switchPlatform(type, btn) {
+            // Update active pill
+            document.querySelectorAll('.pill-btn').forEach(b => {
+                b.className = 'pill-btn';
+            });
+            btn.classList.add('active');
+            if (type === 'mac') btn.classList.add('mac');
+            if (type === 'linux') btn.classList.add('linux');
+            if (type === 'full') btn.classList.add('full');
+
+            if (type === 'iphone') {
+                glow.style.background = 'radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%)';
+                container.className = 'device-iphone';
+                container.innerHTML = `
+                    <div class="iphone-island" id="island" onclick="toggleIsland()">
+                        <div class="island-lens"></div>
+                        <div class="island-wave">
+                            <span class="island-pulse"></span>
+                            <span>إذاعة القرآن</span>
+                        </div>
+                    </div>
+                    <div class="iphone-screen">
+                        <iframe id="appFrame" src="app.html" allow="autoplay; accelerometer; gyroscope; vibrate"></iframe>
+                    </div>
+                    <div class="iphone-home-indicator"></div>
+                `;
+            } else if (type === 'mac') {
+                glow.style.background = 'radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%)';
+                container.className = 'device-mac';
+                container.innerHTML = `
+                    <div class="mac-top-menu">
+                        <div class="mac-menu-items">
+                            <span class="app-name"> الورد اليومي</span>
+                            <span>ملف</span>
+                            <span>تعديل</span>
+                            <span>عرض</span>
+                            <span>الأذكار</span>
+                            <span>نافذة</span>
+                            <span>مساعدة</span>
+                        </div>
+                        <div>الخميس 12:00 م &nbsp; 🔋 100%</div>
+                    </div>
+                    <div class="mac-titlebar">
+                        <div class="mac-traffic-lights">
+                            <div class="traffic-btn btn-close" onclick="alert('زر إغلاق نافذة الماك')"></div>
+                            <div class="traffic-btn btn-minimize"></div>
+                            <div class="traffic-btn btn-zoom" onclick="switchPlatform('full', document.querySelectorAll('.pill-btn')[3])"></div>
+                        </div>
+                        <div class="mac-win-title">الورد اليومي — DailyWird (macOS Universal Edition)</div>
+                        <div style="width: 50px;"></div>
+                    </div>
+                    <div class="mac-screen">
+                        <iframe id="appFrame" src="app.html" allow="autoplay; accelerometer; gyroscope; vibrate"></iframe>
+                    </div>
+                `;
+            } else if (type === 'linux') {
+                glow.style.background = 'radial-gradient(circle, rgba(233, 84, 32, 0.2) 0%, transparent 70%)';
+                container.className = 'device-linux';
+                container.innerHTML = `
+                    <div class="ubuntu-topbar">
+                        <div style="direction: ltr;">Activities</div>
+                        <div style="font-weight: 700;">الخميس 12:00 م</div>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <i class="fa-solid fa-volume-high"></i>
+                            <i class="fa-solid fa-wifi"></i>
+                            <i class="fa-solid fa-battery-full"></i>
+                        </div>
+                    </div>
+                    <div class="ubuntu-headerbar">
+                        <div class="ubuntu-controls">
+                            <div class="ubuntu-btn close" onclick="alert('زر إغلاق نافذة أوبونتو')">✕</div>
+                            <div class="ubuntu-btn">□</div>
+                            <div class="ubuntu-btn">―</div>
+                        </div>
+                        <div class="ubuntu-title">DailyWird — الورد اليومي (Linux AppImage)</div>
+                        <div style="width: 50px;"></div>
+                    </div>
+                    <div class="linux-screen">
+                        <iframe id="appFrame" src="app.html" allow="autoplay; accelerometer; gyroscope; vibrate"></iframe>
+                    </div>
+                `;
+            } else if (type === 'full') {
+                glow.style.background = 'radial-gradient(circle, rgba(245, 211, 114, 0.12) 0%, transparent 70%)';
+                container.className = 'device-full';
+                container.innerHTML = `
+                    <iframe id="appFrame" src="app.html" allow="autoplay; accelerometer; gyroscope; vibrate"></iframe>
+                `;
+            }
+        }
+
+        function reloadFrame() {
+            const f = document.getElementById('appFrame');
+            if (f) {
+                f.src = f.src;
+            }
+        }
+
+        function toggleIsland() {
+            const island = document.getElementById('island');
+            if (island) {
+                island.style.width = island.style.width === '240px' ? '120px' : '240px';
+            }
+        }
+    </script>
+</body>
+</html>
