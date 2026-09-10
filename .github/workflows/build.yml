@@ -143,5 +143,86 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  build-macos:
+    name: Build macOS Universal DMG & ZIP
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Desktop Dependencies
+        working-directory: desktop
+        run: npm install
+
+      - name: Build macOS Applications (DMG & ZIP)
+        working-directory: desktop
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+        run: npx electron-builder --mac dmg zip
+
+      - name: Collect macOS Artifacts
+        run: |
+          mkdir -p release-mac
+          for f in $(find desktop/dist -maxdepth 2 -type f -name "*.dmg"); do
+            cp "$f" release-mac/DailyWird-macOS-Universal.dmg
+            cp "$f" release-mac/
+          done
+          for f in $(find desktop/dist -maxdepth 2 -type f -name "*.zip"); do
+            cp "$f" release-mac/DailyWird-macOS-Universal.zip
+            cp "$f" release-mac/
+          done
+          ls -la release-mac/
+
+      - name: Upload macOS Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: DailyWird-macOS-Desktop-Apps
+          path: release-mac/*
+          retention-days: 14
+
+      - name: Publish macOS Apps to Release v1.1.0
+        uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main'
+        with:
+          tag_name: v1.1.0
+          files: release-mac/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build-ios:
+    name: Build iOS iPhone IPA Package
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Make iOS build script executable
+        run: chmod +x ios/build_ipa.sh
+
+      - name: Build iOS IPA Package
+        run: ./ios/build_ipa.sh
+
+      - name: Upload iOS Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: DailyWird-iOS-App-Package
+          path: release-ios/*
+          retention-days: 14
+
+      - name: Publish iOS App to Release v1.1.0
+        uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main'
+        with:
+          tag_name: v1.1.0
+          files: release-ios/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
 
 
