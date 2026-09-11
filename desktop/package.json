@@ -1,7 +1,7 @@
 {
-  "name": "dailywird-desktop",
-  "version": "1.1.0",
-  "description": "DailyWird - Islamic Companion Native Desktop Application",
+  "name": "noor-desktop",
+  "version": "1.2.0",
+  "description": "Noor - The All-in-One Quran & Islamic Suite",
   "homepage": "https://mj69077.github.io/newapp2026/",
   "main": "main.js",
   "author": "mj69077",
@@ -17,8 +17,8 @@
     "electron-builder": "^25.1.8"
   },
   "build": {
-    "appId": "com.dailywird.app",
-    "productName": "DailyWird",
+    "appId": "com.noor.app",
+    "productName": "Noor",
     "win": {
       "target": [
         "nsis",
@@ -31,7 +31,7 @@
       "allowToChangeInstallationDirectory": false,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "الورد اليومي"
+      "shortcutName": "نور | Noor"
     },
     "mac": {
       "category": "public.app-category.lifestyle",
@@ -42,7 +42,7 @@
       "identity": null
     },
     "dmg": {
-      "title": "DailyWird - الورد اليومي"
+      "title": "نور - Noor App"
     },
     "linux": {
       "category": "Utility",

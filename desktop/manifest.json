@@ -1,11 +1,11 @@
 {
-  "name": "الورد اليومي | DailyWird",
-  "short_name": "الورد اليومي",
-  "description": "الرفيق الإسلامي الشامل - مواقيت الصلاة، المصحف الشريف، الأذكار، والمسبحة",
+  "name": "نور | Noor",
+  "short_name": "نور",
+  "description": "نور - الرفيق القرآني والإسلامي الشامل ومحرك ترتيل الذكي",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#060D09",
-  "theme_color": "#060D09",
+  "background_color": "#121816",
+  "theme_color": "#0A382C",
   "orientation": "portrait-primary",
   "icons": [
     {

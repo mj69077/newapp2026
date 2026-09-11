@@ -1,4 +1,4 @@
-name: Build Android APK
+name: Build Android APK & Multi-Platform Packages
 
 on:
   push:
@@ -52,42 +52,66 @@ jobs:
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: IslamicApp-Debug-APK
+          name: Noor-Android-APK
           path: app/build/outputs/apk/debug/*.apk
           retention-days: 14
 
-      - name: Prepare Release APK Asset
+      - name: Prepare Release APK Assets
         run: |
+          cp app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/Noor-v1.2.0-Android.apk
+          cp app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/Noor-Android.apk
           cp app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/DailyWird-iOS-Edition.apk
 
-      - name: Publish New GitHub Release v1.1.0
+      - name: Publish New GitHub Release v1.2.0
         uses: softprops/action-gh-release@v2
         if: github.ref == 'refs/heads/main'
         with:
-          tag_name: v1.1.0
-          name: "DailyWird v1.1.0 (Apple iOS Edition)"
+          tag_name: v1.2.0
+          name: "Noor v1.2.0 | تطبيق نُور (Multi-Platform Ecosystem)"
           body: |
-            # 🌿 الورد اليومي - الإصدار الجديد v1.1.0 (Apple iOS Edition)
+            # 🌟 تطبيق نُور | Noor - الإصدار الجديد v1.2.0
+            ### المنظومة القرآنية والإسلامية الشاملة لكافة الأجهزة والأنظمة
+            **Windows • macOS • Linux • iOS (iPhone/iPad) • Android • Web App**
 
-            ### ✨ جديد هذا الإصدار:
-            - **إلغاء قسم الفتاوى بالكامل:** حذف كافة ملفات الفتاوى والشاتبوت والبيانات الفقهية وفق رغبة المستخدم.
-            - **ترقية تجربة المستخدم (UI/UX Pro Max):**
-              - إضافة مسبحة إلكترونية ذكية تفاعلية مع تفاعل لمسي واهتزاز ناعم.
-              - إضافة محاكي وعداد أشواط الطواف والسعي مع الأدعية المأثورة.
-              - إضافة مشغل صوتي لآيات التحصين والرقية الشرعية بدون إنترنت.
-              - نظام إشعارات عائم (Toast Notifications) تفاعلي عند نسخ الروابط وحفظ الأوراد.
-              - تحسين معايير الوصول الشامل والتباين اللوني ونظام الألوان الزجاجي الفاخر.
-            - **100% بدون إنترنت (Offline):** مجاني بالكامل لوجه الله تعالى دون أي إعلانات أو تتبع.
-          files: app/build/outputs/apk/debug/DailyWird-iOS-Edition.apk
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            ---
 
-      - name: Update Existing Release v1.0.0
-        uses: softprops/action-gh-release@v2
-        if: github.ref == 'refs/heads/main'
-        with:
-          tag_name: v1.0.0
-          files: app/build/outputs/apk/debug/DailyWird-iOS-Edition.apk
+            ### ✨ أبرز مميزات وتحديثات الإصدار v1.2.0:
+            - 🎨 **الهوية البصرية ونظام التصميم الجديد بالكامل (Design System & Visual Language):**
+              - ألوان فاخرة: الزمردي العميق (`#0A382C`)، الرمل الذهبي الدافئ (`#D4AF37`)، وأسود شاشات الأوليد (`#121816`).
+              - نمط هندسي إسلامي مائي خفيف (Geometric Watermark Background).
+              - مسار الشمس والقمر الفلكي الحي (Dynamic Celestial Arc) في الواجهة يعرض موقع الشمس الحقيقي وعداد الصلاة القادمة فلكياً.
+              - سبحة لمسية حركية تفاعلية بملء الشاشة مع حلقة تقدم دائرية وصوت نقر تركيبي واهتزاز ناعم (Haptic Feedback).
+              - بوصلة قبلة ثلاثية الأبعاد تفاعلية فائقة الدقة متصلة بحساسات الجيروسكوب.
+            - 🎙️ **استوديو ترتيل للبحث الصوتي ومراجعة الحفظ (Tarteel Voice Suite):**
+              - البحث الصوتي الفوري في القرآن الكريم بالذكاء الصوتي باللغة العربية.
+              - وضع إخفاء الآيات والكلمات (Blur & Memorization Mode) لاختبار الحفظ مع كشف الآية بالتلاوة أو النقر.
+            - 🧸 **روضة الأطفال والناشئة (Rawdat Al-Atfal):**
+              - تعليم أركان الإسلام الخمسة وأركان الإيمان الستة برسوم تفاعلية محببة.
+              - أذكار الصغار المصورة، وقصص الأنبياء، ومسابقة النجوم الذكية بنظام الأصوات التشجيعية.
+            - 📚 **المعجم القرآني الموضوعي (Thematic Quran Index):**
+              - تصفح الآيات مصنفة حسب مواضيع الحياة (الصبر، الرزق، بر الوالدين، التوبة، الجنة ونعيمها...).
+            - 💡 **التفسير الفوري للآيات (Instant Ayah Tafsir):**
+              - درج جانبي منزلق مخصص للتفسير الميسر ومعاني الكلمات دون الخروج من صفحة التلاوة.
+            - 🤲 **صيدلية الروح والأدعية الوجدانية (Situational Duas):**
+              - أدعية نبوية مأثورة مصنفة حسب المشاعر والاحتياجات اليومية.
+            - 🛡️ **جناح الرقية الشرعية الكاملة (Ruqyah Shariah):**
+              - آيات التحصين والشفاء الشاملة مع مشغل صوتي مدمج.
+            - 🗺️ **أطلس وخريطة السيرة النبوية (Prophetic Seerah Timeline):**
+              - خط زمني تفاعلي لمحطات السيرة العطرة من المولد النبوي حتى حجة الوداع.
+            - 📊 **المحاسبة اليومية ومجدول العادات (Daily Muhasaba & Habit Tracker):**
+              - متابعة الفرائض والنوافل وسلسلة الالتزام (Streak Counter).
+            - 🔔 **المنبه الذكي والأذكار الدورية (Ambient Dhikr Reminder):**
+              - تنبيه دوري بالاستغفار والصلاة على النبي ﷺ كل 15 / 30 / 60 دقيقة.
+            - 💾 **النسخ الاحتياطي السحابي والمحلي (JSON Backup & Restore):**
+              - إمكانية تصدير واستيراد بيانات التطبيق بنقرة واحدة.
+
+            ---
+            **🔒 خصوصية مطلقة: 100% بدون إنترنت (Offline) • خالي تماماً من الإعلانات والتتبع • مجاني لوجه الله تعالى**
+          files: |
+            app/build/outputs/apk/debug/app-debug.apk
+            app/build/outputs/apk/debug/Noor-v1.2.0-Android.apk
+            app/build/outputs/apk/debug/Noor-Android.apk
+            app/build/outputs/apk/debug/DailyWird-iOS-Edition.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -124,21 +148,30 @@ jobs:
           Get-ChildItem desktop/dist/*.exe | ForEach-Object {
             Write-Host "Found build output: $($_.FullName)"
             Copy-Item $_.FullName -Destination release-dist/ -Force
+            if ($_.Name -like "*Setup*") {
+              Copy-Item $_.FullName -Destination "release-dist/Noor-v1.2.0-Windows-Setup.exe" -Force
+              Copy-Item $_.FullName -Destination "release-dist/Noor.Setup.1.2.0.exe" -Force
+              Copy-Item $_.FullName -Destination "release-dist/DailyWird.Setup.1.1.0.exe" -Force
+            } else {
+              Copy-Item $_.FullName -Destination "release-dist/Noor-v1.2.0-Windows-Portable.exe" -Force
+              Copy-Item $_.FullName -Destination "release-dist/Noor.1.2.0.exe" -Force
+              Copy-Item $_.FullName -Destination "release-dist/DailyWird.1.1.0.exe" -Force
+            }
           }
           Get-ChildItem release-dist/
 
       - name: Upload Windows Desktop Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: DailyWird-Windows-Desktop-Apps
+          name: Noor-Windows-Desktop-Apps
           path: release-dist/*.exe
           retention-days: 14
 
-      - name: Publish Windows Apps to Release v1.1.0
+      - name: Publish Windows Apps to Release v1.2.0
         uses: softprops/action-gh-release@v2
         if: github.ref == 'refs/heads/main'
         with:
-          tag_name: v1.1.0
+          tag_name: v1.2.0
           files: release-dist/*.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -169,10 +202,14 @@ jobs:
         run: |
           mkdir -p release-mac
           for f in $(find desktop/dist -maxdepth 2 -type f -name "*.dmg"); do
+            cp "$f" release-mac/Noor-v1.2.0-macOS-Universal.dmg
+            cp "$f" release-mac/Noor-macOS-Universal.dmg
             cp "$f" release-mac/DailyWird-macOS-Universal.dmg
             cp "$f" release-mac/
           done
           for f in $(find desktop/dist -maxdepth 2 -type f -name "*.zip"); do
+            cp "$f" release-mac/Noor-v1.2.0-macOS-Universal.zip
+            cp "$f" release-mac/Noor-macOS-Universal.zip
             cp "$f" release-mac/DailyWird-macOS-Universal.zip
             cp "$f" release-mac/
           done
@@ -181,15 +218,15 @@ jobs:
       - name: Upload macOS Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: DailyWird-macOS-Desktop-Apps
+          name: Noor-macOS-Desktop-Apps
           path: release-mac/*
           retention-days: 14
 
-      - name: Publish macOS Apps to Release v1.1.0
+      - name: Publish macOS Apps to Release v1.2.0
         uses: softprops/action-gh-release@v2
         if: github.ref == 'refs/heads/main'
         with:
-          tag_name: v1.1.0
+          tag_name: v1.2.0
           files: release-mac/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -210,15 +247,15 @@ jobs:
       - name: Upload iOS Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: DailyWird-iOS-App-Package
+          name: Noor-iOS-App-Package
           path: release-ios/*
           retention-days: 14
 
-      - name: Publish iOS App to Release v1.1.0
+      - name: Publish iOS App to Release v1.2.0
         uses: softprops/action-gh-release@v2
         if: github.ref == 'refs/heads/main'
         with:
-          tag_name: v1.1.0
+          tag_name: v1.2.0
           files: release-ios/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -247,10 +284,14 @@ jobs:
         run: |
           mkdir -p release-linux
           for f in $(find desktop/dist -maxdepth 2 -type f -name "*.AppImage"); do
+            cp "$f" release-linux/Noor-v1.2.0-Linux.AppImage
+            cp "$f" release-linux/Noor-Linux.AppImage
             cp "$f" release-linux/DailyWird-Linux.AppImage
             cp "$f" release-linux/
           done
           for f in $(find desktop/dist -maxdepth 2 -type f -name "*.deb"); do
+            cp "$f" release-linux/Noor-v1.2.0-Linux-amd64.deb
+            cp "$f" release-linux/Noor-Linux-amd64.deb
             cp "$f" release-linux/DailyWird-Linux-amd64.deb
             cp "$f" release-linux/
           done
@@ -259,20 +300,15 @@ jobs:
       - name: Upload Linux Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: DailyWird-Linux-Desktop-Packages
+          name: Noor-Linux-Desktop-Packages
           path: release-linux/*
           retention-days: 14
 
-      - name: Publish Linux Apps to Release v1.1.0
+      - name: Publish Linux Apps to Release v1.2.0
         uses: softprops/action-gh-release@v2
         if: github.ref == 'refs/heads/main'
         with:
-          tag_name: v1.1.0
+          tag_name: v1.2.0
           files: release-linux/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-
-
-
-

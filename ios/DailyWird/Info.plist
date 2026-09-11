@@ -5,7 +5,7 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>ar</string>
     <key>CFBundleDisplayName</key>
-    <string>الورد اليومي</string>
+    <string>نور | Noor</string>
     <key>CFBundleExecutable</key>
     <string>DailyWird</string>
     <key>CFBundleIdentifier</key>
@@ -13,13 +13,13 @@
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>
-    <string>DailyWird</string>
+    <string>Noor</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
-    <string>1.1.0</string>
+    <string>1.2.0</string>
     <key>CFBundleVersion</key>
-    <string>1.1.0</string>
+    <string>1.2.0</string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
     <key>UIRequiredDeviceCapabilities</key>
@@ -38,6 +38,10 @@
     <array>
         <string>audio</string>
     </array>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>يستخدم تطبيق نور الميكروفون للبحث الصوتي في القرآن الكريم ومطابقة التلاوة في استوديو ترتيل</string>
+    <key>NSSpeechRecognitionUsageDescription</key>
+    <string>يستخدم تطبيق نور ميزة التعرف الصوتي لمطابقة الآيات وتسهيل الحفظ والتلاوة</string>
     <key>NSAppTransportSecurity</key>
     <dict>
         <key>NSAllowsArbitraryLoads</key>

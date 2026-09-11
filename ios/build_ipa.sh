@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env bash
+#!/usr/bin/env bash
 set -e
 
 echo "=== Building DailyWird iOS Application ==="
@@ -53,9 +53,11 @@ cd ..
 
 mkdir -p release-ios
 cp DailyWird-iOS.ipa release-ios/DailyWird-iOS.ipa
+cp DailyWird-iOS.ipa release-ios/Noor-iOS.ipa
 
 echo "Packaging Xcode project bundle..."
 zip -r release-ios/DailyWird-iOS-Source.zip ios/
+cp release-ios/DailyWird-iOS-Source.zip release-ios/Noor-iOS-Source.zip
 
 echo "=== iOS IPA Build Complete ==="
 ls -lh release-ios/
