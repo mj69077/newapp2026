@@ -58,58 +58,56 @@ jobs:
 
       - name: Prepare Release APK Assets
         run: |
-          cp app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/Noor-v1.2.0-Android.apk
+          cp app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/Noor-v1.3.0-Android.apk
           cp app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/Noor-Android.apk
           cp app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/DailyWird-iOS-Edition.apk
 
-      - name: Publish New GitHub Release v1.2.0
+      - name: Publish New GitHub Release v1.3.0
         uses: softprops/action-gh-release@v2
         if: github.ref == 'refs/heads/main'
         with:
-          tag_name: v1.2.0
-          name: "Noor v1.2.0 | تطبيق نُور (Multi-Platform Ecosystem)"
+          tag_name: v1.3.0
+          name: "Noor v1.3.0 | تطبيق نُور (Multi-Platform Ecosystem)"
           body: |
-            # 🌟 تطبيق نُور | Noor - الإصدار الجديد v1.2.0
+            # 🌟 تطبيق نُور | Noor - الإصدار الذهبي الشامل v1.3.0
             ### المنظومة القرآنية والإسلامية الشاملة لكافة الأجهزة والأنظمة
-            **Windows • macOS • Linux • iOS (iPhone/iPad) • Android • Web App**
+            **Windows • macOS • Linux • iOS (iPhone/iPad) • Android • Web PWA**
 
             ---
 
-            ### ✨ أبرز مميزات وتحديثات الإصدار v1.2.0:
-            - 🎨 **الهوية البصرية ونظام التصميم الجديد بالكامل (Design System & Visual Language):**
-              - ألوان فاخرة: الزمردي العميق (`#0A382C`)، الرمل الذهبي الدافئ (`#D4AF37`)، وأسود شاشات الأوليد (`#121816`).
-              - نمط هندسي إسلامي مائي خفيف (Geometric Watermark Background).
-              - مسار الشمس والقمر الفلكي الحي (Dynamic Celestial Arc) في الواجهة يعرض موقع الشمس الحقيقي وعداد الصلاة القادمة فلكياً.
-              - سبحة لمسية حركية تفاعلية بملء الشاشة مع حلقة تقدم دائرية وصوت نقر تركيبي واهتزاز ناعم (Haptic Feedback).
-              - بوصلة قبلة ثلاثية الأبعاد تفاعلية فائقة الدقة متصلة بحساسات الجيروسكوب.
-            - 🎙️ **استوديو ترتيل للبحث الصوتي ومراجعة الحفظ (Tarteel Voice Suite):**
-              - البحث الصوتي الفوري في القرآن الكريم بالذكاء الصوتي باللغة العربية.
-              - وضع إخفاء الآيات والكلمات (Blur & Memorization Mode) لاختبار الحفظ مع كشف الآية بالتلاوة أو النقر.
-            - 🧸 **روضة الأطفال والناشئة (Rawdat Al-Atfal):**
-              - تعليم أركان الإسلام الخمسة وأركان الإيمان الستة برسوم تفاعلية محببة.
-              - أذكار الصغار المصورة، وقصص الأنبياء، ومسابقة النجوم الذكية بنظام الأصوات التشجيعية.
-            - 📚 **المعجم القرآني الموضوعي (Thematic Quran Index):**
-              - تصفح الآيات مصنفة حسب مواضيع الحياة (الصبر، الرزق، بر الوالدين، التوبة، الجنة ونعيمها...).
-            - 💡 **التفسير الفوري للآيات (Instant Ayah Tafsir):**
-              - درج جانبي منزلق مخصص للتفسير الميسر ومعاني الكلمات دون الخروج من صفحة التلاوة.
-            - 🤲 **صيدلية الروح والأدعية الوجدانية (Situational Duas):**
-              - أدعية نبوية مأثورة مصنفة حسب المشاعر والاحتياجات اليومية.
-            - 🛡️ **جناح الرقية الشرعية الكاملة (Ruqyah Shariah):**
-              - آيات التحصين والشفاء الشاملة مع مشغل صوتي مدمج.
-            - 🗺️ **أطلس وخريطة السيرة النبوية (Prophetic Seerah Timeline):**
-              - خط زمني تفاعلي لمحطات السيرة العطرة من المولد النبوي حتى حجة الوداع.
-            - 📊 **المحاسبة اليومية ومجدول العادات (Daily Muhasaba & Habit Tracker):**
-              - متابعة الفرائض والنوافل وسلسلة الالتزام (Streak Counter).
-            - 🔔 **المنبه الذكي والأذكار الدورية (Ambient Dhikr Reminder):**
-              - تنبيه دوري بالاستغفار والصلاة على النبي ﷺ كل 15 / 30 / 60 دقيقة.
-            - 💾 **النسخ الاحتياطي السحابي والمحلي (JSON Backup & Restore):**
-              - إمكانية تصدير واستيراد بيانات التطبيق بنقرة واحدة.
+            ### ✨ أبرز مميزات وتحديثات الإصدار v1.3.0:
+            - 🛰️ **تحديد الموقع الفضائي الدقيق (Universal Cross-Platform GPS):**
+              - دعم كامل ومتكامل لنظام تحديد المواقع GPS عبر المتصفحات، هواتف iOS وAndroid، وأنظمة سطح المكتب Electron.
+              - حساب فلكي دقيق لاتجاه القبلة باستخدام حساب المثلثات الكروي (Spherical Trigonometry) ومواقيت الصلاة حسب الإحداثيات الفعلية.
+              - شريط معلوماتي حي (GPS Telemetry Banner) يعرض الإحداثيات والارتفاع والسرعة ومستوى الدقة بالأمتار.
+            - 🗄️ **محرك قواعد البيانات المحلي المتقدم (NoorDB via IndexedDB):**
+              - قاعدة بيانات محلية هيكلية حقيقية بديلة عن التخزين البسيط، تدعم 7 مستودعات بيانات (Object Stores): الختمات، سجلات التسبيح، خواطر التدبر، سجل الاستخارة، جدول المحاسبة، الأحاديث، والإعدادات.
+              - معاملات غير متزامنة (Async Promise Transactions) مع إمكانية التصدير والاستيراد الفوري للبيانات بأمان تام.
+            - 🎨 **المصحف الملون بأحكام التجويد (Interactive Tajweed Quran):**
+              - تلوين قياسي معتمد لأحكام التجويد: أحكام المدود، النون الساكنة والغنة والإخفاء، القلقلة، الإدغام، والتفخيم والترقيق.
+              - بطاقة تعريفية تفاعلية منبثقة عند النقر على أي حكم تشرح اسم الحكم ومقدار مده مع نغمة صوتية تعليمية.
+            - 🎬 **صانع حالات وقصص الأذكار الرأسية (Islamic Reels & Story Motion Maker 9:16):**
+              - استوديو تصميم حالات إنستغرام وواتساب وتيك توك بدقة عمودية 9:16 بنقرة واحدة مع لمعان ذهبي وجسيمات متحركة.
+            - 🤲 **رفيق صلاة الاستخارة والصلوات الخاصة (Salat Al-Istikhara Companion):**
+              - دليل تفاعلي خطوة بخطوة لكيفية صلاة الاستخارة، مع دعاء الاستخارة النبوي الصوتي وميزة "سجل استخاراتي" المحفوظة في NoorDB، وأدلة صلوات الجنازة والعيدين والكسوف والتراويح.
+            - 🧭 **أطلس الحرمين الشريفين التفاعلي (Haramain 3D Isometric Atlas & Virtual Tour):**
+              - خريطة تفاعلية أيزومترية 2.5D للمسجد الحرام والمسجد النبوي الشريف مع معالم تفصيلية استكشافية.
+            - 📝 **سجل التدبر القرآني الشخصي (Personal Quran Reflection Journal):**
+              - توثيق الخواطر التدبرية مباشرة عند أي آية قرآنية وربطها بالوسوم واستعراضها من سجل التدبر.
+            - 🚗 **وضع القيادة والسفر الآمن (Hands-Free Driving & Travel Mode):**
+              - واجهة قيادة ليلية خاصة بملء الشاشة مع أزرار لمسية عملاقة ودعاء السفر الصوتي التلقائي وعداد سرعة GPS.
+            - ⚖️ **حاسبة زكاة الذهب والفضة اللحظية (Live Gold & Silver Zakat Engine):**
+              - حساب شرعي دقيق لزكاة الذهب والفضة مع التحقق التلقائي من بلوغ النصاب الشرعي.
+            - 📜 **مكتبة الأحاديث الصحاح وسنة اليوم المهجورة (Authentic Hadith Vault & Daily Sunan):**
+              - محفظة أحاديث مصنفة من صحيح البخاري ومسلم وبطاقة يومية لإحياء سنن النبي ﷺ المهجورة وسلسلة التزام في NoorDB.
+            - 🌿 **صيدلية الطب النبوي والغذاء المبارك (Prophetic Medicine & Nutrition Guide):**
+              - دليل تفاعلي للأغذية والأعشاب النبوية المباركة مدعمة بالأحاديث والفوائد الطبية.
 
             ---
             **🔒 خصوصية مطلقة: 100% بدون إنترنت (Offline) • خالي تماماً من الإعلانات والتتبع • مجاني لوجه الله تعالى**
           files: |
             app/build/outputs/apk/debug/app-debug.apk
-            app/build/outputs/apk/debug/Noor-v1.2.0-Android.apk
+            app/build/outputs/apk/debug/Noor-v1.3.0-Android.apk
             app/build/outputs/apk/debug/Noor-Android.apk
             app/build/outputs/apk/debug/DailyWird-iOS-Edition.apk
         env:
@@ -149,12 +147,14 @@ jobs:
             Write-Host "Found build output: $($_.FullName)"
             Copy-Item $_.FullName -Destination release-dist/ -Force
             if ($_.Name -like "*Setup*") {
-              Copy-Item $_.FullName -Destination "release-dist/Noor-v1.2.0-Windows-Setup.exe" -Force
-              Copy-Item $_.FullName -Destination "release-dist/Noor.Setup.1.2.0.exe" -Force
+              Copy-Item $_.FullName -Destination "release-dist/Noor-v1.3.0-Windows-Setup.exe" -Force
+              Copy-Item $_.FullName -Destination "release-dist/Noor-Windows-Setup.exe" -Force
+              Copy-Item $_.FullName -Destination "release-dist/Noor.Setup.1.3.0.exe" -Force
               Copy-Item $_.FullName -Destination "release-dist/DailyWird.Setup.1.1.0.exe" -Force
             } else {
-              Copy-Item $_.FullName -Destination "release-dist/Noor-v1.2.0-Windows-Portable.exe" -Force
-              Copy-Item $_.FullName -Destination "release-dist/Noor.1.2.0.exe" -Force
+              Copy-Item $_.FullName -Destination "release-dist/Noor-v1.3.0-Windows-Portable.exe" -Force
+              Copy-Item $_.FullName -Destination "release-dist/Noor-Windows-Portable.exe" -Force
+              Copy-Item $_.FullName -Destination "release-dist/Noor.1.3.0.exe" -Force
               Copy-Item $_.FullName -Destination "release-dist/DailyWird.1.1.0.exe" -Force
             }
           }
@@ -167,11 +167,11 @@ jobs:
           path: release-dist/*.exe
           retention-days: 14
 
-      - name: Publish Windows Apps to Release v1.2.0
+      - name: Publish Windows Apps to Release v1.3.0
         uses: softprops/action-gh-release@v2
         if: github.ref == 'refs/heads/main'
         with:
-          tag_name: v1.2.0
+          tag_name: v1.3.0
           files: release-dist/*.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -202,13 +202,13 @@ jobs:
         run: |
           mkdir -p release-mac
           for f in $(find desktop/dist -maxdepth 2 -type f -name "*.dmg"); do
-            cp "$f" release-mac/Noor-v1.2.0-macOS-Universal.dmg
+            cp "$f" release-mac/Noor-v1.3.0-macOS-Universal.dmg
             cp "$f" release-mac/Noor-macOS-Universal.dmg
             cp "$f" release-mac/DailyWird-macOS-Universal.dmg
             cp "$f" release-mac/
           done
           for f in $(find desktop/dist -maxdepth 2 -type f -name "*.zip"); do
-            cp "$f" release-mac/Noor-v1.2.0-macOS-Universal.zip
+            cp "$f" release-mac/Noor-v1.3.0-macOS-Universal.zip
             cp "$f" release-mac/Noor-macOS-Universal.zip
             cp "$f" release-mac/DailyWird-macOS-Universal.zip
             cp "$f" release-mac/
@@ -222,11 +222,11 @@ jobs:
           path: release-mac/*
           retention-days: 14
 
-      - name: Publish macOS Apps to Release v1.2.0
+      - name: Publish macOS Apps to Release v1.3.0
         uses: softprops/action-gh-release@v2
         if: github.ref == 'refs/heads/main'
         with:
-          tag_name: v1.2.0
+          tag_name: v1.3.0
           files: release-mac/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -251,11 +251,11 @@ jobs:
           path: release-ios/*
           retention-days: 14
 
-      - name: Publish iOS App to Release v1.2.0
+      - name: Publish iOS App to Release v1.3.0
         uses: softprops/action-gh-release@v2
         if: github.ref == 'refs/heads/main'
         with:
-          tag_name: v1.2.0
+          tag_name: v1.3.0
           files: release-ios/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -284,13 +284,13 @@ jobs:
         run: |
           mkdir -p release-linux
           for f in $(find desktop/dist -maxdepth 2 -type f -name "*.AppImage"); do
-            cp "$f" release-linux/Noor-v1.2.0-Linux.AppImage
+            cp "$f" release-linux/Noor-v1.3.0-Linux.AppImage
             cp "$f" release-linux/Noor-Linux.AppImage
             cp "$f" release-linux/DailyWird-Linux.AppImage
             cp "$f" release-linux/
           done
           for f in $(find desktop/dist -maxdepth 2 -type f -name "*.deb"); do
-            cp "$f" release-linux/Noor-v1.2.0-Linux-amd64.deb
+            cp "$f" release-linux/Noor-v1.3.0-Linux-amd64.deb
             cp "$f" release-linux/Noor-Linux-amd64.deb
             cp "$f" release-linux/DailyWird-Linux-amd64.deb
             cp "$f" release-linux/
@@ -304,11 +304,11 @@ jobs:
           path: release-linux/*
           retention-days: 14
 
-      - name: Publish Linux Apps to Release v1.2.0
+      - name: Publish Linux Apps to Release v1.3.0
         uses: softprops/action-gh-release@v2
         if: github.ref == 'refs/heads/main'
         with:
-          tag_name: v1.2.0
+          tag_name: v1.3.0
           files: release-linux/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

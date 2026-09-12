@@ -54,6 +54,7 @@ cd ..
 mkdir -p release-ios
 cp DailyWird-iOS.ipa release-ios/DailyWird-iOS.ipa
 cp DailyWird-iOS.ipa release-ios/Noor-iOS.ipa
+cp DailyWird-iOS.ipa release-ios/Noor-v1.3.0-iOS.ipa
 
 echo "Packaging Xcode project bundle..."
 zip -r release-ios/DailyWird-iOS-Source.zip ios/

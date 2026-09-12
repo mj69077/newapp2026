@@ -4,8 +4,8 @@
 ### المنظومة القرآنية والإسلامية الشاملة لكافة الأجهزة والأنظمة
 **Windows • macOS • Linux • iOS (iPhone/iPad) • Android • Web App (PWA)**
 
-[![GitHub Release](https://img.shields.io/github/v/release/mj69077/newapp2026?style=for-the-badge&color=0A382C&logo=github)](https://github.com/mj69077/newapp2026/releases/tag/v1.2.0)
-[![Platforms](https://img.shields.io/badge/المنصات-Windows%20|%20macOS%20|%20Linux%20|%20iOS%20|%20Android-D4AF37?style=for-the-badge)](https://github.com/mj69077/newapp2026/releases/tag/v1.2.0)
+[![GitHub Release](https://img.shields.io/github/v/release/mj69077/newapp2026?style=for-the-badge&color=0A382C&logo=github)](https://github.com/mj69077/newapp2026/releases/tag/v1.3.0)
+[![Platforms](https://img.shields.io/badge/المنصات-Windows%20|%20macOS%20|%20Linux%20|%20iOS%20|%20Android-D4AF37?style=for-the-badge)](https://github.com/mj69077/newapp2026/releases/tag/v1.3.0)
 [![Offline](https://img.shields.io/badge/أوفلاين-100%25%20بدون%20إنترنت-10B981?style=for-the-badge&logo=icloud)](https://github.com/mj69077/newapp2026)
 [![Free](https://img.shields.io/badge/الترخيص-مجاني%20100%25%20لوجه%20الله-D4AF37?style=for-the-badge)](https://github.com/mj69077/newapp2026)
 [![No Ads](https://img.shields.io/badge/الإعلانات-0%25%20بدون%20أي%20إعلانات-EF4444?style=for-the-badge)](https://github.com/mj69077/newapp2026)
@@ -13,7 +13,7 @@
 
 ---
 
-### 🌐 [الموقع الرسمي المباشر](https://mj69077.github.io/newapp2026/) • 🎮 [مختبر المحاكاة التفاعلي أونلاين](https://mj69077.github.io/newapp2026/simulator.html) • ⚡ [تطبيق الويب الفوري (PWA)](https://mj69077.github.io/newapp2026/app.html) • 📥 [صفحة الإصدارات (Releases)](https://github.com/mj69077/newapp2026/releases/tag/v1.2.0)
+### 🌐 [الموقع الرسمي المباشر](https://mj69077.github.io/newapp2026/) • 🎮 [مختبر المحاكاة التفاعلي أونلاين](https://mj69077.github.io/newapp2026/simulator.html) • ⚡ [تطبيق الويب الفوري (PWA)](https://mj69077.github.io/newapp2026/app.html) • 📥 [صفحة الإصدارات (Releases)](https://github.com/mj69077/newapp2026/releases/tag/v1.3.0)
 
 <p align="center">
   <b>«نُور | Noor»</b> منظومة إسلامية وقرآنية متكاملة مصممة بأرقى معايير التصميم الزمردي الملكي <b>(Deep Emerald & Warm Sand Design System)</b> مع ترسانة برمجية وإيمانية شاملة تضم: المصحف الشريف المرتل كاملاً مع التفسير الفوري، استوديو ترتيل الصوتي لمراجعة وتثبيت الحفظ، روضة الأطفال والناشئة لتعليم أركان الإسلام والإيمان، المعجم القرآني الموضوعي، صيدلية الروح والأدعية الوجدانية، رقية الشفاء، أطلس السيرة النبوية، ومواقيت الصلاة الفلكية الدقيقة، ليعمل بكفاءة مطلقة وأصيلة على كافة الحواسيب والهواتف الذكية.
@@ -25,7 +25,7 @@
 
 ## 📑 فهرس المحتويات (Table of Contents)
 
-1. [📥 جدول روابط التحميل المباشرة لجميع المنصات (v1.2.0)](#-جدول-روابط-التحميل-المباشرة-لجميع-المنصات-v120)
+1. [📥 جدول روابط التحميل المباشرة لجميع المنصات (v1.3.0)](#-جدول-روابط-التحميل-المباشرة-لجميع-المنصات-v120)
 2. [🎨 نظام التصميم والهوية البصرية (Design System)](#-نظام-التصميم-والهوية-البصرية-design-system)
 3. [✨ ترسانة الميزات الإسلامية الـ 10 الكبرى](#-ترسانة-الميزات-الإسلامية-الـ-10-الكبرى)
 4. [⚙️ مركز الإعدادات وتغيير المدينة الفلكي الشامل](#️-مركز-الإعدادات-وتغيير-المدينة-الفلكي-الشامل)
@@ -37,23 +37,81 @@
 
 ---
 
-## 📥 جدول روابط التحميل المباشرة لجميع المنصات (v1.2.0)
+## 📥 جدول روابط التحميل المباشرة لجميع المنصات (v1.3.0)
 
-جميع الحزم مبنية سحابياً بأحدث إصدار رسمي **v1.2.0** ومرفوعة رسمياً على خوادم GitHub:
+جميع الحزم مبنية سحابياً بأحدث إصدار رسمي **v1.3.0** ومرفوعة رسمياً على خوادم GitHub:
 
 | المنصة والنظام | نوع الحزمة | المعمارية المدعومة | رابط التحميل المباشر |
 | :--- | :--- | :--- | :--- |
-| 💻 **كمبيوتر ويندوز** | **برنامج تثبيت رسمي (Setup Installer)** | Windows 10 / 11 (x64 / x86) | [📥 تحميل Noor-v1.2.0-Windows-Setup.exe](https://github.com/mj69077/newapp2026/releases/download/v1.2.0/Noor-v1.2.0-Windows-Setup.exe) |
-| 💻 **كمبيوتر ويندوز** | **نسخة محمولة فورية (Portable EXE)** | Windows 10 / 11 (بدون تثبيت) | [📥 تحميل Noor-v1.2.0-Windows-Portable.exe](https://github.com/mj69077/newapp2026/releases/download/v1.2.0/Noor-v1.2.0-Windows-Portable.exe) |
-| 🍏 **أجهزة ماك (macOS)** | **حزمة تثبيت قرصية (Universal DMG)** | Apple Silicon (M1/M2/M3/M4) & Intel | [📥 تحميل Noor-v1.2.0-macOS-Universal.dmg](https://github.com/mj69077/newapp2026/releases/download/v1.2.0/Noor-v1.2.0-macOS-Universal.dmg) |
-| 🍏 **أجهزة ماك (macOS)** | **نسخة مضغوطة محمولة (ZIP Archive)** | Apple Silicon & Intel Universal | [📥 تحميل Noor-v1.2.0-macOS-Universal.zip](https://github.com/mj69077/newapp2026/releases/download/v1.2.0/Noor-v1.2.0-macOS-Universal.zip) |
-| 🐧 **أنظمة لينكس** | **حزمة AppImage (كافة التوزيعات)** | Ubuntu, Fedora, Arch, Debian, Mint | [📥 تحميل Noor-v1.2.0-Linux.AppImage](https://github.com/mj69077/newapp2026/releases/download/v1.2.0/Noor-v1.2.0-Linux.AppImage) |
-| 🐧 **أنظمة لينكس** | **حزمة دبيان وأوبونتو (DEB Package)** | Debian / Ubuntu / Linux Mint (amd64) | [📥 تحميل Noor-v1.2.0-Linux-amd64.deb](https://github.com/mj69077/newapp2026/releases/download/v1.2.0/Noor-v1.2.0-Linux-amd64.deb) |
-| 📱 **هواتف آيفون (iOS)** | **حزمة التطبيق الكاملة (Native IPA)** | iOS 15+ (AltStore / Scarlet / Sideloadly) | [📥 تحميل Noor-iOS.ipa](https://github.com/mj69077/newapp2026/releases/download/v1.2.0/Noor-iOS.ipa) |
+| 💻 **كمبيوتر ويندوز** | **برنامج تثبيت رسمي (Setup Installer)** | Windows 10 / 11 (x64 / x86) | [📥 تحميل Noor-v1.3.0-Windows-Setup.exe](https://github.com/mj69077/newapp2026/releases/download/v1.3.0/Noor-v1.3.0-Windows-Setup.exe) |
+| 💻 **كمبيوتر ويندوز** | **نسخة محمولة فورية (Portable EXE)** | Windows 10 / 11 (بدون تثبيت) | [📥 تحميل Noor-v1.3.0-Windows-Portable.exe](https://github.com/mj69077/newapp2026/releases/download/v1.3.0/Noor-v1.3.0-Windows-Portable.exe) |
+| 🍏 **أجهزة ماك (macOS)** | **حزمة تثبيت قرصية (Universal DMG)** | Apple Silicon (M1/M2/M3/M4) & Intel | [📥 تحميل Noor-v1.3.0-macOS-Universal.dmg](https://github.com/mj69077/newapp2026/releases/download/v1.3.0/Noor-v1.3.0-macOS-Universal.dmg) |
+| 🍏 **أجهزة ماك (macOS)** | **نسخة مضغوطة محمولة (ZIP Archive)** | Apple Silicon & Intel Universal | [📥 تحميل Noor-v1.3.0-macOS-Universal.zip](https://github.com/mj69077/newapp2026/releases/download/v1.3.0/Noor-v1.3.0-macOS-Universal.zip) |
+| 🐧 **أنظمة لينكس** | **حزمة AppImage (كافة التوزيعات)** | Ubuntu, Fedora, Arch, Debian, Mint | [📥 تحميل Noor-v1.3.0-Linux.AppImage](https://github.com/mj69077/newapp2026/releases/download/v1.3.0/Noor-v1.3.0-Linux.AppImage) |
+| 🐧 **أنظمة لينكس** | **حزمة دبيان وأوبونتو (DEB Package)** | Debian / Ubuntu / Linux Mint (amd64) | [📥 تحميل Noor-v1.3.0-Linux-amd64.deb](https://github.com/mj69077/newapp2026/releases/download/v1.3.0/Noor-v1.3.0-Linux-amd64.deb) |
+| 📱 **هواتف آيفون (iOS)** | **حزمة التطبيق الكاملة (Native IPA)** | iOS 15+ (AltStore / Scarlet / Sideloadly) | [📥 تحميل Noor-iOS.ipa](https://github.com/mj69077/newapp2026/releases/download/v1.3.0/Noor-iOS.ipa) |
 | 📱 **هواتف آيفون (iOS)** | **تثبيت فوري للشاشة الرئيسية (PWA)** | متصفح Safari بدون جلبريك | [⚡ فتح التطبيق في Safari (app.html)](https://mj69077.github.io/newapp2026/app.html) |
-| 🤖 **أجهزة أندرويد** | **حزمة أندرويد المباشرة (Direct APK)** | Android 7.0 إلى Android 15+ | [📥 تحميل Noor-v1.2.0-Android.apk](https://github.com/mj69077/newapp2026/releases/download/v1.2.0/Noor-v1.2.0-Android.apk) |
+| 🤖 **أجهزة أندرويد** | **حزمة أندرويد المباشرة (Direct APK)** | Android 7.0 إلى Android 15+ | [📥 تحميل Noor-v1.3.0-Android.apk](https://github.com/mj69077/newapp2026/releases/download/v1.3.0/Noor-v1.3.0-Android.apk) |
 
 ---
+
+
+---
+
+## 🌟 روائع الإصدار الذهبي الجديد (Noor v1.3.0)
+
+يأتي الإصدار **v1.3.0** بقفزة تقنية وإيمانية استثنائية تشمل محرك تحديد مواقع فضائي حقيقي، قاعدة بيانات محلية هيكلية، واستوديو وسائط متكامل:
+
+### 1. 🛰️ تحديد الموقع الفضائي الدقيق الشامل (Universal Cross-Platform GPS)
+* **تغطية شاملة لكافة المنصات:** يعمل تلقائياً عبر المتصفحات (PWA)، تطبيقات الهواتف (iOS / Android)، وتطبيقات سطح المكتب (Windows / macOS / Linux Electron).
+* **حسابات فلكية كروية دقيقة (Spherical Trigonometry):** اتجاه القبلة اللحظي الدقيق، زاوية الانحراف، وحساب أوقات الصلاة وفق الإحداثيات الفعلية لخط الطول والعرض.
+* **شريط القياس عن بُعد (GPS Telemetry Banner):** يعرض اسم المدينة أو أقرب عاصمة بنظام Haversine، الارتفاع عن سطح البحر، سرعة الحركة، ومستوى دقة الأقمار الصناعية بالأمتار.
+
+### 2. 🗄️ محرك قواعد البيانات المحلي المتقدم (NoorDB via IndexedDB)
+* **بنية بيانات حقيقية غير متزامنة:** الانتقال من التخزين النصي البسيط إلى قاعدة بيانات محلية كاملة تدعم 7 مستودعات بيانات كائنية (`khatmahs`, `tasbih_records`, `quran_reflections`, `istikhara_logs`, `muhasaba_habits`, `hadith_sunan`, `user_settings`).
+* **معاملات آمنة ذرية (Atomic Transactions):** حفظ فوري مع حماية ضد فقدان البيانات ودعم التصدير والاستيراد المباشر بنسق JSON.
+
+### 3. 🎨 المصحف الملون التفاعلي بأحكام التجويد (Interactive Tajweed Quran)
+* **تلوين قياسي معتمد لجميع أحكام التجويد:**
+  * أحكام المدود (المد اللازم، الواجب المتصل، الجائز المنفصل) بالأحمر والبرتقالي.
+  * النون الساكنة والتنوين (الإخفاء والغنة) باللون الأخضر الزمردي.
+  * القلقلة (قطب جد) بالأزرق السماوي.
+  * الإدغام بنوعيه (بغنة وبغير غنة) بالتدرجات المعتمدة.
+* **دليل التجويد التفاعلي المباشر:** اضغط على أي حكم لقراءة تفصيل الحكم ومقدار مده بالحركات مع الاستماع لنغمة تعليمية مولدة عبر Web Audio API.
+
+### 4. 🎬 صانع حالات وقصص الأذكار الرأسية (Islamic Reels & Story Maker 9:16)
+* **استوديو تصميم فوري للحالات:** إنشاء ستوريات وريلز عالية الدقة بنسبة 9:16 متوافقة تماماً مع Instagram, WhatsApp Status, TikTok.
+* **مؤثرات بصرية وصوتية حية:** لمعان ذهبي متحرك، جسيمات نورانية تفاعلية، تشغيل خلفي للأدعية، وتصدير مباشر بصيغة WebM / MP4 أوفلاين.
+
+### 5. 🤲 رفيق صلاة الاستخارة والصلوات الخاصة (Salat Al-Istikhara Companion)
+* **دليل تفاعلي مرئي لصلاة الاستخارة:** خطوات الصلاة، وقتها، والدعاء النبوي المأثور مضبوطاً بالشكل مع التلاوة الصوتية.
+* **سجل استخاراتي الخاص (Istikhara Journal):** توثيق كل استخارة (الأمر المستخار فيه، التاريخ، الشعور والقرار) وحفظها في قاعدة NoorDB.
+* **أدلة الصلوات الجامعة:** صلاة الجنازة، صلاة الكسوف والخسوف، صلاة العيدين، وصلاة التراويح والوتر.
+
+### 6. 🧭 أطلس الحرمين الشريفين التفاعلي (Haramain 3D Isometric Atlas)
+* **خريطة أيزومترية تفاعلية 2.5D:** للمسجد الحرام بمكة المكرمة والمسجد النبوي بالمدينة المنورة.
+* **استكشاف المعالم المباركة:** الكعبة المشرفة، مقام إبراهيم، حجر إسماعيل، الصفا والمروة، بئر زمزم، الروضة الشريفة، المنبر والمحراب النبوي مع بطاقات توثيقية تاريخية وفقهية.
+
+### 7. 📝 سجل التدبر القرآني الشخصي (Personal Quran Reflection Journal)
+* **تدوين الخواطر عند كل آية:** زر «تدبر ✍️» يتيح تسجيل الفوائد والوقفات الإيمانية وربطها بالوسوم (`#دعاء`، `#هداية`، `#عمل`).
+* **استعراض وتصدير التدبرات:** تصفح كافة الخواطر المدونة والبحث فيها ومشاركتها.
+
+### 8. 🚗 وضع قيادة السيارة والسفر الآمن (Hands-Free Driving & Travel Mode)
+* **واجهة قيادة ليلية آمنة بملء الشاشة:** أزرار عملاقة تمنع تشتيت الانتباه أثناء القيادة.
+* **تشغيل تلقائي لدعاء السفر:** قراءة صوتية فورية لدعاء ركوب الدابة والسفر عند تفعيل الوضع.
+* **شاشة معلومات ذكية:** عرض سرعة المركبة الحية، اتجاه السير، ومسافة الطريق عبر نظام GPS.
+
+### 9. ⚖️ حاسبة زكاة الذهب والفضة اللحظية (Live Gold & Silver Zakat Engine)
+* **حساب شرعي دقيق:** حساب زكاة الذهب لعيار 24، عيار 21، وعيار 18، وزكاة الفضة والسبائك.
+* **التحقق من بلوغ النصاب الشرعي:** تنبيه فوري إذا بلغ الذهب نصاب 85 جراماً (عيار 24) أو الفضة نصاب 595 جراماً مع احتساب نسبة 2.5% من القيمة.
+
+### 10. 📜 محفظة الأحاديث الصحاح وسنة اليوم المهجورة (Authentic Hadith Vault & Daily Sunan)
+* **مكتبة حديثية شاملة:** أحاديث صحيحة من صحيح البخاري، صحيح مسلم، الأربعين النووية، ورياض الصالحين.
+* **سنة اليوم النبوية المهجورة:** بطاقة يومية متجددة تعرض سنة نبوية كريمة مع عداد التزام وسلسلة متصلة محفوظة في قاعدة بيانات NoorDB.
+
+### 11. 🌿 صيدلية الطب النبوي والغذاء المبارك (Prophetic Medicine & Nutrition Guide)
+* **دليل الأغذية النبوية الشافية:** بطاقات استكشافية لتمر العجوة، زيت الزيتون، عسل النحل، الحبة السوداء، التلبينة، القسط الهندي، ماء زمزم، والتين والسدر.
+* **الربط بين السنة والعلم:** استعراض الأحاديث الواردة في كل غذاء وفوائده الطبية والعلاجية المثبتة.
 
 ## 🎨 نظام التصميم والهوية البصرية (Design System)
 
@@ -156,23 +214,23 @@
 ## 📱 تعليمات التثبيت والتشغيل لكل نظام
 
 ### 💻 1. ويندوز (Windows 10 / 11):
-* **المثبت الرسمي:** نزّل ملف [Noor-v1.2.0-Windows-Setup.exe](https://github.com/mj69077/newapp2026/releases/download/v1.2.0/Noor-v1.2.0-Windows-Setup.exe) وافتحه للتثبيت التلقائي وإنشاء اختصارات بسطح المكتب.
-* **النسخة المحمولة:** نزّل ملف [Noor-v1.2.0-Windows-Portable.exe](https://github.com/mj69077/newapp2026/releases/download/v1.2.0/Noor-v1.2.0-Windows-Portable.exe) وشغّله فوراً دون تثبيت (يعمل من فلاش USB).
+* **المثبت الرسمي:** نزّل ملف [Noor-v1.3.0-Windows-Setup.exe](https://github.com/mj69077/newapp2026/releases/download/v1.3.0/Noor-v1.3.0-Windows-Setup.exe) وافتحه للتثبيت التلقائي وإنشاء اختصارات بسطح المكتب.
+* **النسخة المحمولة:** نزّل ملف [Noor-v1.3.0-Windows-Portable.exe](https://github.com/mj69077/newapp2026/releases/download/v1.3.0/Noor-v1.3.0-Windows-Portable.exe) وشغّله فوراً دون تثبيت (يعمل من فلاش USB).
 
 ### 🍏 2. ماك (macOS - أجهزة M1/M2/M3/M4 وأجهزة Intel):
-1. نزّل حزمة [Noor-v1.2.0-macOS-Universal.dmg](https://github.com/mj69077/newapp2026/releases/download/v1.2.0/Noor-v1.2.0-macOS-Universal.dmg).
+1. نزّل حزمة [Noor-v1.3.0-macOS-Universal.dmg](https://github.com/mj69077/newapp2026/releases/download/v1.3.0/Noor-v1.3.0-macOS-Universal.dmg).
 2. انقر نقراً مزدوجاً واسحب أيقونة «نور» إلى مجلد **Applications**.
 3. *ملاحظة للأمان لأول مرة:* إذا ظهرت رسالة الأمان، افتح System Settings -> Privacy & Security واضغط **Open Anyway**.
 
 ### 🐧 3. لينكس (Linux - كافة التوزيعات):
 * **تشغيل AppImage (تعمل فوراً على أي توزيعة):**
   ```bash
-  chmod +x Noor-v1.2.0-Linux.AppImage
-  ./Noor-v1.2.0-Linux.AppImage
+  chmod +x Noor-v1.3.0-Linux.AppImage
+  ./Noor-v1.3.0-Linux.AppImage
   ```
 * **تثبيت حزمة DEB (أوبونتو ودبيان ومينت):**
   ```bash
-  sudo dpkg -i Noor-v1.2.0-Linux-amd64.deb
+  sudo dpkg -i Noor-v1.3.0-Linux-amd64.deb
   sudo apt-get install -f
   ```
 
@@ -182,10 +240,10 @@
   2. اضغط على زر **المشاركة (Share ⬆️)** أسفل الشاشة.
   3. اختر **«إضافة إلى الشاشة الرئيسية» (Add to Home Screen)**.
 * **تثبيت حزمة IPA المباشرة (Sideloading):**
-  * نزّل ملف [Noor-iOS.ipa](https://github.com/mj69077/newapp2026/releases/download/v1.2.0/Noor-iOS.ipa) وثبّته عبر **AltStore** أو **Scarlet** أو **TrollStore** أو **Sideloadly**.
+  * نزّل ملف [Noor-iOS.ipa](https://github.com/mj69077/newapp2026/releases/download/v1.3.0/Noor-iOS.ipa) وثبّته عبر **AltStore** أو **Scarlet** أو **TrollStore** أو **Sideloadly**.
 
 ### 🤖 5. أندرويد (Android):
-* نزّل ملف [Noor-v1.2.0-Android.apk](https://github.com/mj69077/newapp2026/releases/download/v1.2.0/Noor-v1.2.0-Android.apk)، وافتحه للموافقة على التثبيت وسيعمل فوراً.
+* نزّل ملف [Noor-v1.3.0-Android.apk](https://github.com/mj69077/newapp2026/releases/download/v1.3.0/Noor-v1.3.0-Android.apk)، وافتحه للموافقة على التثبيت وسيعمل فوراً.
 
 ---
 

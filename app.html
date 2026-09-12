@@ -9,7 +9,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#0A382C">
     <link rel="manifest" href="manifest.json">
-    <title>نور | Noor - الرفيق القرآني والإسلامي الشامل</title>
+    <title>نُور | Noor v1.3.0 - المنظومة القرآنية والإسلامية الشاملة</title>
     
     <!-- Design System Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1539,6 +1539,405 @@
                 grid-template-columns: repeat(3, 1fr);
             }
         }
+        /* =========================================================
+           NOOR v1.3.0 DESIGN SYSTEM EXTENSIONS & COMPONENTS
+           ========================================================= */
+        
+        /* 1. Tajweed Rules Color Tokens & Popover */
+        .tj-rule {
+            cursor: pointer;
+            padding: 1px 4px;
+            border-radius: 4px;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-block;
+            line-height: 1.6;
+        }
+        .tj-rule:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            filter: brightness(1.25);
+        }
+        .tj-madd { color: #FF4D4D !important; font-weight: 700; border-bottom: 2px solid #FF4D4D; }
+        .tj-ghunnah { color: #2DD4BF !important; font-weight: 700; border-bottom: 2px solid #2DD4BF; }
+        .tj-qalqalah { color: #38BDF8 !important; font-weight: 700; border-bottom: 2px solid #38BDF8; }
+        .tj-idgham { color: #FACC15 !important; font-weight: 700; border-bottom: 2px solid #FACC15; }
+        .tj-ikhfa { color: #4ADE80 !important; font-weight: 700; border-bottom: 2px solid #4ADE80; }
+        .tj-tafkhim { color: #C084FC !important; font-weight: 700; border-bottom: 2px solid #C084FC; }
+
+        .tajweed-legend-bar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            background: rgba(10, 56, 44, 0.45);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+            padding: 12px 18px;
+            margin-bottom: 16px;
+            align-items: center;
+        }
+        .tj-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 6px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.2s;
+        }
+        .tj-legend-item:hover {
+            border-color: var(--warm-sand);
+        }
+        .tj-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .tajweed-popover {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(160%);
+            background: rgba(18, 24, 22, 0.97);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--warm-sand);
+            border-radius: var(--radius-lg);
+            padding: 22px 26px;
+            max-width: 540px;
+            width: 90%;
+            z-index: 11000;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.85), 0 0 30px rgba(212, 175, 55, 0.3);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .tajweed-popover.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* 2. Universal GPS Telemetry Card */
+        .gps-telemetry-box {
+            background: linear-gradient(135deg, rgba(10, 56, 44, 0.65), rgba(18, 24, 22, 0.9));
+            border: 1px solid rgba(45, 212, 191, 0.35);
+            border-radius: var(--radius-md);
+            padding: 18px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 14px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+        .gps-live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 14px;
+            border-radius: var(--pill-radius);
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid #10B981;
+            color: #34D399;
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+        .gps-pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #10B981;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #10B981;
+            animation: pulse-gps 1.6s infinite ease-in-out;
+        }
+        @keyframes pulse-gps {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.4); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.6; }
+        }
+        .gps-stat-col {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .gps-stat-lbl {
+            font-size: 0.72rem;
+            color: var(--text-tertiary);
+        }
+        .gps-stat-val {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: var(--warm-sand);
+            font-family: var(--font-latin);
+        }
+
+        /* 3. NoorDB Database Management UI */
+        .db-panel-card {
+            background: rgba(24, 34, 30, 0.88);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+            padding: 22px;
+            margin-top: 18px;
+        }
+        .db-stores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            margin: 18px 0;
+        }
+        .db-store-badge {
+            background: rgba(10, 56, 44, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-sm);
+            padding: 14px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+        .db-store-badge:hover {
+            border-color: var(--warm-sand);
+            transform: translateY(-2px);
+        }
+        .db-store-num {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--warm-sand);
+            font-family: var(--font-latin);
+        }
+
+        /* 4. Haramain 3D Isometric Atlas */
+        .isometric-stage {
+            background: radial-gradient(circle at center, #0e1c16 0%, #080d0a 100%);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .isometric-svg-canvas {
+            width: 100%;
+            max-width: 820px;
+            height: 480px;
+            filter: drop-shadow(0 15px 35px rgba(0,0,0,0.7));
+        }
+        .iso-hotspot {
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .iso-hotspot:hover {
+            filter: brightness(1.4) drop-shadow(0 0 14px #D4AF37);
+        }
+        .iso-card-drawer {
+            margin-top: 20px;
+            background: rgba(18, 24, 22, 0.95);
+            border: 1px solid var(--warm-sand);
+            border-radius: var(--radius-md);
+            padding: 22px;
+            width: 100%;
+            max-width: 820px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+
+        /* 5. Islamic Reels & Stories Maker (9:16) */
+        .reels-workspace {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+        @media (max-width: 900px) {
+            .reels-workspace { grid-template-columns: 1fr; }
+        }
+        .reels-phone-mockup {
+            width: 320px;
+            height: 568px;
+            background: #000000;
+            border-radius: 36px;
+            border: 3px solid #2a3d34;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 25px rgba(10, 56, 44, 0.5);
+            overflow: hidden;
+            position: relative;
+            margin: 0 auto;
+        }
+        .reels-canvas-render {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* 6. Salat Al-Istikhara & Special Prayers */
+        .istikhara-step-card {
+            background: rgba(24, 34, 30, 0.85);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+            padding: 18px;
+            margin-bottom: 14px;
+            position: relative;
+            padding-right: 56px;
+        }
+        .istikhara-step-num {
+            position: absolute;
+            right: 16px;
+            top: 16px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--deep-emerald);
+            color: var(--warm-sand);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.85rem;
+            border: 1px solid var(--warm-sand);
+        }
+        .istikhara-log-item {
+            background: rgba(14, 22, 18, 0.7);
+            border-right: 4px solid var(--warm-sand);
+            border-radius: var(--radius-sm);
+            padding: 14px 18px;
+            margin-bottom: 12px;
+        }
+
+        /* 7. Quran Reflection Journal & Tag Chips */
+        .tag-chip {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: var(--pill-radius);
+            font-size: 0.78rem;
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--warm-sand);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            margin-left: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .tag-chip.active {
+            background: var(--warm-sand);
+            color: #000;
+            font-weight: 700;
+        }
+
+        /* Reflection Drawer/Modal */
+        .reflection-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.95);
+            background: rgba(18, 24, 22, 0.98);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--warm-sand);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            max-width: 600px;
+            width: 90%;
+            z-index: 11500;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.9), 0 0 35px rgba(212, 175, 55, 0.25);
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+            transition: all 0.25s ease;
+        }
+        .reflection-modal.open {
+            display: flex;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* 8. Hands-Free Driving Mode Overlay */
+        .driving-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #060907;
+            z-index: 12000;
+            display: none;
+            flex-direction: column;
+            padding: 24px;
+            justify-content: space-between;
+        }
+        .driving-modal-overlay.open {
+            display: flex;
+        }
+        .driving-hud-card {
+            background: rgba(14, 24, 19, 0.95);
+            border: 2px solid var(--deep-emerald);
+            border-radius: 28px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(10, 56, 44, 0.4);
+        }
+        .driving-btn-giant {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--deep-emerald), #125543);
+            border: 2px solid var(--warm-sand);
+            color: #FFFFFF;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .driving-btn-giant:active {
+            transform: scale(0.92);
+        }
+
+        /* 9. Live Gold & Silver Zakat Engine */
+        .gold-calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+            margin: 16px 0;
+        }
+        .gold-input-card {
+            background: rgba(18, 26, 22, 0.7);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+            padding: 16px;
+        }
+
+        /* 10. Authentic Hadith & Daily Sunnah */
+        .sunnah-card-hero {
+            background: linear-gradient(135deg, rgba(10, 56, 44, 0.75), rgba(18, 34, 28, 0.95));
+            border: 1px solid var(--warm-sand);
+            border-radius: var(--radius-lg);
+            padding: 22px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 11. Prophetic Medicine Cards */
+        .prophetic-foods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .prophetic-food-card {
+            background: rgba(24, 34, 30, 0.85);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+        .prophetic-food-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--warm-sand);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
     </style>
 </head>
 <body>
@@ -1568,6 +1967,13 @@
         <div class="header-time">
             <span id="live-hijri"><i class="fa-solid fa-moon"></i> ٢٠ ربيع الأول ١٤٤٨ هـ</span>
             <span id="live-clock"><i class="fa-regular fa-clock"></i> ٠٤:٣٠ ص</span>
+            <button class="settings-quick-btn" onclick="detectGPSLocation()" title="تحديد الموقع الفلكي عبر الأقمار (GPS)">
+                <i class="fa-solid fa-satellite-dish"></i>
+                <span id="header-gps-text">GPS 🛰️</span>
+            </button>
+            <button class="settings-quick-btn" onclick="openDrivingMode()" title="وضع القيادة والسفر بدون لمس">
+                <i class="fa-solid fa-car"></i>
+            </button>
             <button class="settings-quick-btn" onclick="switchTab('settings')" title="تغيير المدينة والإعدادات">
                 <i class="fa-solid fa-location-dot"></i>
                 <span class="city-name-disp">مكة المكرمة</span>
@@ -1593,6 +1999,11 @@
                 <i class="fa-solid fa-microphone-lines"></i>
                 <span>استوديو ترتيل الذكي</span>
                 <span class="nav-badge-new">جديد AI</span>
+            </div>
+            <div class="nav-item" onclick="switchTab('haramain')">
+                <i class="fa-solid fa-kaaba"></i>
+                <span>أطلس الحرمين ثلاثي الأبعاد</span>
+                <span class="nav-badge-new">3D</span>
             </div>
             <div class="nav-item" onclick="switchTab('kids')">
                 <i class="fa-solid fa-child-reaching"></i>
@@ -1621,6 +2032,15 @@
                 <i class="fa-solid fa-shield-heart"></i>
                 <span>الرقية الشرعية التفاعلية</span>
             </div>
+            <div class="nav-item" onclick="switchTab('istikhara')">
+                <i class="fa-solid fa-hands-praying"></i>
+                <span>صلاة الاستخارة والصلوات</span>
+                <span class="nav-badge-new">شامل</span>
+            </div>
+            <div class="nav-item" onclick="switchTab('hadith')">
+                <i class="fa-solid fa-book-open"></i>
+                <span>الموسوعة الحديثية والسنن</span>
+            </div>
             <div class="nav-item" onclick="switchTab('seerah')">
                 <i class="fa-solid fa-map-location-dot"></i>
                 <span>أطلس السيرة النبوية</span>
@@ -1634,6 +2054,11 @@
             <div class="nav-item" onclick="switchTab('radio')">
                 <i class="fa-solid fa-radio"></i>
                 <span>إذاعات وتلاوات الحرمين</span>
+            </div>
+            <div class="nav-item" onclick="openDrivingMode()">
+                <i class="fa-solid fa-car"></i>
+                <span>وضع القيادة والسفر</span>
+                <span class="nav-badge-new">صوتي</span>
             </div>
             <div class="nav-item" onclick="switchTab('muhasaba')">
                 <i class="fa-solid fa-clipboard-check"></i>
@@ -1854,6 +2279,22 @@
                         <option value="minshawi">🎙️ الشيخ محمد صديق المنشاوي</option>
                         <option value="hussary">🎙️ الشيخ محمود خليل الحصري</option>
                     </select>
+                </div>
+
+                <!-- Tajweed Legend & Mode Bar (v1.3.0) -->
+                <div class="tajweed-legend-bar">
+                    <button class="pill-btn" id="tajweed-toggle-btn" onclick="toggleTajweedMode()">
+                        <i class="fa-solid fa-palette"></i> <span>مصحف التجويد الملون</span>
+                    </button>
+                    <button class="pill-btn" onclick="openReflectionsJournal()">
+                        <i class="fa-solid fa-pen-nib"></i> <span>دفتر تدبراتي القرآنية</span>
+                    </button>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-right: auto;">
+                        <span class="tj-legend-item" onclick="showTajweedRule('madd_muttasil')"><span class="tj-dot" style="background:#FF4D4D;"></span> مدود (أحمر)</span>
+                        <span class="tj-legend-item" onclick="showTajweedRule('ghunnah_noon')"><span class="tj-dot" style="background:#2DD4BF;"></span> غنة وإخفاء (أخضر)</span>
+                        <span class="tj-legend-item" onclick="showTajweedRule('qalqalah_qubra')"><span class="tj-dot" style="background:#38BDF8;"></span> قلقلة (أزرق)</span>
+                        <span class="tj-legend-item" onclick="showTajweedRule('idgham_bighunnah')"><span class="tj-dot" style="background:#FACC15;"></span> إدغام (ذهبي)</span>
+                    </div>
                 </div>
 
                 <div class="quran-container-grid" id="surahs-container">
@@ -2323,6 +2764,10 @@
                     <button class="pill-btn" onclick="switchToolSub('cards', this)"><i class="fa-solid fa-palette"></i> صانع البطاقات</button>
                     <button class="pill-btn" onclick="switchToolSub('tawaf', this)"><i class="fa-solid fa-kaaba"></i> عداد الطواف</button>
                     <button class="pill-btn" onclick="switchToolSub('qadaa', this)"><i class="fa-solid fa-clock-rotate-left"></i> سجل القضاء</button>
+                    <button class="pill-btn" onclick="switchToolSub('reels', this)"><i class="fa-solid fa-video"></i> صانع الحالات 9:16</button>
+                    <button class="pill-btn" onclick="switchToolSub('gold', this)"><i class="fa-solid fa-gem"></i> زكاة الذهب والفضة</button>
+                    <button class="pill-btn" onclick="switchToolSub('medicine', this)"><i class="fa-solid fa-seedling"></i> الطب النبوي</button>
+                    <button class="pill-btn" onclick="switchToolSub('reflections', this)"><i class="fa-solid fa-pen-nib"></i> دفتر تدبراتي</button>
                 </div>
 
                 <!-- Subtool 1: Zakat -->
@@ -2490,6 +2935,148 @@
             <!-- =========================================================
                  15. SETTINGS & DATA BACKUP HUB
                  ========================================================= -->
+                            <!-- Subtool 4: Islamic Reels & Story Motion Maker (v1.3.0) -->
+                <div class="tool-subview" id="tool-reels" style="display:none;">
+                    <div class="card" style="max-width: 900px; margin: 0 auto;">
+                        <div class="card-header">
+                            <div class="card-title"><i class="fa-solid fa-video"></i> صانع حالات وقصص الأذكار والآيات المتحركة (9:16 Reels)</div>
+                            <span class="wird-badge">دقة HD رأسية 9:16</span>
+                        </div>
+
+                        <div class="reels-workspace" style="margin-top: 16px;">
+                            <!-- Live Phone Mockup -->
+                            <div class="reels-phone-mockup">
+                                <canvas id="reels-canvas" class="reels-canvas-render" width="360" height="640"></canvas>
+                            </div>
+
+                            <!-- Reel Controls -->
+                            <div style="display: flex; flex-direction: column; gap: 12px;">
+                                <div>
+                                    <label class="setting-label">نص الآية أو الذكر المتحرك:</label>
+                                    <textarea id="reels-text-input" class="city-select" style="height: 80px; padding: 10px; font-family: var(--font-quran); font-size: 1.15rem; line-height: 1.8; resize: none;" oninput="drawReelFrame()">«أَلا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ»</textarea>
+                                </div>
+                                <div>
+                                    <label class="setting-label">التخريج / المرجع:</label>
+                                    <input type="text" id="reels-ref-input" class="city-select" value="سورة الرعد • آية ٢٨" oninput="drawReelFrame()">
+                                </div>
+                                <div class="grid-2">
+                                    <div>
+                                        <label class="setting-label">النمط الحركي:</label>
+                                        <select id="reels-motion-style" class="city-select" onchange="drawReelFrame()">
+                                            <option value="shimmer">✨ شروق وتوهج ذهبي</option>
+                                            <option value="fade">🎬 تلاشي وظهور سينمائي</option>
+                                            <option value="pulse">🕊️ نبض وسكينة روحية</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="setting-label">الخلفية اللونية:</label>
+                                        <select id="reels-bg-theme" class="city-select" onchange="drawReelFrame()">
+                                            <option value="emerald">🟢 الزمرد الملكي</option>
+                                            <option value="dark">⚫ سواد الكعبة (OLED)</option>
+                                            <option value="night">🔵 سماء التهجد</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+                                    <button class="btn-sand" onclick="startReelsMotionPreview()"><i class="fa-solid fa-play"></i> معاينة الحركة الحية</button>
+                                    <button class="btn-glass" onclick="downloadReelsPoster()"><i class="fa-solid fa-image"></i> تنزيل صورة الغلاف (PNG)</button>
+                                    <button class="btn-sand" onclick="recordAndDownloadReelsVideo()"><i class="fa-solid fa-download"></i> تصدير الفيديو (WebM/MP4)</button>
+                                </div>
+                                <p style="font-size: 0.78rem; color: var(--text-tertiary); margin-top: 4px;">
+                                    يعمل التصدير محلياً 100% داخل المتصفح عبر Web APIs لتوليد مقاطع ستوري/ريلز جاهزة للنشر فوراً.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subtool 5: Live Gold & Silver Zakat Engine (v1.3.0) -->
+                <div class="tool-subview" id="tool-gold" style="display:none;">
+                    <div class="card" style="max-width: 800px; margin: 0 auto;">
+                        <div class="card-header">
+                            <div class="card-title"><i class="fa-solid fa-gem"></i> حاسبة زكاة الذهب والفضة التفاعلية المتقدمة</div>
+                            <span class="wird-badge">نصاب الذهب ٨٥ جم (عيار ٢٤)</span>
+                        </div>
+
+                        <div class="gold-calc-grid">
+                            <div class="gold-input-card">
+                                <label class="setting-label">ذهب عيار ٢٤ (جرام):</label>
+                                <input type="number" id="gold-24" class="city-select" placeholder="٠ جم" oninput="calculateAdvancedZakat()">
+                            </div>
+                            <div class="gold-input-card">
+                                <label class="setting-label">ذهب عيار ٢١ (جرام):</label>
+                                <input type="number" id="gold-21" class="city-select" placeholder="٠ جم" oninput="calculateAdvancedZakat()">
+                            </div>
+                            <div class="gold-input-card">
+                                <label class="setting-label">ذهب عيار ١٨ (جرام):</label>
+                                <input type="number" id="gold-18" class="city-select" placeholder="٠ جم" oninput="calculateAdvancedZakat()">
+                            </div>
+                            <div class="gold-input-card">
+                                <label class="setting-label">الفضة الخالصة (جرام):</label>
+                                <input type="number" id="silver-grams" class="city-select" placeholder="٠ جم" oninput="calculateAdvancedZakat()">
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(10, 56, 44, 0.45); border: 1px solid var(--border-sand); border-radius: var(--radius-md); padding: 20px; margin-top: 14px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                                <div>
+                                    <div style="font-size: 0.85rem; color: var(--text-secondary);">إجمالي الوزن المعادل لذهب عيار ٢٤ الصافي:</div>
+                                    <div style="font-size: 1.6rem; font-weight: 800; color: var(--warm-sand); font-family: var(--font-latin);" id="total-pure-gold-weight">0.00 جم</div>
+                                </div>
+                                <div style="text-align: left;">
+                                    <div style="font-size: 0.85rem; color: var(--text-secondary);">حالة النصاب الشرعي:</div>
+                                    <span class="wird-badge" id="nisab-status-verdict" style="font-size: 0.95rem;">لم يبلغ النصاب (أقل من ٨٥ جم)</span>
+                                </div>
+                            </div>
+                            <div style="margin-top: 16px; border-top: 1px solid var(--border-glass); padding-top: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                                <div>
+                                    <div style="font-size: 0.85rem; color: var(--text-secondary);">مقدار زكاة الذهب الواجب إخراجها (وزناً):</div>
+                                    <div style="font-size: 1.4rem; font-weight: 800; color: #10B981; font-family: var(--font-latin);" id="zakat-gold-weight-due">0.00 جم</div>
+                                </div>
+                                <div style="font-size: 0.82rem; color: var(--text-tertiary); max-width: 320px;">
+                                    يجوز إخراجها ذهباً أو إخراج قيمتها نقداً بسعر جرام الذهب عيار ٢٤ يوم إخراج الزكاة.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subtool 6: Prophetic Medicine & Nutrition (v1.3.0) -->
+                <div class="tool-subview" id="tool-medicine" style="display:none;">
+                    <div class="card" style="max-width: 900px; margin: 0 auto;">
+                        <div class="card-header">
+                            <div class="card-title"><i class="fa-solid fa-seedling"></i> صيدلية الطب النبوي والأغذية القرآنية المباركة</div>
+                            <span class="wird-badge">الهدي الصحي والنبوي</span>
+                        </div>
+                        <p style="font-size: 0.88rem; color: var(--text-secondary); margin-top: 6px;">
+                            دليل موثق للأغذية والنباتات المذكورة في القرآن الكريم والسنة النبوية الصحيحة مع الفوائد الطبية المثبتة وطريقة التداوي الصحيحة.
+                        </p>
+                        <div class="prophetic-foods-grid" id="prophetic-foods-container">
+                            <!-- Injected via JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subtool 7: Quran Reflections Journal (NoorDB) -->
+                <div class="tool-subview" id="tool-reflections" style="display:none;">
+                    <div class="card" style="max-width: 850px; margin: 0 auto;">
+                        <div class="card-header">
+                            <div class="card-title"><i class="fa-solid fa-pen-nib"></i> دفتر تدبراتي القرآنية وملاحظاتي المحفوظة</div>
+                            <span class="wird-badge" id="reflections-count-badge">٠ تدبرات مسجلة</span>
+                        </div>
+                        <div style="display: flex; gap: 10px; margin: 14px 0; flex-wrap: wrap;">
+                            <input type="text" class="city-select" style="max-width: 320px; padding: 10px 14px;" id="reflections-search" placeholder="ابحث في خواطرك وتدبراتك..." onkeyup="filterReflectionsList()">
+                            <button class="pill-btn active" onclick="filterReflectionsTag('all', this)">الكل</button>
+                            <button class="pill-btn" onclick="filterReflectionsTag('#دعاء', this)">#دعاء</button>
+                            <button class="pill-btn" onclick="filterReflectionsTag('#هداية', this)">#هداية</button>
+                            <button class="pill-btn" onclick="filterReflectionsTag('#عزم_على_عمل', this)">#عزم_على_عمل</button>
+                        </div>
+                        <div id="reflections-list-container">
+                            <!-- Injected via JS from NoorDB -->
+                        </div>
+                    </div>
+                </div>
+
             <div class="view-panel" id="view-settings">
                 <div class="hero-banner">
                     <div>
@@ -2583,6 +3170,219 @@
                             <div class="wird-item"><span>كتم / تشغيل الصوتيات</span><span class="wird-badge">M</span></div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- =========================================================
+                 15. SALAT AL-ISTIKHARA & SPECIAL PRAYERS (v1.3.0 Feature)
+                 ========================================================= -->
+            <div class="view-panel" id="view-istikhara">
+                <div class="hero-banner">
+                    <div>
+                        <div class="hero-title"><i class="fa-solid fa-hands-praying"></i> رفيق صلاة الاستخارة والصلوات الخاصة</div>
+                        <div class="hero-subtitle">دليل فقهي وتطبيقي مصور لصلاة الاستخارة، صلاة الجنازة، صلاة الكسوف، صلاة العيدين، وصلاة التراويح مع سجل استخاراتي المحفوظ في NoorDB.</div>
+                    </div>
+                </div>
+
+                <div class="kids-category-tabs">
+                    <button class="pill-btn active" onclick="switchIstikharaSub('guide', this)"><i class="fa-solid fa-book-open"></i> كيفية صلاة الاستخارة</button>
+                    <button class="pill-btn" onclick="switchIstikharaSub('journal', this)"><i class="fa-solid fa-book-bookmark"></i> سجل استخاراتي (NoorDB)</button>
+                    <button class="pill-btn" onclick="switchIstikharaSub('special', this)"><i class="fa-solid fa-mosque"></i> الصلوات الخاصة وسننها</button>
+                </div>
+
+                <!-- Subview 1: Istikhara Guide -->
+                <div id="istikhara-sub-guide">
+                    <div class="grid-2">
+                        <div>
+                            <div class="istikhara-step-card">
+                                <div class="istikhara-step-num">١</div>
+                                <div style="font-weight: 800; color: var(--warm-sand); margin-bottom: 4px;">عقد النية والوضوء</div>
+                                <div style="font-size: 0.9rem; color: var(--text-secondary);">ينوي المسلم الاستخارة في الأمر المباح الذي تردد فيه (مثل: سفر، زواج، تجارة، عمل).</div>
+                            </div>
+                            <div class="istikhara-step-card">
+                                <div class="istikhara-step-num">٢</div>
+                                <div style="font-weight: 800; color: var(--warm-sand); margin-bottom: 4px;">صلاة ركعتين من غير الفريضة</div>
+                                <div style="font-size: 0.9rem; color: var(--text-secondary);">يصلي ركعتين نافلة، يقرأ فيهما بالفاتحة وما تيسر، ويستحب قراءة (الكافرون) في الأولى و(الإخلاص) في الثانية.</div>
+                            </div>
+                            <div class="istikhara-step-card">
+                                <div class="istikhara-step-num">٣</div>
+                                <div style="font-weight: 800; color: var(--warm-sand); margin-bottom: 4px;">الدعاء المأثور بعد السلام</div>
+                                <div style="font-size: 0.9rem; color: var(--text-secondary);">يرفع يديه بحمد الله والثناء عليه والصلاة على النبي ﷺ، ثم يقرأ الدعاء النبوي الشريف ويسمي حاجته.</div>
+                            </div>
+                            <div class="istikhara-step-card">
+                                <div class="istikhara-step-num">٤</div>
+                                <div style="font-weight: 800; color: var(--warm-sand); margin-bottom: 4px;">التوكل والمضي فيما تيسر</div>
+                                <div style="font-size: 0.9rem; color: var(--text-secondary);">يمضي في أمره متوكلاً على الله؛ فإن تيسر فهو الخير، وإن تعسر صرفه الله عنه، ولا يشترط رؤيا في المنام.</div>
+                            </div>
+                        </div>
+
+                        <!-- Dua Card -->
+                        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <div class="card-header">
+                                    <div class="card-title"><i class="fa-solid fa-scroll"></i> دعاء الاستخارة النبوي الشريف</div>
+                                    <button class="btn-glass" onclick="playIstikharaAudio()"><i class="fa-solid fa-volume-high"></i> استماع وترديد</button>
+                                </div>
+                                <div style="font-family: var(--font-quran); font-size: 1.35rem; line-height: 2.2; color: #FFFFFF; background: rgba(10, 56, 44, 0.35); border-radius: var(--radius-md); padding: 18px; border: 1px solid var(--border-sand); margin-top: 10px;">
+                                    «اللَّهُمَّ إِنِّي أَسْتَخِيرُكَ بِعِلْمِكَ، وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ، وَأَسْأَلُكَ مِنْ فَضْلِكَ الْعَظِيمِ، فَإِنَّكَ تَقْدِرُ وَلا أَقْدِرُ، وَتَعْلَمُ وَلا أَعْلَمُ، وَأَنْتَ عَلامُ الْغُيُوبِ. اللَّهُمَّ إِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الأَمْرَ <span style="color: var(--warm-sand); font-weight: bold;">(ويسمي حاجته)</span> خَيْرٌ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاقْدُرْهُ لِي وَيَسِّرْهُ لِي ثُمَّ بَارِكْ لِي فِيهِ، وَإِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الأَمْرَ شَرٌّ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاصْرِفْهُ عَنِّي وَاصْرِفْنِي عَنْهُ وَاقْدُرْ لِي الْخَيْرَ حَيْثُ كَانَ ثُمَّ أَرْضِنِي بِهِ».
+                                </div>
+                            </div>
+                            <div style="margin-top: 16px;">
+                                <button class="btn-sand" onclick="openNewIstikharaModal()" style="width: 100%;">
+                                    <i class="fa-solid fa-plus"></i> تدوين استخارة جديدة في سجلي الشخصي
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subview 2: Istikhara Journal (NoorDB) -->
+                <div id="istikhara-sub-journal" style="display: none;">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title"><i class="fa-solid fa-book-bookmark"></i> سجل استخاراتي المشفر محلياً (NoorDB)</div>
+                            <button class="btn-sand" onclick="openNewIstikharaModal()"><i class="fa-solid fa-plus"></i> استخارة جديدة</button>
+                        </div>
+                        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 6px;">
+                            سجل آمن وخاص لا يغادر جهازك أبداً، تدون فيه قراراتك المستخار لها وما انشرح له صدرك والنتائج لاحقاً.
+                        </p>
+                        <div id="istikhara-logs-container" style="margin-top: 16px;">
+                            <!-- Injected via JS from NoorDB -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subview 3: Special Prayers -->
+                <div id="istikhara-sub-special" style="display: none;">
+                    <div class="grid-2">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">⚰️ صلاة الجنازة وصفتها</div>
+                            </div>
+                            <div style="font-size: 0.9rem; line-height: 1.9; color: var(--text-secondary); margin-top: 8px;">
+                                <strong>أربع تكبيرات قائمة لا ركوع فيها ولا سجود:</strong><br>
+                                • <strong>التكبيرة الأولى:</strong> الاستعاذة وقراءة الفاتحة.<br>
+                                • <strong>التكبيرة الثانية:</strong> الصلاة الإبراهيمية على النبي ﷺ.<br>
+                                • <strong>التكبيرة الثالثة:</strong> الدعاء للميت: «اللهم اغفر له وارحمه وعافه واعف عنه وأكرم نزله ووسع مدخله...».<br>
+                                • <strong>التكبيرة الرابعة:</strong> دعاء لعامة المسلمين ثم تسليمة واحدة عن اليمين.
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">🌑 صلاة الكسوف والخسوف</div>
+                            </div>
+                            <div style="font-size: 0.9rem; line-height: 1.9; color: var(--text-secondary); margin-top: 8px;">
+                                <strong>سنة مؤكدة عند كسوف الشمس أو خسوف القمر:</strong><br>
+                                • ركعتان، في كل ركعة <strong>قيامان وقراءتان وركوعان وسجودان</strong>.<br>
+                                • يطيل فيها القراءة والركوع والسجود، والنداء لها «الصلاة جامعة».<br>
+                                • الإكثار من الاستغفار والصدقة والدعاء حتى ينجلي الكسوف.
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">🎉 صلاة العيدين الفضيلة</div>
+                            </div>
+                            <div style="font-size: 0.9rem; line-height: 1.9; color: var(--text-secondary); margin-top: 8px;">
+                                <strong>ركعتان بلا أذان ولا إقامة:</strong><br>
+                                • <strong>الركعة الأولى:</strong> تكبيرة الإحرام ثم ٦ أو ٧ تكبيرات زوائد قبل الفاتحة.<br>
+                                • <strong>الركعة الثانية:</strong> تكبيرة القيام ثم ٥ تكبيرات زوائد قبل الفاتحة.<br>
+                                • يعقب الصلاة خطبة العيد، ويستحب التهنئة والتوسعة على الأهل.
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">🌙 صلاة التراويح وقنوت الوتر</div>
+                            </div>
+                            <div style="font-size: 0.9rem; line-height: 1.9; color: var(--text-secondary); margin-top: 8px;">
+                                <strong>قيام الليل في رمضان المبارك:</strong><br>
+                                • تصلى مثنى مثنى (ركعتين ركعتين) ثم يختم بالوتر.<br>
+                                • قنوت الوتر: «اللهم اهدنا فيمن هديت، وعافنا فيمن عافيت، وتولنا فيمن توليت...».
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================================================
+                 16. HARAMAIN 3D ISOMETRIC ATLAS & VIRTUAL TOUR (v1.3.0)
+                 ========================================================= -->
+            <div class="view-panel" id="view-haramain">
+                <div class="hero-banner">
+                    <div>
+                        <div class="hero-title"><i class="fa-solid fa-kaaba"></i> أطلس الحرمين الشريفين التفاعلي ثلاثي الأبعاد</div>
+                        <div class="hero-subtitle">جولة بصرية واستكشاف تفاعلي لمعالم المسجد الحرام والمسجد النبوي الشريف وفضائلها والأدعية المستحبة عندها.</div>
+                    </div>
+                </div>
+
+                <div class="kids-category-tabs">
+                    <button class="pill-btn active" onclick="switchHaramainCity('makkah', this)">🕋 المسجد الحرام (مكة المكرمة)</button>
+                    <button class="pill-btn" onclick="switchHaramainCity('madinah', this)">🕌 المسجد النبوي (المدينة المنورة)</button>
+                </div>
+
+                <div class="isometric-stage">
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; justify-content: center;" id="haramain-pins-bar">
+                        <!-- Landmark Quick Filter Pins Injected via JS -->
+                    </div>
+
+                    <!-- 2.5D Isometric SVG Map -->
+                    <svg class="isometric-svg-canvas" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" id="haramain-svg">
+                        <!-- SVG content rendered dynamically via JS -->
+                    </svg>
+
+                    <!-- Landmark Detail Drawer -->
+                    <div class="iso-card-drawer" id="landmark-detail-drawer">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-glass); padding-bottom: 12px; margin-bottom: 12px;">
+                            <h3 style="color: var(--warm-sand); font-size: 1.3rem;" id="lm-title">الكعبة المشرفة (البيت العتيق)</h3>
+                            <span class="wird-badge" id="lm-category">قبلة المسلمين</span>
+                        </div>
+                        <p style="font-size: 0.95rem; line-height: 1.8; color: var(--text-secondary);" id="lm-desc">
+                            أول بيت وضع للناس في الأرض، بناها إبراهيم وإسماعيل عليهما السلام، قبلة صلاة المسلمين حول العالم ومطاف الحجاج والمعتمرين.
+                        </p>
+                        <div style="margin-top: 12px; background: rgba(10, 56, 44, 0.4); padding: 14px; border-radius: var(--radius-sm); border-right: 3px solid var(--warm-sand);" id="lm-dua-box">
+                            <strong style="color: var(--warm-sand);">الدعاء المستحب والفضل:</strong>
+                            <div style="font-family: var(--font-quran); font-size: 1.15rem; color: #FFFFFF; margin-top: 4px;" id="lm-dua-text">
+                                «رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنْتَ السَّمِيعُ الْعَلِيمُ وَتُبْ عَلَيْنَا إِنَّكَ أَنْتَ التَّوَّابُ الرَّحِيمُ»
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================================================
+                 17. AUTHENTIC HADITH VAULT & DAILY SUNAN (v1.3.0)
+                 ========================================================= -->
+            <div class="view-panel" id="view-hadith">
+                <!-- Daily Sunnah Widget Banner -->
+                <div class="sunnah-card-hero">
+                    <div style="display: inline-block; padding: 4px 14px; border-radius: var(--pill-radius); background: var(--deep-emerald); color: var(--warm-sand); font-size: 0.78rem; font-weight: 800; margin-bottom: 8px;">
+                        ✨ سُنّة نبوية مهجورة اليوم
+                    </div>
+                    <h2 style="font-size: 1.4rem; color: #FFFFFF; margin-bottom: 6px;" id="daily-sunnah-title">الترديد خلف المؤذن عند سماع الأذان</h2>
+                    <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.7; max-width: 800px;" id="daily-sunnah-desc">
+                        قال رسول الله ﷺ: «إِذَا سَمِعْتُمُ الْمُؤَذِّنَ فَقُولُوا مِثْلَ مَا يَقُولُ، ثُمَّ صَلُّوا عَلَيَّ... ثُمَّ سَلُوا اللَّهَ لِيَ الْوَسِيلَةَ». نيل شفاعة الحبيب ﷺ وغفران الذنوب.
+                    </p>
+                    <div style="margin-top: 14px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                        <button class="btn-sand" onclick="markSunnahPracticedToday()" id="sunnah-check-btn">
+                            <i class="fa-solid fa-check"></i> طبقت هذه السنة اليوم بحمد الله ✅
+                        </button>
+                        <span style="font-size: 0.85rem; color: var(--warm-sand); font-weight: 700;" id="sunnah-streak-text">
+                            🔥 سلسلة إحياء السنن: ٠ أيام متتالية
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Hadith Categories & Search -->
+                <div style="display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;">
+                    <input type="text" class="city-select" style="max-width: 340px; padding: 12px 18px;" id="hadith-search" placeholder="ابحث في الأحاديث والسنن..." onkeyup="filterHadithLibrary()">
+                    <button class="pill-btn active" onclick="filterHadithCategory('all', this)">الكل</button>
+                    <button class="pill-btn" onclick="filterHadithCategory('faith', this)">الإيمان والتوحيد</button>
+                    <button class="pill-btn" onclick="filterHadithCategory('ethics', this)">مكارم الأخلاق</button>
+                    <button class="pill-btn" onclick="filterHadithCategory('nawawi', this)">الأربعون النووية</button>
+                    <button class="pill-btn" onclick="filterHadithCategory('riyad', this)">رياض الصالحين</button>
+                </div>
+
+                <div class="quran-container-grid" id="hadith-grid-container">
+                    <!-- Injected via JS -->
                 </div>
             </div>
 
@@ -2701,6 +3501,127 @@
     <!-- =========================================================
          APPLICATION ENGINE SCRIPT
          ========================================================= -->
+    <!-- =========================================================
+         NOOR v1.3.0 MODALS, OVERLAYS & SUBTOOLS
+         ========================================================= -->
+
+    <!-- 1. TAJWEED EXPLAINER POPOVER DRAWER -->
+    <div class="tajweed-popover" id="tajweed-popover">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="tj-dot" id="tj-pop-dot" style="background: #FF4D4D;"></span>
+                <strong style="color: var(--warm-sand); font-size: 1.15rem;" id="tj-pop-title">مد لازم كلمي مثقل</strong>
+            </div>
+            <button class="btn-glass" style="padding: 4px 10px;" onclick="closeTajweedPopover()">✕</button>
+        </div>
+        <p style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.7;" id="tj-pop-desc">
+            أن يأتي بعد حرف المد سكون أصلي مشدد في كلمة واحدة، وحكمه لزوم مده ٦ حركات اتفاقاً.
+        </p>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; background: rgba(10, 56, 44, 0.4); padding: 10px 14px; border-radius: var(--radius-sm);">
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">
+                مقدار المد: <strong style="color: var(--warm-sand);" id="tj-pop-harakat">٦ حركات (طويل)</strong>
+            </div>
+            <button class="btn-sand" style="padding: 5px 12px; font-size: 0.8rem;" onclick="playTajweedDemoTone()">
+                <i class="fa-solid fa-volume-high"></i> نغمة التقدير
+            </button>
+        </div>
+    </div>
+
+    <!-- 2. QURAN REFLECTION MODAL (NoorDB) -->
+    <div class="reflection-modal" id="reflection-modal">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-glass); padding-bottom: 10px;">
+            <h3 style="color: var(--warm-sand); font-size: 1.2rem;"><i class="fa-solid fa-pen-nib"></i> تدبر الآية وخاطرة شخصية</h3>
+            <button class="btn-glass" style="padding: 4px 10px;" onclick="closeReflectionModal()">✕</button>
+        </div>
+        <div style="font-family: var(--font-quran); font-size: 1.25rem; color: #FFFFFF; background: rgba(10, 56, 44, 0.35); padding: 14px; border-radius: var(--radius-sm); border-right: 3px solid var(--warm-sand);" id="ref-modal-ayah-text">
+            «إِنَّ مَعَ الْعُسْرِ يُسْرًا»
+        </div>
+        <div>
+            <label class="setting-label">ما الذي استوقف قلبك في هذه الآية؟ (خاطرة خاصة في جهازك):</label>
+            <textarea id="ref-modal-input" class="city-select" style="height: 100px; padding: 12px; font-family: inherit; font-size: 0.95rem; line-height: 1.6; resize: vertical;" placeholder="اكتب تأملك وخواطرك هنا..."></textarea>
+        </div>
+        <div>
+            <label class="setting-label">وسم التدبر:</label>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                <span class="tag-chip active" onclick="toggleTagChip(this)">#دعاء</span>
+                <span class="tag-chip" onclick="toggleTagChip(this)">#هداية</span>
+                <span class="tag-chip" onclick="toggleTagChip(this)">#عزم_على_عمل</span>
+                <span class="tag-chip" onclick="toggleTagChip(this)">#آية_أثرت_بي</span>
+                <span class="tag-chip" onclick="toggleTagChip(this)">#استغفار</span>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+            <button class="btn-glass" onclick="closeReflectionModal()">إلغاء</button>
+            <button class="btn-sand" onclick="saveCurrentReflection()"><i class="fa-solid fa-floppy-disk"></i> حفظ في سجل تدبراتي (NoorDB)</button>
+        </div>
+    </div>
+
+    <!-- 3. NEW ISTIKHARA MODAL -->
+    <div class="reflection-modal" id="istikhara-modal">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-glass); padding-bottom: 10px;">
+            <h3 style="color: var(--warm-sand); font-size: 1.2rem;"><i class="fa-solid fa-plus"></i> تدوين استخارة جديدة</h3>
+            <button class="btn-glass" style="padding: 4px 10px;" onclick="closeIstikharaModal()">✕</button>
+        </div>
+        <div>
+            <label class="setting-label">موضوع الاستخارة (مثال: وظيفة جديدة، مشروع تجاري، سفر):</label>
+            <input type="text" id="istikhara-title-input" class="city-select" placeholder="عنوان الأمر المستخار له...">
+        </div>
+        <div>
+            <label class="setting-label">تفاصيل الخاطرة والشعور المبدئي:</label>
+            <textarea id="istikhara-notes-input" class="city-select" style="height: 90px; padding: 12px; font-family: inherit; font-size: 0.95rem; resize: vertical;" placeholder="اكتب ما يدور في خاطرك وما انشرح له صدرك..."></textarea>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+            <button class="btn-glass" onclick="closeIstikharaModal()">إلغاء</button>
+            <button class="btn-sand" onclick="saveNewIstikharaEntry()"><i class="fa-solid fa-check"></i> حفظ الاستخارة في NoorDB</button>
+        </div>
+    </div>
+
+    <!-- 4. FULLSCREEN HANDS-FREE DRIVING & TRAVEL MODE OVERLAY -->
+    <div class="driving-modal-overlay" id="driving-overlay">
+        <!-- Top Bar -->
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <span class="gps-live-badge"><i class="fa-solid fa-car-side"></i> وضع القيادة والسفر</span>
+                <span style="font-size: 0.9rem; color: var(--warm-sand);" id="driving-speed-disp">🛰️ GPS نشط</span>
+            </div>
+            <button class="btn-sand" style="padding: 8px 18px; border-radius: var(--pill-radius); font-weight: 800;" onclick="closeDrivingMode()">
+                ✕ خروج من وضع القيادة
+            </button>
+        </div>
+
+        <!-- Center HUD Area -->
+        <div class="driving-hud-card">
+            <div style="font-size: 1.1rem; color: var(--warm-sand); font-weight: 700; margin-bottom: 8px;" id="driving-current-mode">
+                🤲 دعاء السفر المأثور
+            </div>
+            <div style="font-family: var(--font-quran); font-size: 2.2rem; line-height: 2.2; color: #FFFFFF; max-width: 900px; margin: 0 auto;" id="driving-main-text">
+                «سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ»
+            </div>
+            <div style="font-size: 1rem; color: var(--text-secondary); margin-top: 12px;" id="driving-sub-text">
+                «اللَّهُمَّ إِنَّا نَسْأَلُكَ فِي سَفَرِنَا هَذَا الْبِرَّ وَالتَّقْوَى، وَمِنَ الْعَمَلِ مَا تَرْضَى»
+            </div>
+        </div>
+
+        <!-- Giant Navigation Controls -->
+        <div style="display: flex; justify-content: center; align-items: center; gap: 28px; margin-bottom: 20px;">
+            <button class="driving-btn-giant" onclick="drivingPrevItem()" title="السابق"><i class="fa-solid fa-backward-step"></i></button>
+            <button class="driving-btn-giant" style="width: 120px; height: 120px; font-size: 2.8rem; background: linear-gradient(135deg, #D4AF37, #F3DC87); color: #000;" onclick="drivingTogglePlay()" id="driving-play-btn" title="تشغيل / إيقاف">
+                <i class="fa-solid fa-play"></i>
+            </button>
+            <button class="driving-btn-giant" onclick="drivingNextItem()" title="التالي"><i class="fa-solid fa-forward-step"></i></button>
+        </div>
+
+        <!-- Voice Command Bar -->
+        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(14, 24, 19, 0.8); border-radius: var(--radius-md); padding: 12px 20px; border: 1px solid var(--border-glass);">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-microphone" style="color: var(--warm-sand);"></i>
+                <span style="font-size: 0.85rem; color: var(--text-secondary);">أوامر صوتية بدون لمس: قل "التالي"، "أذكار المساء"، "تشغيل"، "وقف"</span>
+            </div>
+            <button class="btn-glass" style="font-size: 0.8rem; padding: 4px 12px;" onclick="drivingSpeakCurrent()">🔊 استماع صوتي</button>
+        </div>
+    </div>
+
+
     <script>
         // Web Audio API Synthesizer
         const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -2798,6 +3719,933 @@
                 if (el) el.style.display = (k === subId) ? 'block' : 'none';
             });
         }
+
+                // =========================================================
+        // NOOR v1.3.0 ENGINE MODULES
+        // =========================================================
+
+        // 1. NOORDB: EMBEDDED INDEXEDDB ENGINE
+        const NoorDB = {
+            dbName: 'NoorAppDB_v130',
+            version: 1,
+            db: null,
+            async init() {
+                return new Promise((resolve, reject) => {
+                    const req = indexedDB.open(this.dbName, this.version);
+                    req.onupgradeneeded = (e) => {
+                        const db = e.target.result;
+                        if (!db.objectStoreNames.contains('khatmahs')) {
+                            db.createObjectStore('khatmahs', { keyPath: 'id', autoIncrement: true });
+                        }
+                        if (!db.objectStoreNames.contains('tasbih_records')) {
+                            const st = db.createObjectStore('tasbih_records', { keyPath: 'id', autoIncrement: true });
+                            st.createIndex('timestamp', 'timestamp', { unique: false });
+                        }
+                        if (!db.objectStoreNames.contains('quran_reflections')) {
+                            const st = db.createObjectStore('quran_reflections', { keyPath: 'id', autoIncrement: true });
+                            st.createIndex('timestamp', 'timestamp', { unique: false });
+                        }
+                        if (!db.objectStoreNames.contains('istikhara_logs')) {
+                            const st = db.createObjectStore('istikhara_logs', { keyPath: 'id', autoIncrement: true });
+                            st.createIndex('timestamp', 'timestamp', { unique: false });
+                        }
+                        if (!db.objectStoreNames.contains('muhasaba_habits')) {
+                            db.createObjectStore('muhasaba_habits', { keyPath: 'date' });
+                        }
+                        if (!db.objectStoreNames.contains('hadith_sunan')) {
+                            db.createObjectStore('hadith_sunan', { keyPath: 'id' });
+                        }
+                        if (!db.objectStoreNames.contains('user_settings')) {
+                            db.createObjectStore('user_settings', { keyPath: 'key' });
+                        }
+                    };
+                    req.onsuccess = (e) => {
+                        this.db = e.target.result;
+                        this.updateStatusUI();
+                        resolve(this.db);
+                    };
+                    req.onerror = (e) => {
+                        console.error('NoorDB failed to open:', e);
+                        resolve(null);
+                    };
+                });
+            },
+            async put(storeName, item) {
+                if (!this.db) return null;
+                return new Promise((resolve, reject) => {
+                    try {
+                        const tx = this.db.transaction(storeName, 'readwrite');
+                        const store = tx.objectStore(storeName);
+                        const req = store.put(item);
+                        req.onsuccess = () => { this.updateStatusUI(); resolve(req.result); };
+                        req.onerror = (e) => resolve(null);
+                    } catch(err) { resolve(null); }
+                });
+            },
+            async getAll(storeName) {
+                if (!this.db) return [];
+                return new Promise((resolve) => {
+                    try {
+                        const tx = this.db.transaction(storeName, 'readonly');
+                        const store = tx.objectStore(storeName);
+                        const req = store.getAll();
+                        req.onsuccess = () => resolve(req.result || []);
+                        req.onerror = () => resolve([]);
+                    } catch(err) { resolve([]); }
+                });
+            },
+            async delete(storeName, key) {
+                if (!this.db) return;
+                return new Promise((resolve) => {
+                    try {
+                        const tx = this.db.transaction(storeName, 'readwrite');
+                        const store = tx.objectStore(storeName);
+                        const req = store.delete(key);
+                        req.onsuccess = () => { this.updateStatusUI(); resolve(); };
+                        req.onerror = () => resolve();
+                    } catch(err) { resolve(); }
+                });
+            },
+            async count(storeName) {
+                if (!this.db) return 0;
+                return new Promise((resolve) => {
+                    try {
+                        const tx = this.db.transaction(storeName, 'readonly');
+                        const store = tx.objectStore(storeName);
+                        const req = store.count();
+                        req.onsuccess = () => resolve(req.result || 0);
+                        req.onerror = () => resolve(0);
+                    } catch(err) { resolve(0); }
+                });
+            },
+            async updateStatusUI() {
+                if (!this.db) return;
+                const stores = ['quran_reflections', 'istikhara_logs', 'tasbih_records', 'hadith_sunan'];
+                for (const s of stores) {
+                    const cnt = await this.count(s);
+                    const el = document.getElementById(`db-cnt-${s}`);
+                    if (el) el.textContent = cnt;
+                }
+            },
+            async exportAllJSON() {
+                if (!this.db) return;
+                const exportData = {
+                    appName: "Noor",
+                    dbVersion: "1.3.0",
+                    exportDate: new Date().toISOString(),
+                    stores: {}
+                };
+                const stores = ['khatmahs', 'tasbih_records', 'quran_reflections', 'istikhara_logs', 'muhasaba_habits', 'hadith_sunan', 'user_settings'];
+                for (const s of stores) {
+                    exportData.stores[s] = await this.getAll(s);
+                }
+                const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `noordb-export-${new Date().toISOString().slice(0,10)}.json`;
+                a.click();
+                showToast("تم تصدير قاعدة بيانات NoorDB بالكامل بنجاح 🗄️");
+            },
+            async importJSON(fileEvent) {
+                const file = fileEvent.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = async (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        if (data.stores) {
+                            for (const [s, items] of Object.entries(data.stores)) {
+                                if (Array.isArray(items)) {
+                                    for (const item of items) {
+                                        await this.put(s, item);
+                                    }
+                                }
+                            }
+                            await this.updateStatusUI();
+                            loadIstikharaLogs();
+                            loadReflectionsList();
+                            playCompletionChime();
+                            showToast("تم استيراد قاعدة البيانات بنجاح إلى NoorDB! ✨");
+                        }
+                    } catch(err) {
+                        alert("الملف غير صالح أو غير متطابق مع NoorDB.");
+                    }
+                };
+                reader.readAsText(file);
+            }
+        };
+
+        // 2. UNIVERSAL CROSS-PLATFORM GPS GEOLOCATION ENGINE
+        let liveGPS = {
+            active: false,
+            lat: 21.4225,
+            lng: 39.8262,
+            alt: 277,
+            acc: 5,
+            qiblaDeg: 0,
+            nearestCity: "مكة المكرمة"
+        };
+
+        const cityCoordinates = {
+            makkah: { name: "مكة المكرمة", lat: 21.4225, lng: 39.8262 },
+            madinah: { name: "المدينة المنورة", lat: 24.4672, lng: 39.6111 },
+            jerusalem: { name: "القدس الشريف", lat: 31.7767, lng: 35.2345 },
+            riyadh: { name: "الرياض", lat: 24.7136, lng: 46.6753 },
+            cairo: { name: "القاهرة", lat: 30.0444, lng: 31.2357 },
+            damascus: { name: "دمشق", lat: 33.5138, lng: 36.2765 },
+            dubai: { name: "دبي", lat: 25.2048, lng: 55.2708 },
+            amman: { name: "عمّان", lat: 31.9454, lng: 35.9284 },
+            baghdad: { name: "بغداد", lat: 33.3152, lng: 44.3661 },
+            istanbul: { name: "إسطنبول", lat: 41.0082, lng: 28.9784 },
+            rabat: { name: "الرباط", lat: 34.0209, lng: -6.8416 }
+        };
+
+        function haversineDistKm(lat1, lon1, lat2, lon2) {
+            const R = 6371;
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                      Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return R * c;
+        }
+
+        function calculateQiblaFromCoords(lat, lng) {
+            const kaabaLat = 21.422487 * Math.PI / 180;
+            const kaabaLng = 39.826206 * Math.PI / 180;
+            const p1 = lat * Math.PI / 180;
+            const l1 = lng * Math.PI / 180;
+            const dL = kaabaLng - l1;
+            const y = Math.sin(dL);
+            const x = Math.cos(p1) * Math.tan(kaabaLat) - Math.sin(p1) * Math.cos(dL);
+            let qDeg = Math.round((Math.atan2(y, x) * 180 / Math.PI + 360) % 360);
+            return qDeg;
+        }
+
+        function detectGPSLocation() {
+            if (!navigator.geolocation) {
+                alert("تحديد الموقع غير مدعوم في متصفحك أو جهازك.");
+                return;
+            }
+            showToast("🛰️ جاري استعلام إحداثيات موقعك عبر الأقمار الصناعية...");
+            navigator.geolocation.getCurrentPosition((pos) => {
+                liveGPS.lat = pos.coords.latitude;
+                liveGPS.lng = pos.coords.longitude;
+                liveGPS.alt = Math.round(pos.coords.altitude || 120);
+                liveGPS.acc = Math.round(pos.coords.accuracy || 8);
+                liveGPS.active = true;
+                liveGPS.qiblaDeg = calculateQiblaFromCoords(liveGPS.lat, liveGPS.lng);
+
+                // Find nearest city
+                let nearest = "مكة المكرمة";
+                let minD = Infinity;
+                for (const [k, c] of Object.entries(cityCoordinates)) {
+                    const d = haversineDistKm(liveGPS.lat, liveGPS.lng, c.lat, c.lng);
+                    if (d < minD) {
+                        minD = d;
+                        nearest = c.name;
+                    }
+                }
+                liveGPS.nearestCity = `${nearest} (${Math.round(minD)} كم)`;
+
+                // Update UI elements
+                document.querySelectorAll('.gps-lat-disp').forEach(el => el.textContent = liveGPS.lat.toFixed(4) + '° N');
+                document.querySelectorAll('.gps-lng-disp').forEach(el => el.textContent = liveGPS.lng.toFixed(4) + '° E');
+                document.querySelectorAll('.gps-alt-disp').forEach(el => el.textContent = liveGPS.alt + ' م');
+                document.querySelectorAll('.gps-acc-disp').forEach(el => el.textContent = '± ' + liveGPS.acc + ' م');
+                document.querySelectorAll('.gps-qibla-disp').forEach(el => el.textContent = liveGPS.qiblaDeg + '° نحو الكعبة');
+                document.querySelectorAll('.gps-nearest-disp').forEach(el => el.textContent = liveGPS.nearestCity);
+
+                const hdr = document.getElementById('header-gps-text');
+                if (hdr) hdr.textContent = 'GPS نشط 🛰️';
+
+                const needle = document.getElementById('compass-needle');
+                if (needle) {
+                    needle.style.transform = `rotate(${liveGPS.qiblaDeg}deg)`;
+                }
+
+                playCompletionChime();
+                showToast(`✅ تم تحديد الموقع بدقة الأقمار الصناعية: ${liveGPS.nearestCity}`);
+            }, (err) => {
+                showToast("تعذر التقاط GPS. تم الحفاظ على إحداثيات المدينة الافتراضية.");
+            }, { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 });
+        }
+
+        // 3. INTERACTIVE TAJWEED COLOR ENGINE
+        let isTajweedModeActive = false;
+        const tajweedRulesData = {
+            madd_muttasil: { title: "مد متصل واجب", color: "#FF4D4D", harakat: "٤ أو ٥ حركات", desc: "أن يأتي حرف المد والهمزة في كلمة واحدة، مثل: (السَّمَاءِ، جِيءَ). حكمه الوجوب." },
+            madd_lazim: { title: "مد لازم كلمي مثقل", color: "#FF4D4D", harakat: "٦ حركات (طويل)", desc: "أن يأتي بعد حرف المد سكون أصلي مشدد في كلمة واحدة، مثل: (الضَّالِّينَ، الحَاقَّةُ)." },
+            ghunnah_noon: { title: "غنة ميم ونون مشددتين", color: "#2DD4BF", harakat: "حركتان", desc: "صوت رخيم يخرج من الخيشوم ملازم للنون والميم المشددتين، مثل: (إِنَّ، عَمَّ)." },
+            qalqalah_qubra: { title: "قلقلة كبرى", color: "#38BDF8", harakat: "نبرة قوية عند الوقف", desc: "اضطراب الحرف عند النطق به ساكناً عند الوقف في حروف (ق، ط، ب، ج، د)، مثل: (الْفَلَقِ، مُحِيطٌ)." },
+            idgham_bighunnah: { title: "إدغام بغنة (يَنْمُو)", color: "#FACC15", harakat: "حركتان", desc: "إدخال النون الساكنة أو التنوين في حروف (ي، ن، م، و) مع بقاء الغنة، مثل: (مَن يَقُولُ)." },
+            ikhfa_haqiqi: { title: "إخفاء حقيقي", color: "#4ADE80", harakat: "حركتان", desc: "نطق النون الساكنة أو التنوين بصفة بين الإظهار والإدغام مع بقاء الغنة في ١٥ حرفاً، مثل: (مِن قَبْلِكُمْ)." }
+        };
+
+        function toggleTajweedMode() {
+            isTajweedModeActive = !isTajweedModeActive;
+            const btn = document.getElementById('tajweed-toggle-btn');
+            if (btn) {
+                if (isTajweedModeActive) {
+                    btn.classList.add('active');
+                    btn.style.background = 'var(--warm-sand)';
+                    btn.style.color = '#000';
+                    showToast("تم تفعيل مصحف التجويد الملون 🎨");
+                } else {
+                    btn.classList.remove('active');
+                    btn.style.background = '';
+                    btn.style.color = '';
+                    showToast("تم تعطيل وضع التجويد");
+                }
+            }
+            // Rerender Quran modal if open
+            const activeSurahIdx = parseInt(document.getElementById('current-surah-num')?.textContent || "1");
+            if (document.getElementById('quran-reader-modal')?.style.display === 'flex') {
+                openSurahReader(activeSurahIdx);
+            }
+        }
+
+        function showTajweedRule(ruleKey) {
+            const rule = tajweedRulesData[ruleKey] || tajweedRulesData['madd_muttasil'];
+            document.getElementById('tj-pop-title').textContent = rule.title;
+            document.getElementById('tj-pop-desc').textContent = rule.desc;
+            document.getElementById('tj-pop-harakat').textContent = rule.harakat;
+            document.getElementById('tj-pop-dot').style.background = rule.color;
+            document.getElementById('tajweed-popover').classList.add('show');
+            playClickSound();
+        }
+
+        function closeTajweedPopover() {
+            document.getElementById('tajweed-popover').classList.remove('show');
+        }
+
+        function playTajweedDemoTone() {
+            if (isAudioMuted) return;
+            try {
+                if (!audioCtx) audioCtx = new AudioContextClass();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 1.2);
+            } catch(e) {}
+        }
+
+        // 4. ISLAMIC REELS & STORY MOTION MAKER (9:16)
+        let reelsAnimId = null;
+        let reelsParticlePhase = 0;
+
+        function drawReelFrame() {
+            const canvas = document.getElementById('reels-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width;
+            const h = canvas.height;
+
+            const text = document.getElementById('reels-text-input')?.value || "«أَلا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ»";
+            const ref = document.getElementById('reels-ref-input')?.value || "سورة الرعد • آية ٢٨";
+            const style = document.getElementById('reels-motion-style')?.value || "shimmer";
+            const theme = document.getElementById('reels-bg-theme')?.value || "emerald";
+
+            // Draw Background
+            if (theme === 'emerald') {
+                const grad = ctx.createLinearGradient(0, 0, w, h);
+                grad.addColorStop(0, '#06261d');
+                grad.addColorStop(0.5, '#0A382C');
+                grad.addColorStop(1, '#041510');
+                ctx.fillStyle = grad;
+            } else if (theme === 'night') {
+                const grad = ctx.createLinearGradient(0, 0, w, h);
+                grad.addColorStop(0, '#0d1b2a');
+                grad.addColorStop(1, '#050a10');
+                ctx.fillStyle = grad;
+            } else {
+                ctx.fillStyle = '#0e1412';
+            }
+            ctx.fillRect(0, 0, w, h);
+
+            // Shimmering Golden Particles
+            reelsParticlePhase += 0.05;
+            ctx.fillStyle = 'rgba(212, 175, 55, 0.25)';
+            for (let i = 0; i < 20; i++) {
+                const px = (Math.sin(i * 99 + reelsParticlePhase) * 0.5 + 0.5) * w;
+                const py = (Math.cos(i * 33 + reelsParticlePhase * 0.7) * 0.5 + 0.5) * h;
+                const rad = (Math.sin(i + reelsParticlePhase) * 1.5 + 2);
+                ctx.beginPath();
+                ctx.arc(px, py, Math.max(1, rad), 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Elegant Golden Border Frame
+            ctx.strokeStyle = '#D4AF37';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(16, 16, w - 32, h - 32);
+            ctx.strokeRect(22, 22, w - 44, h - 44);
+
+            // Corner Accents
+            ctx.fillStyle = '#D4AF37';
+            ctx.fillRect(12, 12, 12, 12);
+            ctx.fillRect(w - 24, 12, 12, 12);
+            ctx.fillRect(12, h - 24, 12, 12);
+            ctx.fillRect(w - 24, h - 24, 12, 12);
+
+            // Header Brand
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#D4AF37';
+            ctx.font = 'bold 13px Cairo';
+            ctx.fillText('تطبيق نُــور • NOOR APP', w / 2, 60);
+
+            // Main Text Glow
+            const glowVal = (Math.sin(reelsParticlePhase * 2) * 8 + 12);
+            ctx.shadowColor = 'rgba(212, 175, 55, 0.6)';
+            ctx.shadowBlur = glowVal;
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = 'bold 22px Amiri';
+
+            // Word wrap
+            const words = text.split(' ');
+            let line = '';
+            let y = h / 2 - 30;
+            for (let n = 0; n < words.length; n++) {
+                const testLine = line + words[n] + ' ';
+                const metrics = ctx.measureText(testLine);
+                if (metrics.width > w - 80 && n > 0) {
+                    ctx.fillText(line, w / 2, y);
+                    line = words[n] + ' ';
+                    y += 38;
+                } else {
+                    line = testLine;
+                }
+            }
+            ctx.fillText(line, w / 2, y);
+            ctx.shadowBlur = 0; // reset
+
+            // Reference footer
+            ctx.fillStyle = '#D4AF37';
+            ctx.font = '14px Cairo';
+            ctx.fillText(ref, w / 2, y + 60);
+
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+            ctx.font = '11px Cairo';
+            ctx.fillText('صدقة جارية • متاح مجاناً لكافة المسلمين', w / 2, h - 45);
+        }
+
+        function startReelsMotionPreview() {
+            if (reelsAnimId) {
+                cancelAnimationFrame(reelsAnimId);
+                reelsAnimId = null;
+                showToast("تم إيقاف المعاينة");
+                return;
+            }
+            function loop() {
+                drawReelFrame();
+                reelsAnimId = requestAnimationFrame(loop);
+            }
+            loop();
+            playCompletionChime();
+            showToast("جاري تشغيل المعاينة الحركية ✨");
+        }
+
+        function downloadReelsPoster() {
+            const canvas = document.getElementById('reels-canvas');
+            if (!canvas) return;
+            drawReelFrame();
+            const a = document.createElement('a');
+            a.download = 'noor-story-poster.png';
+            a.href = canvas.toDataURL('image/png');
+            a.click();
+            showToast("تم تنزيل بوستر القصة بدقة 9:16 🖼️");
+        }
+
+        function recordAndDownloadReelsVideo() {
+            const canvas = document.getElementById('reels-canvas');
+            if (!canvas || !canvas.captureStream) {
+                downloadReelsPoster();
+                return;
+            }
+            showToast("جاري تسجيل وتصدير الفيديو بنسبة 9:16 (يرجى الانتظار ثوانٍ)...");
+            const stream = canvas.captureStream(30);
+            let mediaRecorder;
+            try {
+                mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+            } catch(e) {
+                downloadReelsPoster();
+                return;
+            }
+            const chunks = [];
+            mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) chunks.push(e.data); };
+            mediaRecorder.onstop = () => {
+                const blob = new Blob(chunks, { type: 'video/webm' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'noor-reel-story.webm';
+                a.click();
+                showToast("✅ تم تصدير وتحميل الفيديو بنجاح!");
+            };
+            mediaRecorder.start();
+            // Run animation for 3.5 seconds then stop & save
+            let startTime = performance.now();
+            function recLoop(now) {
+                drawReelFrame();
+                if (now - startTime < 3500) {
+                    requestAnimationFrame(recLoop);
+                } else {
+                    mediaRecorder.stop();
+                }
+            }
+            requestAnimationFrame(recLoop);
+        }
+
+        // 5. SALAT AL-ISTIKHARA & SPECIAL PRAYERS
+        function switchIstikharaSub(sub, btn) {
+            document.querySelectorAll('#view-istikhara .pill-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            ['guide', 'journal', 'special'].forEach(s => {
+                const el = document.getElementById('istikhara-sub-' + s);
+                if (el) el.style.display = (s === sub) ? 'block' : 'none';
+            });
+            if (sub === 'journal') loadIstikharaLogs();
+        }
+
+        function playIstikharaAudio() {
+            playCompletionChime();
+            showToast("🔊 «اللَّهُمَّ إِنِّي أَسْتَخِيرُكَ بِعِلْمِكَ، وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ...»");
+        }
+
+        function openNewIstikharaModal() {
+            document.getElementById('istikhara-title-input').value = '';
+            document.getElementById('istikhara-notes-input').value = '';
+            document.getElementById('istikhara-modal').classList.add('open');
+        }
+
+        function closeIstikharaModal() {
+            document.getElementById('istikhara-modal').classList.remove('open');
+        }
+
+        async function saveNewIstikharaEntry() {
+            const title = document.getElementById('istikhara-title-input').value.trim();
+            const notes = document.getElementById('istikhara-notes-input').value.trim();
+            if (!title) {
+                alert("يرجى كتابة عنوان أو موضوع الاستخارة.");
+                return;
+            }
+            const logItem = {
+                title,
+                notes,
+                date: new Date().toLocaleDateString('ar-SA'),
+                timestamp: Date.now()
+            };
+            await NoorDB.put('istikhara_logs', logItem);
+            closeIstikharaModal();
+            loadIstikharaLogs();
+            playCompletionChime();
+            showToast("تم حفظ الاستخارة في سجلك المشفر محلياً بنجاح ✨");
+        }
+
+        async function loadIstikharaLogs() {
+            const container = document.getElementById('istikhara-logs-container');
+            if (!container) return;
+            const logs = await NoorDB.getAll('istikhara_logs');
+            if (!logs || logs.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 30px; color: var(--text-tertiary);">
+                        <i class="fa-solid fa-scroll fa-2x" style="margin-bottom: 10px; color: var(--warm-sand);"></i>
+                        <div>لا توجد استخارات مسجلة بعد. اضغط "استخارة جديدة" لتدوين أول أمر تستخير الله فيه.</div>
+                    </div>
+                `;
+                return;
+            }
+            container.innerHTML = logs.reverse().map(l => `
+                <div class="istikhara-log-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong style="color: var(--warm-sand); font-size: 1.05rem;">${l.title}</strong>
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                            <span style="font-size: 0.78rem; color: var(--text-tertiary);">${l.date}</span>
+                            <button class="btn-glass" style="padding: 2px 8px; font-size: 0.75rem;" onclick="deleteIstikharaEntry(${l.id})">✕</button>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 6px; line-height: 1.6;">${l.notes || "لا توجد تفاصيل إضافية."}</p>
+                </div>
+            `).join('');
+        }
+
+        async function deleteIstikharaEntry(id) {
+            if (confirm("هل تريد حذف هذا السجل؟")) {
+                await NoorDB.delete('istikhara_logs', id);
+                loadIstikharaLogs();
+                showToast("تم حذف السجل");
+            }
+        }
+
+        // 6. HARAMAIN 3D ISOMETRIC ATLAS & VIRTUAL TOUR
+        const haramainLandmarks = {
+            makkah: [
+                { id: "kaaba", name: "الكعبة المشرفة", cat: "البيت العتيق", x: 400, y: 220, desc: "أول بيت وضع للناس في الأرض، بناها إبراهيم وإسماعيل عليهما السلام، قبلة صلاة المسلمين حول العالم ومطاف الحجاج والمعتمرين.", dua: "«رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنْتَ السَّمِيعُ الْعَلِيمُ وَتُبْ عَلَيْنَا إِنَّكَ أَنْتَ التَّوَّابُ الرَّحِيمُ»" },
+                { id: "maqam", name: "مقام إبراهيم عليه السلام", cat: "حجر أثري مبارك", x: 490, y: 230, desc: "الحجر الذي وقف عليه نبي الله إبراهيم عند بناء الكعبة المشرفة، ويستحب صلاة ركعتي الطواف خلفه: «وَاتَّخِذُوا مِنْ مَقَامِ إِبْرَاهِيمَ مُصَلًّى».", dua: "«اللهم إنك تعلم سري وعلانيتي فاقبل معذرتي، وتعلم حاجتي فأعطني سؤلي»" },
+                { id: "hijr", name: "حجر إسماعيل (الحطيم)", cat: "جزء من الكعبة", x: 380, y: 150, desc: "القوس الرخامي شمال الكعبة المشرفة، الصلاة فيه صلاة داخل الكعبة لأن قريش قصرت بها النفقة الحلال عند بنائها.", dua: "«اللهم أجرني من عذاب النار وأدخلني الجنة مع الأبرار»" },
+                { id: "blackstone", name: "الحجر الأسود والركن اليماني", cat: "بداية الطواف", x: 450, y: 280, desc: "نزل من الجنة وهو أشد بياضاً من الثلج، يبتدئ الطواف منه باستلامه أو الإشارة إليه بالتكبير (بسم الله، والله أكبر).", dua: "«رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ»" },
+                { id: "safamarwa", name: "مسعى الصفا والمروة", cat: "شعائر الله", x: 620, y: 180, desc: "المكان الذي سعت فيه هاجر أم إسماعيل بحثاً عن الماء، والسعي بينهما ركن من أركان الحج والعمرة ٧ أشواط.", dua: "«أَبْدَأُ بِمَا بَدَأَ اللَّهُ بِهِ، إِنَّ الصَّفَا وَالْمَرْوَةَ مِنْ شَعَائِرِ اللَّهِ، لا إِلَهَ إِلا اللَّهُ وَحْدَهُ لا شَرِيكَ لَهُ»" }
+            ],
+            madinah: [
+                { id: "rawdah", name: "الروضة الشريفة المباركة", cat: "من رياض الجنة", x: 400, y: 220, desc: "قال رسول الله ﷺ: «ما بين بيتي ومنبري روضة من رياض الجنة». تتميز بسجادها الأخضر وأعمدتها التاريخية المذهبة.", dua: "«اللهم صل وسلم على نبيك ورسولك محمد واجعلنا من أهل شفاعته يوم القيامة»" },
+                { id: "minbar", name: "المنبر النبوي الشريف", cat: "مقام الخطبة", x: 340, y: 250, desc: "منبر النبي ﷺ الذي كان يخطب عليه، قال ﷺ: «ومنبري على حوضي».", dua: "«اللهم أوردنا حوض نبيك محمد ﷺ شربة هنيئة لا نظمأ بعدها أبداً»" },
+                { id: "hujrah", name: "الحجرة النبوية الشريفة", cat: "مرقد النبي وصاحبيه", x: 480, y: 210, desc: "حجرة أم المؤمنين عائشة رضي الله عنها، وفيها مرقد خاتم الأنبياء محمد ﷺ وصاحبيه أبي بكر الصديق وعمر بن الخطاب رضي الله عنهما.", dua: "«السلام عليك يا رسول الله ورحمة الله وبركاته، أشهد أنك بلغت الرسالة وأديت الأمانة»" },
+                { id: "qubba", name: "القبة الخضراء الشريفة", cat: "معلم المسجد النبوي", x: 460, y: 130, desc: "القبة الشهيرة المبنية فوق الحجرة النبوية الشريفة وتعتبر من أبرز المعالم المعمارية للمسجد النبوي.", dua: "«اللهم صل على محمد وعلى آل محمد كما صليت على إبراهيم وعلى آل إبراهيم»" }
+            ]
+        };
+
+        let currentHaramainCity = 'makkah';
+
+        function switchHaramainCity(city, btn) {
+            currentHaramainCity = city;
+            document.querySelectorAll('#view-haramain .pill-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderHaramainAtlas();
+        }
+
+        function renderHaramainAtlas() {
+            const svg = document.getElementById('haramain-svg');
+            const pinsBar = document.getElementById('haramain-pins-bar');
+            if (!svg) return;
+            const items = haramainLandmarks[currentHaramainCity] || haramainLandmarks['makkah'];
+
+            // Quick pins
+            pinsBar.innerHTML = items.map((it, idx) => `
+                <button class="pill-btn ${idx === 0 ? 'active' : ''}" onclick="selectLandmark('${it.id}')">${it.name}</button>
+            `).join('');
+
+            // Draw Isometric 2.5D Elements in SVG
+            let svgContent = `
+                <!-- Isometric Ground Plate -->
+                <polygon points="400,60 760,220 400,380 40,220" fill="#081711" stroke="#125543" stroke-width="2"/>
+                <polygon points="400,380 760,220 760,240 400,400" fill="#040c09" />
+                <polygon points="400,380 40,220 40,240 400,400" fill="#020806" />
+
+                <!-- Courtyard Grid lines -->
+                <line x1="220" y1="140" x2="580" y2="300" stroke="rgba(212,175,55,0.12)" stroke-width="1"/>
+                <line x1="310" y1="100" x2="670" y2="260" stroke="rgba(212,175,55,0.12)" stroke-width="1"/>
+                <line x1="580" y1="140" x2="220" y2="300" stroke="rgba(212,175,55,0.12)" stroke-width="1"/>
+            `;
+
+            if (currentHaramainCity === 'makkah') {
+                // Draw 3D Kaaba Cube
+                svgContent += `
+                    <!-- Kaaba 3D Prism -->
+                    <g transform="translate(360, 160)">
+                        <!-- Top Face (Gold Kiswah belt) -->
+                        <polygon points="40,20 90,40 50,60 0,40" fill="#181818" stroke="#D4AF37" stroke-width="2"/>
+                        <!-- Left Face -->
+                        <polygon points="0,40 50,60 50,130 0,110" fill="#0c0c0c" stroke="#222"/>
+                        <!-- Right Face (Door of Kaaba) -->
+                        <polygon points="50,60 90,40 90,110 50,130" fill="#141414" stroke="#222"/>
+                        <!-- Golden Belt Strip -->
+                        <polygon points="0,55 50,75 90,55 90,62 50,82 0,62" fill="#D4AF37"/>
+                        <!-- Golden Door -->
+                        <rect x="65" y="75" width="12" height="26" fill="#D4AF37" transform="skewY(20)"/>
+                    </g>
+                `;
+            } else {
+                // Draw Madinah Green Dome & Minarets
+                svgContent += `
+                    <!-- Green Dome 3D -->
+                    <g transform="translate(360, 150)">
+                        <path d="M10,80 Q40,10 70,80 Z" fill="#059669" stroke="#34D399" stroke-width="2"/>
+                        <circle cx="40" cy="12" r="4" fill="#D4AF37"/>
+                        <!-- Base -->
+                        <rect x="10" y="80" width="60" height="25" fill="#064e3b"/>
+                    </g>
+                `;
+            }
+
+            // Draw Interactive Hotspot Pins
+            items.forEach(it => {
+                svgContent += `
+                    <g class="iso-hotspot" onclick="selectLandmark('${it.id}')">
+                        <circle cx="${it.x}" cy="${it.y}" r="16" fill="rgba(212,175,55,0.25)" stroke="#D4AF37" stroke-width="2"/>
+                        <circle cx="${it.x}" cy="${it.y}" r="6" fill="#D4AF37"/>
+                        <text x="${it.x}" y="${it.y - 22}" fill="#FFFFFF" font-family="Cairo" font-size="12" font-weight="bold" text-anchor="middle">${it.name}</text>
+                    </g>
+                `;
+            });
+
+            svg.innerHTML = svgContent;
+            selectLandmark(items[0].id);
+        }
+
+        function selectLandmark(id) {
+            const items = haramainLandmarks[currentHaramainCity] || haramainLandmarks['makkah'];
+            const item = items.find(x => x.id === id) || items[0];
+            document.getElementById('lm-title').textContent = item.name;
+            document.getElementById('lm-category').textContent = item.cat;
+            document.getElementById('lm-desc').textContent = item.desc;
+            document.getElementById('lm-dua-text').textContent = item.dua;
+            playClickSound();
+        }
+
+        // 7. QURAN REFLECTIONS JOURNAL (NoorDB)
+        let activeReflectionSurah = 1;
+        let activeReflectionAyah = 1;
+
+        function openReflectionModalForAyah(surahNo, ayahNo, ayahText) {
+            activeReflectionSurah = surahNo;
+            activeReflectionAyah = ayahNo;
+            document.getElementById('ref-modal-ayah-text').textContent = `«${ayahText}» [سورة ${surahNo} : ${ayahNo}]`;
+            document.getElementById('ref-modal-input').value = '';
+            document.getElementById('reflection-modal').classList.add('open');
+        }
+
+        function closeReflectionModal() {
+            document.getElementById('reflection-modal').classList.remove('open');
+        }
+
+        function toggleTagChip(chip) {
+            chip.classList.toggle('active');
+        }
+
+        async function saveCurrentReflection() {
+            const text = document.getElementById('ref-modal-input').value.trim();
+            if (!text) {
+                alert("يرجى كتابة خاطرتك أو تأملك القرآني قبل الحفظ.");
+                return;
+            }
+            const tags = Array.from(document.querySelectorAll('.tag-chip.active')).map(c => c.textContent);
+            const refObj = {
+                surah: activeReflectionSurah,
+                ayah: activeReflectionAyah,
+                text,
+                tags,
+                date: new Date().toLocaleDateString('ar-SA'),
+                timestamp: Date.now()
+            };
+            await NoorDB.put('quran_reflections', refObj);
+            closeReflectionModal();
+            loadReflectionsList();
+            playCompletionChime();
+            showToast("تم حفظ تدبرك القرآني في NoorDB بنجاح ✨");
+        }
+
+        async function loadReflectionsList() {
+            const container = document.getElementById('reflections-list-container');
+            const countBadge = document.getElementById('reflections-count-badge');
+            if (!container) return;
+            const items = await NoorDB.getAll('quran_reflections');
+            if (countBadge) countBadge.textContent = `${items.length} تدبرات مسجلة`;
+
+            if (!items || items.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 30px; color: var(--text-tertiary);">
+                        <i class="fa-solid fa-pen-nib fa-2x" style="margin-bottom: 10px; color: var(--warm-sand);"></i>
+                        <div>لا توجد تدبرات مسجلة بعد. عند تلاوة القرآن، اضغط زر "تدبر" عند أي آية لتدوين خواطرك.</div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = items.reverse().map(r => `
+                <div class="istikhara-log-item">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <strong style="color: var(--warm-sand);">سورة ${r.surah} • آية ${r.ayah}</strong>
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                            <span style="font-size: 0.78rem; color: var(--text-tertiary);">${r.date}</span>
+                            <button class="btn-glass" style="padding: 2px 8px; font-size: 0.75rem;" onclick="deleteReflectionEntry(${r.id})">✕</button>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.95rem; color: #FFFFFF; margin: 8px 0; line-height: 1.6;">${r.text}</p>
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                        ${(r.tags || []).map(t => `<span class="tag-chip active" style="font-size: 0.7rem; padding: 2px 8px;">${t}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function deleteReflectionEntry(id) {
+            if (confirm("هل تريد حذف هذا التدبر؟")) {
+                await NoorDB.delete('quran_reflections', id);
+                loadReflectionsList();
+                showToast("تم الحذف");
+            }
+        }
+
+        function openReflectionsJournal() {
+            switchTab('tools');
+            switchToolSub('reflections', document.querySelectorAll('.kids-category-tabs .pill-btn')[6] || document.querySelectorAll('.kids-category-tabs .pill-btn')[0]);
+            loadReflectionsList();
+        }
+
+        // 8. HANDS-FREE DRIVING & TRAVEL MODE
+        let isDrivingPlaying = false;
+        const drivingPlaylist = [
+            { mode: "🤲 دعاء السفر المأثور", text: "«سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَى رَبِّنَا لَمُنْقَلِبُونَ»", sub: "«اللَّهُمَّ إِنَّا نَسْأَلُكَ فِي سَفَرِنَا هَذَا الْبِرَّ وَالتَّقْوَى، وَمِنَ الْعَمَلِ مَا تَرْضَى»" },
+            { mode: "📖 آية الكرسي (تحصين الطريق)", text: "«اللَّهُ لا إِلَهَ إِلا هُوَ الْحَيُّ الْقَيُّومُ لا تَأْخُذُهُ سِنَةٌ وَلا نَوْمٌ»", sub: "سورة البقرة • آية ٢٥٥" },
+            { mode: "📿 ذكر وتكبير وتسبيح المسافر", text: "«كَانَ النَّبِيُّ ﷺ وَجُيُوشُهُ إِذَا عَلَوْا الثَّنَايَا كَبَّرُوا، وَإِذَا هَبَطُوا سَبَّحُوا»", sub: "سنة نبوية شريفة في السفر" }
+        ];
+        let drivingIdx = 0;
+
+        function openDrivingMode() {
+            document.getElementById('driving-overlay').classList.add('open');
+            updateDrivingUI();
+            playCompletionChime();
+            showToast("تم تفعيل وضع القيادة والسفر 🚗");
+        }
+
+        function closeDrivingMode() {
+            document.getElementById('driving-overlay').classList.remove('open');
+        }
+
+        function updateDrivingUI() {
+            const item = drivingPlaylist[drivingIdx];
+            document.getElementById('driving-current-mode').textContent = item.mode;
+            document.getElementById('driving-main-text').textContent = item.text;
+            document.getElementById('driving-sub-text').textContent = item.sub;
+        }
+
+        function drivingNextItem() {
+            drivingIdx = (drivingIdx + 1) % drivingPlaylist.length;
+            updateDrivingUI();
+            playClickSound();
+        }
+
+        function drivingPrevItem() {
+            drivingIdx = (drivingIdx - 1 + drivingPlaylist.length) % drivingPlaylist.length;
+            updateDrivingUI();
+            playClickSound();
+        }
+
+        function drivingTogglePlay() {
+            isDrivingPlaying = !isDrivingPlaying;
+            const btn = document.getElementById('driving-play-btn');
+            if (isDrivingPlaying) {
+                btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+                showToast("جاري التشغيل في وضع القيادة 🔊");
+                drivingSpeakCurrent();
+            } else {
+                btn.innerHTML = '<i class="fa-solid fa-play"></i>';
+                showToast("تم الإيقاف المؤقت");
+            }
+        }
+
+        function drivingSpeakCurrent() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utter = new SpeechSynthesisUtterance(drivingPlaylist[drivingIdx].text);
+                utter.lang = 'ar-SA';
+                utter.rate = 0.85;
+                window.speechSynthesis.speak(utter);
+            }
+        }
+
+        // 9. LIVE GOLD & SILVER ZAKAT ENGINE
+        function calculateAdvancedZakat() {
+            const g24 = parseFloat(document.getElementById('gold-24')?.value || 0);
+            const g21 = parseFloat(document.getElementById('gold-21')?.value || 0);
+            const g18 = parseFloat(document.getElementById('gold-18')?.value || 0);
+            const silver = parseFloat(document.getElementById('silver-grams')?.value || 0);
+
+            // Equivalent 24K pure gold
+            const pureGold = g24 + (g21 * 21 / 24) + (g18 * 18 / 24);
+            document.getElementById('total-pure-gold-weight').textContent = pureGold.toFixed(2) + ' جم';
+
+            const verdictEl = document.getElementById('nisab-status-verdict');
+            const zakatWeightEl = document.getElementById('zakat-gold-weight-due');
+
+            if (pureGold >= 85) {
+                verdictEl.textContent = 'بلغ النصاب الشرعي (تجب الزكاة ٢.٥٪) ✨';
+                verdictEl.style.color = '#10B981';
+                const dueWeight = pureGold * 0.025;
+                zakatWeightEl.textContent = dueWeight.toFixed(2) + ' جم ذهب خالص';
+            } else {
+                verdictEl.textContent = 'لم يبلغ النصاب (أقل من ٨٥ جم)';
+                verdictEl.style.color = 'var(--text-secondary)';
+                zakatWeightEl.textContent = '0.00 جم (لا زكاة)';
+            }
+        }
+
+        // 10. AUTHENTIC HADITH VAULT & DAILY SUNAN
+        const hadithLibrary = [
+            { cat: "faith", title: "حديث جبريل عليه السلام (مراتب الدين)", text: "«قَالَ: فَأَخْبِرْنِي عَنِ الإِسْلامِ؟ فَقَالَ رَسُولُ اللَّهِ ﷺ: الإِسْلامُ أَنْ تَشْهَدَ أَنْ لا إِلَهَ إِلا اللَّهُ وَأَنَّ مُحَمَّدًا رَسُولُ اللَّهِ، وَتُقِيمَ الصَّلاةَ، وَتُؤْتِيَ الزَّكَاةَ...»", source: "صحيح مسلم" },
+            { cat: "faith", title: "إنما الأعمال بالنيات", text: "«إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى، فَمَنْ كَانَتْ هِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ فَهِجْرَتُهُ إِلَى اللَّهِ وَرَسُولِهِ...»", source: "صحيح البخاري ومسلم" },
+            { cat: "ethics", title: "حسن الخلق وأثقل ما يوضع في الميزان", text: "«مَا مِنْ شَيْءٍ أَثْقَلُ فِي مِيزَانِ الْمُؤْمِنِ يَوْمَ الْقِيَامَةِ مِنْ حُسْنِ الْخُلُقِ، وَإِنَّ اللَّهَ لَيُبْغِضُ الْفَاحِشَ الْبَذِيءَ»", source: "سنن الترمذي • صحيح" },
+            { cat: "nawawi", title: "الحديث الثاني عشر: من حسن إسلام المرء", text: "«مِنْ حُسْنِ إِسْلامِ الْمَرْءِ تَرْكُهُ مَا لا يَعْنِيهِ»", source: "الأربعون النووية" },
+            { cat: "riyad", title: "باب الصبر وعظيم الجزاء", text: "«عَجَبًا لأَمْرِ الْمُؤْمِنِ، إِنَّ أَمْرَهُ كُلَّهُ خَيْرٌ، وَلَيْسَ ذَاكَ لأَحَدٍ إِلا لِلْمُؤْمِنِ، إِنْ أَصَابَتْهُ سَرَّاءُ شَكَرَ فَكَانَ خَيْرًا لَهُ، وَإِنْ أَصَابَتْهُ ضَرَّاءُ صَبَرَ فَكَانَ خَيْرًا لَهُ»", source: "رياض الصالحين • صحيح مسلم" }
+        ];
+
+        function renderHadithLibrary(items) {
+            const container = document.getElementById('hadith-grid-container');
+            if (!container) return;
+            container.innerHTML = items.map(h => `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title" style="font-size: 1.05rem;"><i class="fa-solid fa-book-open"></i> ${h.title}</div>
+                        <span class="wird-badge">${h.source}</span>
+                    </div>
+                    <p style="font-family: var(--font-quran); font-size: 1.18rem; line-height: 2; color: #FFFFFF; margin-top: 10px;">${h.text}</p>
+                    <div style="margin-top: 14px; display: flex; justify-content: flex-end;">
+                        <button class="btn-glass" style="font-size: 0.8rem; padding: 4px 12px;" onclick="copyDhikrText('${h.text}')"><i class="fa-regular fa-copy"></i> نسخ الحديث</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterHadithCategory(cat, btn) {
+            document.querySelectorAll('#view-hadith .pill-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            if (cat === 'all') {
+                renderHadithLibrary(hadithLibrary);
+            } else {
+                renderHadithLibrary(hadithLibrary.filter(h => h.cat === cat));
+            }
+        }
+
+        function filterHadithLibrary() {
+            const q = document.getElementById('hadith-search').value.toLowerCase();
+            renderHadithLibrary(hadithLibrary.filter(h => h.title.includes(q) || h.text.includes(q)));
+        }
+
+        async function markSunnahPracticedToday() {
+            const today = new Date().toISOString().slice(0, 10);
+            await NoorDB.put('hadith_sunan', { id: 'daily_sunnah', lastDoneDate: today, streak: 1 });
+            const btn = document.getElementById('sunnah-check-btn');
+            if (btn) {
+                btn.style.background = '#10B981';
+                btn.textContent = 'أحسنت! أحييت السنة اليوم بحمد الله ✨';
+            }
+            playCompletionChime();
+            showToast("تقبل الله منك إحياء هذه السنة النبوية الكريمة! 🤲");
+        }
+
+        // 11. PROPHETIC MEDICINE & NUTRITION DATA
+        const propheticFoodsData = [
+            { name: "🌴 عجوة المدينة والتمور", benefit: "«مَنْ تَصَبَّحَ بِسَبْعِ تَمَرَاتٍ عَجْوَةً لَمْ يَضُرَّهُ ذَلِكَ الْيَوْمَ سُمٌّ وَلا سِحْرٌ». طاقة فورية ومعادن نادرة ومضادات أكسدة قوية.", text: "صحيح البخاري" },
+            { name: "🫒 زيت الزيتون المبارك", benefit: "«كُلُوا الزَّيْتَ وَادَّهِنُوا بِهِ فَإِنَّهُ مِنْ شَجَرَةٍ مُبَارَكَةٍ». يدعم صحة القلب والشرايين ويقاوم الالتهابات ويغذي البشرة.", text: "سنن الترمذي" },
+            { name: "🍯 عسل النحل والشفاء", benefit: "«فِيهِ شِفَاءٌ لِلنَّاسِ». مضاد حيوي طبيعي، معزز للمناعة، مهدئ للجهاز الهضمي والعلل الصدرية.", text: "سورة النحل" },
+            { name: "🖤 الحبة السوداء (الشونيز)", benefit: "«فِي الْحَبَّةِ السَّوْدَاءِ شِفَاءٌ مِنْ كُلِّ دَاءٍ إِلا السَّامَ». تقوي الجهاز المناعي ومضادة للأكسدة والبكتيريا.", text: "صحيح البخاري ومسلم" },
+            { name: "🌾 التلبينة النبوية", benefit: "«التَّلْبِينَةُ مُجِمَّةٌ لِفُؤَادِ الْمَرِيضِ، تَذْهَبُ بِبَعْضِ الْحُزْنِ». حساء الشعير المطحون بالعسل، مهدئ للأعصاب ومخفض للاكتئاب.", text: "صحيح البخاري" },
+            { name: "🪵 القسط الهندي والبحري", benefit: "«عَلَيْكُمْ بِهَذَا الْعُودِ الْهِنْدِيِّ فَإِنَّ فِيهِ سَبْعَةَ أَشْفِيَةٍ». علاج نافع لالتهابات الحلق والجيوب الأنفية ومقوٍ عام.", text: "صحيح البخاري" },
+            { name: "💧 ماء زمزم المبارك", benefit: "«مَاءُ زَمْزَمَ لِمَا شُرِبَ لَهُ»، «إِنَّهَا مُبَارَكَةٌ، إِنَّهَا طَعَامُ طُعْمٍ وَشِفَاءُ سُقْمٍ». غني بالأملاح المعدنية النافعة وخالٍ من الجراثيم.", text: "صحيح مسلم" },
+            { name: "🍃 ورق السدر والتين", benefit: "«وَالتِّينِ وَالزَّيْتُونِ». ورق السدر في الاغتسال والرقية، والتين هاضم ومغذٍ للأمعاء وصحة العظام.", text: "القرآن الكريم والسنة" }
+        ];
+
+        function renderPropheticFoods() {
+            const container = document.getElementById('prophetic-foods-container');
+            if (!container) return;
+            container.innerHTML = propheticFoodsData.map(f => `
+                <div class="prophetic-food-card">
+                    <strong style="color: var(--warm-sand); font-size: 1.15rem;">${f.name}</strong>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; margin: 8px 0;">${f.benefit}</p>
+                    <span class="wird-badge" style="font-size: 0.75rem;">${f.text}</span>
+                </div>
+            `).join('');
+        }
+
 
         // 1. Expanded City & Prayer Time Calculations
         const cityPrayers = {
@@ -3883,7 +5731,7 @@
         // 16. JSON DATA BACKUP & RESTORE
         function exportUserData() {
             const exportObj = {
-                version: "1.2.0",
+                version: "1.3.0",
                 appName: "Noor",
                 exportDate: new Date().toISOString(),
                 khatmahPage: currentKhatmahPage,
@@ -3969,6 +5817,16 @@
             // Restore city
             const savedCity = localStorage.getItem('noor_city') || 'makkah';
             applyCitySelection(savedCity);
+
+            // Noor v1.3.0 Module Initializations
+            NoorDB.init();
+            renderHaramainAtlas();
+            filterHadithCategory('all', null);
+            renderPropheticFoods();
+            loadReflectionsList();
+            loadIstikharaLogs();
+            calculateAdvancedZakat();
+            drawReelFrame();
 
             // Render Modules
             renderWirdTasks();
